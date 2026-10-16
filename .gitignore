@@ -1,2 +1,4 @@
 .DS_Store
 Thumbs.db
+supabase/.temp/
+.citl-keys.json

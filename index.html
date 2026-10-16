@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Creative in the Loop — A service from Salo</title>
-<meta name="description" content="Your team is producing with AI. We make sure it's worth producing. Creative in the Loop is a new service from Salo for brands going in-house.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Creative in the Loop</title>
+<meta name="description" content="The creative brain for your brand, working inside the AI your team already uses.">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <meta name="googlebot" content="index, follow">
 <link rel="canonical" href="https://creativeintheloop.com/">
@@ -13,8 +13,8 @@
 <meta property="og:locale" content="en_GB">
 <meta property="og:site_name" content="Creative in the Loop">
 <meta property="og:url" content="https://creativeintheloop.com/">
-<meta property="og:title" content="Creative in the Loop — A service from Salo">
-<meta property="og:description" content="Your team is producing with AI. We make sure it's worth producing. Creative in the Loop is a new service from Salo for brands going in-house.">
+<meta property="og:title" content="Creative in the Loop">
+<meta property="og:description" content="The creative brain for your brand, working inside the AI your team already uses.">
 <meta property="og:image" content="https://creativeintheloop.com/assets/citl-logo.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="256">
@@ -22,11 +22,16 @@
 <meta property="og:image:alt" content="Creative in the Loop mark">
 
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Creative in the Loop — A service from Salo">
-<meta name="twitter:description" content="Your team is producing with AI. We make sure it's worth producing. Creative in the Loop is a new service from Salo for brands going in-house.">
+<meta name="twitter:title" content="Creative in the Loop">
+<meta name="twitter:description" content="The creative brain for your brand, working inside the AI your team already uses.">
 <meta name="twitter:image" content="https://creativeintheloop.com/assets/citl-logo.png">
 
-<meta name="theme-color" content="#0D0D0D">
+<!-- Waitlist emails are stored in Supabase. The key below is the public anon key: it can call the waitlist endpoint and cannot read the database. -->
+<meta name="citl-waitlist-url" content="https://znpltxiguxpfdyrybmva.supabase.co/functions/v1/waitlist">
+<meta name="citl-supabase-key" content="sb_publishable_KlJHdtsmjthbIfyIjxjL1g_TQSQmwMR">
+
+<meta name="theme-color" content="#f5f6f9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a0f1b" media="(prefers-color-scheme: dark)">
 
 <script type="application/ld+json">
 {
@@ -37,7 +42,7 @@
       "@id": "https://creativeintheloop.com/#website",
       "url": "https://creativeintheloop.com/",
       "name": "Creative in the Loop",
-      "description": "Your team is producing with AI. We make sure it's worth producing. Creative in the Loop is a new service from Salo for brands going in-house.",
+      "description": "The creative brain for your brand, working inside the AI your team already uses.",
       "inLanguage": "en-GB",
       "publisher": { "@id": "https://creativeintheloop.com/#org" }
     },
@@ -61,8 +66,8 @@
       "@type": "WebPage",
       "@id": "https://creativeintheloop.com/#webpage",
       "url": "https://creativeintheloop.com/",
-      "name": "Creative in the Loop — A service from Salo",
-      "description": "Your team is producing with AI. We make sure it's worth producing. Creative in the Loop is a new service from Salo for brands going in-house.",
+      "name": "Creative in the Loop",
+      "description": "The creative brain for your brand, working inside the AI your team already uses.",
       "isPartOf": { "@id": "https://creativeintheloop.com/#website" },
       "about": { "@id": "https://creativeintheloop.com/#org" },
       "primaryImageOfPage": {
@@ -76,499 +81,266 @@
 
 <link rel="icon" href="assets/citl-logo.png" type="image/png" sizes="256x256">
 <link rel="apple-touch-icon" href="assets/citl-logo.png">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fustat:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="calculator.css">
 </head>
 <body>
 
 <a class="skip-link" href="#main-content">Skip to main content</a>
 
-<div class="scroll-video-layer" aria-hidden="true">
-  <!-- Background: 720p @ 30fps, ~12s, seamless loop — scrubbed by page scroll -->
-  <video id="scroll-bg-video" class="scroll-video" muted playsinline loop preload="auto" poster="" disablepictureinpicture>
-    <source src="assets/scroll-bg.mp4" type="video/mp4">
-  </video>
-  <div class="scroll-video-scrim"></div>
-</div>
-
-<div class="page">
-
-<!-- ============================================================
-     NAV
-     ============================================================ -->
-<nav>
-  <div class="nav-logo">
-    <div class="nav-mark">
-      <img src="assets/citl-logo.png" alt="" width="256" height="256" decoding="async">
+<header class="hero" id="top">
+  <canvas id="bg" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="topbar">
+      <a class="wordmark" href="#top">Creative in the loop</a>
+      <a class="pill" href="#join">Join the waitlist</a>
     </div>
-    <div>
-      <div class="nav-name">Creative in the Loop</div>
-      <div class="nav-sub">A service from Salo</div>
+    <div class="hero-body">
+      <h1 class="display-hero"><span class="line">Your AI produces.</span><span class="line">We make sure it&rsquo;s worth producing.</span></h1>
+      <p class="lede reveal">The creative brain for your brand, working inside the AI your team already uses.</p>
+      <form class="waitlist reveal" data-waitlist data-waitlist-source="hero" novalidate>
+        <label class="visually-hidden" for="email-hero">Work email</label>
+        <input id="email-hero" name="email" type="email" inputmode="email" autocomplete="email" maxlength="320" placeholder="Your work email" required>
+        <div class="visually-hidden" aria-hidden="true">
+          <label for="waitlist-bot-hero">Leave this field blank</label>
+          <input class="waitlist-bot" id="waitlist-bot-hero" type="text" tabindex="-1" autocomplete="off">
+        </div>
+        <button type="submit">Join the waitlist</button>
+        <p class="msg" role="status" aria-live="polite"></p>
+      </form>
+      <p class="signoff reveal">Built by Salo. A real creative, always in the loop.</p>
     </div>
   </div>
-  <!-- UPDATE: Replace href with your Calendly or booking link -->
-  <a href="https://cal.com/carlcahill/creative-in-the-loop" class="btn" target="_blank" rel="noopener noreferrer">Book a call</a>
-</nav>
+</header>
 
 <main id="main-content">
-
-<!-- ============================================================
-     HERO
-     ============================================================ -->
-<div class="hero reveal-on-scroll">
-  <div class="hero-grid" aria-hidden="true"></div>
-  <div class="eyebrow">A service from Salo</div>
-  <h1 class="display-hero">Your AI produces.<br>We make sure<br>it's <em>good.</em></h1>
-  <p class="hero-sub">Most teams going in-house with AI get the speed. They don't get the quality. That gap is what we close.</p>
-  <!-- UPDATE: Replace href with your Calendly or booking link -->
-  <a href="https://cal.com/carlcahill/creative-in-the-loop" class="btn btn-lg" target="_blank" rel="noopener noreferrer">Book a conversation</a>
-  <div class="hero-rule">
-    <div><div class="stat-n">3</div><div class="stat-l">Phases to a working engine</div></div>
-    <div><div class="stat-n">3–5 wks</div><div class="stat-l">To completion</div></div>
-    <div><div class="stat-n">Ongoing</div><div class="stat-l">Creative support after launch</div></div>
-  </div>
-</div>
-
-<hr>
-
-
-<!-- ============================================================
-     SECTION: THE PROBLEM
-     ============================================================ -->
-<div class="wrap">
-  <div class="section reveal-on-scroll">
-    <div class="eyebrow">The gap</div>
-    <h2 class="display-section">The tools aren't the problem.</h2>
-    <p>Fast output is easy now. Consistent, on-brand, genuinely good output is something else entirely.</p>
-    <p>When AI doesn't know your brand at a deep level, it shows. The tone drifts. The work looks generic. The team spends more time fixing than creating.</p>
-    <p>That's not a prompting problem. It's a context problem. And most teams don't know that until they're already in it.</p>
-
-    <div class="two-col">
-      <div class="col-card">
-        <h3>What teams experience</h3>
-        <ul>
-          <li>Output that doesn't feel on-brand</li>
-          <li>Inconsistency across channels</li>
-          <li>No agreed creative context</li>
-          <li>Too much time re-prompting</li>
-          <li>Work that looks like everyone else's</li>
-        </ul>
+  <section class="band">
+    <div class="wrap split">
+      <div>
+        <div class="eyebrow reveal">The gap</div>
+        <h2 class="display-section">The tools aren&rsquo;t the problem.</h2>
+        <p class="intro reveal">When your AI doesn&rsquo;t know your brand deeply, it shows. Better prompts won&rsquo;t fix that, because it&rsquo;s a context problem, not a prompting problem.</p>
       </div>
-      <div class="col-card accent">
-        <h3>The underlying cause</h3>
-        <ul>
-          <li>Brand thinking not translated for AI</li>
-          <li>No structured tone of voice the engine can use</li>
-          <li>Creative judgement missing from the process</li>
-          <li>Built to produce, not to think</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-
-<hr>
-
-
-<!-- ============================================================
-     SECTION: SIGNAL CARDS
-     ============================================================ -->
-<div class="wrap">
-  <div class="section reveal-on-scroll">
-    <div class="eyebrow">Sound familiar?</div>
-    <h2 class="display-section">If any of these land,<br>we should talk.</h2>
-
-    <div class="signals">
-      <div class="signal">
-        <p>"We prompt the same way every time. The output is never quite consistent."</p>
-      </div>
-      <div class="signal">
-        <p>"The work comes out fine. It just doesn't look like us."</p>
-      </div>
-      <div class="signal">
-        <p>"We're producing more than ever. We're not sure any of it is working."</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<hr>
-
-
-<!-- ============================================================
-     SECTION: FOUNDER NOTE
-     ============================================================ -->
-<div class="wrap">
-  <div class="section reveal-on-scroll">
-    <div class="eyebrow">From the founder</div>
-    <div class="founder-layout">
-      <figure class="founder-photo">
-        <img src="assets/carl-cahill.png" alt="Portrait of Carl Cahill" width="1024" height="1024" loading="lazy" decoding="async">
-      </figure>
-      <div class="founder-letter">
-        <p>I've spent fifteen years helping brands figure out what makes them distinct, then making sure everything they put out reflects that. That's still the job. The tools have just changed.</p>
-        <p>What I keep seeing now is teams who've gone in-house with AI and hit the same wall. The output is fast. It's just not theirs. Not because the tools are wrong, but because nobody's put the right thinking in.</p>
-        <p>Creative in the Loop is how I fix that. I come in, build the creative foundation your engine needs, and stay close enough to make sure the quality holds as you scale.</p>
-        <p class="founder-letter__closing">If that sounds like what you're missing, let's talk.</p>
-        <footer class="founder-letter__sig">
-          <cite class="founder-letter__name">Carl Cahill</cite>
-          <div class="founder-letter__role">Founder, Salo · Fractional Creative Director</div>
-        </footer>
-      </div>
-    </div>
-  </div>
-</div>
-
-<hr>
-
-
-<!-- ============================================================
-     SECTION: THE SERVICE
-     ============================================================ -->
-<div class="wrap">
-  <div class="section reveal-on-scroll">
-    <div class="eyebrow">What we do</div>
-    <h2 class="display-section">We build the creative thinking into your engine.</h2>
-    <p>Your brand strategy. Your voice. Your visual identity. We take all of it and structure it into something AI can actually work from.</p>
-    <p>Then we stay in. Not to hold your hand. To keep the quality where it needs to be as you scale.</p>
-    <div class="callout"><strong>The principle:</strong> Your AI produces. We make sure it's worth producing.</div>
-  </div>
-</div>
-
-<hr>
-
-
-<!-- ============================================================
-     SECTION: PROCESS
-     ============================================================ -->
-<div class="wrap">
-  <div class="section reveal-on-scroll">
-    <div class="eyebrow">How it works</div>
-    <h2 class="display-section">Three phases.<br>Done in weeks, not months.</h2>
-
-    <div class="process">
-      <div class="phase">
-        <div class="phase-left">
-          <div class="phase-num">Phase 1</div>
-          <div class="phase-time">1–2 weeks</div>
-        </div>
-        <div class="phase-icon" aria-hidden="true">
-          <img src="assets/phase-learn.png" alt="" width="512" height="512" loading="lazy" decoding="async">
-        </div>
-        <div class="phase-right">
-          <h3>Learn</h3>
-          <p>We find every gap between what your brand is and what your engine knows about it.</p>
-        </div>
-      </div>
-      <div class="phase">
-        <div class="phase-left">
-          <div class="phase-num">Phase 2</div>
-          <div class="phase-time">2–3 weeks</div>
-        </div>
-        <div class="phase-icon" aria-hidden="true">
-          <img src="assets/phase-build.png" alt="" width="512" height="512" loading="lazy" decoding="async">
-        </div>
-        <div class="phase-right">
-          <h3>Build</h3>
-          <p>We produce the creative context your engine needs and configure it until the output is consistently good.</p>
-        </div>
-      </div>
-      <div class="phase">
-        <div class="phase-left">
-          <div class="phase-num">Phase 3</div>
-          <div class="phase-time">Ongoing</div>
-        </div>
-        <div class="phase-icon" aria-hidden="true">
-          <img src="assets/phase-run.png" alt="" width="512" height="512" loading="lazy" decoding="async">
-        </div>
-        <div class="phase-right">
-          <h3>Run</h3>
-          <p>You produce. We stay in the loop. Available through Flexi-Design when you need us.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<hr>
-
-
-<!-- ============================================================
-     SECTION: DELIVERABLES
-     ============================================================ -->
-<div class="wrap">
-  <div class="section reveal-on-scroll">
-    <div class="eyebrow">What you get</div>
-    <h2 class="display-section">A working engine.<br>And a partner behind it.</h2>
-    <p>After phases one and two your team has everything it needs to produce with confidence.</p>
-
-    <div class="deliverables">
-      <ul>
-        <li>Tone of voice documentation built specifically for AI use</li>
-        <li>Visual identity and brand context structured for your engine</li>
-        <li>Brand positioning and proposition as reusable context</li>
-        <li>A configured workflow your team can run from day one</li>
-        <li>Prompt structures for your most common output types</li>
+      <ul class="symptoms reveal" aria-label="What teams tell us">
+        <li>Output that doesn&rsquo;t quite feel like your brand</li>
+        <li>Work that looks different from one channel to the next</li>
+        <li>The same request re-prompted again and again</li>
+        <li>Work that looks like everyone else&rsquo;s</li>
       </ul>
     </div>
+  </section>
 
-    <p style="margin-top: 24px;">Phase three keeps it sharp. We don't hand over and disappear. We transition into a support role that scales with you.</p>
-  </div>
-</div>
-
-<hr>
-
-
-<!-- ============================================================
-     SECTION: WHO IT'S FOR
-     ============================================================ -->
-<div class="wrap">
-  <div class="section reveal-on-scroll">
-    <div class="eyebrow">Right fit</div>
-    <h2 class="display-section">Two kinds of team<br>get the most from this.</h2>
-
-    <div class="audience-grid">
-      <div class="audience-card">
-        <h3>Brands going in-house</h3>
-        <p>You've got the tools. You need the thinking built in before you scale.</p>
-      </div>
-      <div class="audience-card">
-        <h3>Agencies supporting the shift</h3>
-        <p>Your clients are asking about AI. We give you something real to offer them.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<hr>
-
-
-<!-- ============================================================
-     SALO STRIP
-     ============================================================ -->
-<div class="salo-strip">
-  <div class="salo-inner reveal-on-scroll">
-    <div class="salo-aside">
-      <a class="salo-logo-link" href="https://salo.uk" target="_blank" rel="noopener noreferrer" aria-label="Salo (opens in new tab)">
-        <img class="salo-logo-img" src="assets/salo-logo.svg" alt="Salo" width="207" height="60" loading="lazy" decoding="async">
-      </a>
-      <div class="salo-label">Backed by Salo</div>
-    </div>
-    <div class="salo-body">
-      <p>Salo is a strategic design studio with over a decade of work across agencies and brands in the UK and US.</p>
-      <p>The clients coming back to us aren't asking for AI training. They're asking for the creative judgement that makes the difference between output that's acceptable and output that's actually good.</p>
-      <p>That's what this is.</p>
-      <a class="salo-link" href="https://salo.uk" target="_blank" rel="noopener noreferrer">Learn more about Salo →</a>
-    </div>
-  </div>
-</div>
-
-
-<!-- ============================================================
-     CTA
-     ============================================================ -->
-<div class="wrap">
-  <div class="cta-section reveal-on-scroll">
-    <div class="eyebrow">Let's talk</div>
-    <h2 class="display-cta">Is this the right fit for you?</h2>
-    <p>We're working with a small number of teams right now. Book a short call and we'll find out quickly whether this makes sense.</p>
-    <!-- UPDATE: Replace href with your Calendly or booking link -->
-    <a href="https://cal.com/carlcahill/creative-in-the-loop" class="btn btn-lg" target="_blank" rel="noopener noreferrer">Book a call</a>
-    <p class="cta-email">Prefer to email first? <a href="mailto:hello@salo.uk" target="_blank" rel="noopener noreferrer">hello@salo.uk</a></p>
-  </div>
-</div>
-
-<hr>
-
-<div class="wrap">
-  <div id="citl-cost-calculator" class="citl-calc-section reveal-on-scroll" aria-labelledby="citl-calc-title">
-    <div class="citl-calc">
-      <div class="cc-card">
-        <div class="cc-progress">
-          <div class="cc-progress-bar" id="progressBar" style="width:33%"></div>
+  <section class="band">
+    <div class="wrap">
+      <div class="eyebrow reveal">What it is</div>
+      <h2 class="display-section">A creative director inside the AI you already use.</h2>
+      <p class="intro reveal">Any AI can read a guidelines PDF and check a hex code. Creative in the Loop gives it two things it doesn&rsquo;t have, so it can form an opinion on your work rather than run a compliance check.</p>
+      <div class="pair reveal">
+        <div>
+          <h3>Everything about your brand, structured</h3>
+          <p>Strategy, positioning, voice and visual identity, organised into one knowledge base and scored, so you can see what&rsquo;s there and how strong it is.</p>
         </div>
-        <div class="cc-head">
-          <div class="cc-eyebrow">Value calculator</div>
-          <h2 id="citl-calc-title">What is inconsistent AI output costing you?</h2>
-          <p>Three questions. A personalised breakdown. Takes about a minute.</p>
-        </div>
-
-        <div class="cc-step is-active" id="step1">
-          <div class="cc-step-label">Step 1 of 3 — Your situation</div>
-          <div class="cc-field">
-            <label for="teamSize">How many people on your team use AI for creative work?</label>
-            <div class="cc-slider-value"><span id="teamVal">3</span> <span>people</span></div>
-            <div class="cc-slider-wrap">
-              <input type="range" id="teamSize" name="teamSize" min="1" max="20" value="3" aria-valuemin="1" aria-valuemax="20" aria-valuenow="3" aria-describedby="teamSize-desc">
-              <div class="cc-slider-labels" id="teamSize-desc"><span>1</span><span>5</span><span>10</span><span>15</span><span>20</span></div>
-            </div>
-          </div>
-          <div class="cc-field">
-            <label for="hoursWasted">How many hours per week does your team spend re-prompting or fixing AI output?</label>
-            <div class="cc-slider-value"><span id="hoursVal">4</span> <span>hrs / week</span></div>
-            <div class="cc-slider-wrap">
-              <input type="range" id="hoursWasted" name="hoursWasted" min="1" max="20" value="4" aria-valuemin="1" aria-valuemax="20" aria-valuenow="4" aria-describedby="hours-hint">
-              <div class="cc-slider-labels"><span>1</span><span>5</span><span>10</span><span>15</span><span>20</span></div>
-            </div>
-            <div class="cc-hint" id="hours-hint">Think about briefing time, corrections, inconsistency fixes, re-runs.</div>
-          </div>
-          <div class="cc-field" id="field-team-type">
-            <label for="teamType">What best describes your team?</label>
-            <select id="teamType" name="teamType">
-              <option value="">Select one</option>
-              <option value="agency">We're an agency</option>
-              <option value="brand">We're a brand or in-house team</option>
-              <option value="startup">We're a startup or scale-up</option>
-            </select>
-            <div class="cc-error">Please select an option.</div>
-          </div>
-          <div class="cc-btn-row">
-            <button type="button" class="cc-btn cc-btn--full cc-btn--lg" id="cc-step1-next">Continue</button>
-          </div>
-        </div>
-
-        <div class="cc-step" id="step2">
-          <div class="cc-step-label">Step 2 of 3 — Your costs</div>
-          <div class="cc-field" id="field-day-rate">
-            <label for="dayRate">What's the average day rate or daily cost of the people using AI for creative work?</label>
-            <select id="dayRate" name="dayRate">
-              <option value="">Select a range</option>
-              <option value="200">Under &pound;200 / day</option>
-              <option value="300">&pound;200&ndash;&pound;350 / day</option>
-              <option value="450">&pound;350&ndash;&pound;550 / day</option>
-              <option value="650">&pound;550&ndash;&pound;800 / day</option>
-              <option value="900">Over &pound;800 / day</option>
-            </select>
-            <div class="cc-hint">Use an average if your team has different levels. This stays private.</div>
-            <div class="cc-error">Please select a range.</div>
-          </div>
-          <div class="cc-field" id="field-output-quality">
-            <label for="outputQuality">How would you describe the quality of your current AI output?</label>
-            <select id="outputQuality" name="outputQuality">
-              <option value="">Select one</option>
-              <option value="poor">Inconsistent — rarely on brand</option>
-              <option value="mixed">Mixed — sometimes good, often not</option>
-              <option value="okay">Okay — but never quite right</option>
-              <option value="good">Mostly good — just want to go further</option>
-            </select>
-            <div class="cc-error">Please select one.</div>
-          </div>
-          <div class="cc-btn-row">
-            <button type="button" class="cc-btn--ghost" id="cc-step2-back">Back</button>
-            <button type="button" class="cc-btn" id="cc-step2-next">Continue</button>
-          </div>
-        </div>
-
-        <div class="cc-step" id="step3">
-          <div class="cc-step-label">Step 3 of 3 — Your details</div>
-          <div class="cc-gate-intro">
-            <p>Your results are ready. <strong>Enter your details below</strong> and we'll show you your personalised breakdown — including what Creative in the Loop would cost versus what you're currently losing.</p>
-          </div>
-          <div class="cc-field" id="field-name">
-            <label for="userName">Your name</label>
-            <input type="text" id="userName" name="userName" autocomplete="name" placeholder="Your name">
-            <div class="cc-error">Please enter your name.</div>
-          </div>
-          <div class="cc-field" id="field-email">
-            <label for="userEmail">Work email</label>
-            <input type="email" id="userEmail" name="userEmail" autocomplete="email" placeholder="you@company.com">
-            <div class="cc-error">Please enter a valid email address.</div>
-          </div>
-          <div class="cc-field" id="field-company">
-            <label for="userCompany">Company <span style="color:var(--muted);font-weight:400;">(optional)</span></label>
-            <input type="text" id="userCompany" name="userCompany" autocomplete="organization" placeholder="Company">
-          </div>
-          <div class="cc-btn-row">
-            <button type="button" class="cc-btn--ghost" id="cc-step3-back">Back</button>
-            <button type="button" class="cc-btn cc-btn--lg" id="cc-step3-submit">See my results</button>
-          </div>
-        </div>
-
-        <div class="cc-step" id="stepResults">
-          <div class="cc-step-label">Your results</div>
-          <div class="cc-results-head">
-            <div class="cc-big-number" id="annualWaste">&pound;0</div>
-            <div class="cc-big-label">estimated annual cost of inconsistent AI output</div>
-            <div class="cc-big-sub" id="resultSub"></div>
-          </div>
-          <div class="cc-result-rows">
-            <div class="cc-result-row">
-              <span class="cc-row-label">Weekly hours lost to rework</span>
-              <span class="cc-row-value is-neg" id="r-weeklyHours"></span>
-            </div>
-            <div class="cc-result-row">
-              <span class="cc-row-label">Weekly cost of that time</span>
-              <span class="cc-row-value is-neg" id="r-weeklyCost"></span>
-            </div>
-            <div class="cc-result-row">
-              <span class="cc-row-label">Annual cost of rework alone</span>
-              <span class="cc-row-value is-neg" id="r-annualRework"></span>
-            </div>
-            <div class="cc-result-row">
-              <span class="cc-row-label">Estimated cost of substandard output</span>
-              <span class="cc-row-value is-neg" id="r-outputCost"></span>
-            </div>
-          </div>
-          <div class="cc-vs-block">
-            <div class="cc-vs-row">
-              <span class="cc-vs-label">Your current annual cost</span>
-              <span class="cc-vs-value" id="vs-current"></span>
-            </div>
-            <div class="cc-vs-divider"></div>
-            <div class="cc-vs-row">
-              <span class="cc-vs-label">Creative in the Loop setup (phases 1&ndash;2)</span>
-              <span class="cc-vs-value is-teal" id="vs-setup"></span>
-            </div>
-            <div class="cc-vs-row">
-              <span class="cc-vs-label">Flexi-Design ongoing (per year)</span>
-              <span class="cc-vs-value is-teal" id="vs-flexi"></span>
-            </div>
-            <div class="cc-vs-row">
-              <span class="cc-vs-label">Total investment year one</span>
-              <span class="cc-vs-value is-teal" id="vs-total"></span>
-            </div>
-            <div class="cc-vs-saving">
-              <div class="cc-saving-num" id="vs-saving"></div>
-              <div class="cc-saving-label">potential saving in year one</div>
-            </div>
-          </div>
-          <div class="cc-recommendation">
-            <div class="cc-rec-label">Our recommendation</div>
-            <p id="recommendationText"></p>
-          </div>
-          <button type="button" class="cc-btn cc-btn--full cc-btn--lg" id="cc-results-book" style="margin-bottom:10px;">Book a call with Carl</button>
-          <button type="button" class="cc-btn--ghost cc-btn--full" id="cc-results-restart">Start again</button>
-        </div>
-
-        <div class="cc-foot">
-          <p>Estimates are illustrative and based on typical team costs. Your actual figures will vary. Creative in the Loop is a service from <a href="https://salo.uk/" target="_blank" rel="noopener noreferrer">Salo</a>.</p>
+        <div>
+          <h3>Design knowledge behind every answer</h3>
+          <p>Type, colour, layout and design principles, so feedback comes with a reason: why something works, what would make it better, and what a creative director would pick up.</p>
         </div>
       </div>
     </div>
-  </div>
-</div>
+  </section>
 
+  <section class="band">
+    <div class="wrap">
+      <div class="eyebrow reveal">How it connects</div>
+      <h2 class="display-section">Your brand&rsquo;s brain, plugged into the AI you use.</h2>
+      <p class="intro reveal">The creative brain holds what your brand knows. Connect it to Claude and each answer draws on your positioning, voice, visual rules and the design knowledge behind them.</p>
+      <div class="connect-panel reveal" id="connect">
+        <canvas id="brainField" aria-hidden="true"></canvas>
+        <canvas id="flow" aria-hidden="true"></canvas>
+        <div class="connect-grid">
+          <div class="brain-slot">
+            <div class="brain-orb" id="orb"></div>
+            <div class="brain-label"><strong>Creative brain</strong><span>Your brand, structured and scored</span></div>
+          </div>
+          <div class="llm-card" id="llm" aria-label="Example: Claude drawing on the creative brain">
+            <div class="llm-head"><b>Claude</b><span>Brain connected</span></div>
+            <div class="llm-you">Write a launch post for our new autumn menu.</div>
+            <div class="llm-reply">
+              <span>Here&rsquo;s a first draft in your voice.</span>
+              <div class="bar bar--full"></div>
+              <div class="bar bar--88"></div>
+              <div class="bar bar--64"></div>
+            </div>
+            <div class="drawing">Drawing on</div>
+            <div class="chips" id="chips">
+              <span class="chip">Positioning</span>
+              <span class="chip">Tone of voice</span>
+              <span class="chip">Audience</span>
+              <span class="chip">Colour</span>
+              <span class="chip">House rules</span>
+              <span class="chip">Design knowledge</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="eyebrow reveal">How it works</div>
+      <h2 class="display-section">Three stages, and the brain keeps learning.</h2>
+      <div class="stages reveal">
+        <div class="stage">
+          <div class="n">1</div>
+          <h3>Learn</h3>
+          <p>Upload your brand guidelines. We read them, structure what they say and score it, then ask you short questions wherever they&rsquo;re unclear or contradict themselves.</p>
+        </div>
+        <div class="stage">
+          <div class="n">2</div>
+          <h3>Build</h3>
+          <p>You review and approve what the brain knows. Then you connect it to your AI, and your whole team is working from the same brand.</p>
+        </div>
+        <div class="stage">
+          <div class="n">3</div>
+          <h3>Run</h3>
+          <p>Write stronger briefs, check work before it goes out and get ideas grounded in your brand. When something needs a person, it brings in a Salo creative.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="eyebrow reveal">Brand Strength</div>
+      <h2 class="display-section">See exactly what your AI knows about your brand.</h2>
+      <p class="intro reveal">Most guidelines cover the visual identity well and say little about positioning, audience or proof. Brand Strength shows what&rsquo;s present, what&rsquo;s missing and how strong each part is. Where there&rsquo;s a gap, Salo can help you close it.</p>
+      <div class="pillars reveal" aria-label="Example Brand Strength checklist">
+        <div class="pillar">
+          <h3>Positioning <small>Example</small></h3>
+          <ul>
+            <li><span class="dot part"></span>Positioning statement</li>
+            <li><span class="dot"></span>Values</li>
+            <li><span class="dot part"></span>Audience and personas</li>
+            <li><span class="dot"></span>Competitor context</li>
+            <li><span class="dot"></span>Goals and objectives</li>
+          </ul>
+        </div>
+        <div class="pillar">
+          <h3>Verbal <small>Example</small></h3>
+          <ul>
+            <li><span class="dot full"></span>Tone of voice</li>
+            <li><span class="dot part"></span>Vocabulary</li>
+            <li><span class="dot"></span>Evidence and proof</li>
+            <li><span class="dot"></span>Channel guidance</li>
+            <li><span class="dot"></span>Accessibility</li>
+          </ul>
+        </div>
+        <div class="pillar">
+          <h3>Visual <small>Example</small></h3>
+          <ul>
+            <li><span class="dot full"></span>Logo and usage rules</li>
+            <li><span class="dot full"></span>Colour</li>
+            <li><span class="dot full"></span>Typography</li>
+            <li><span class="dot part"></span>Imagery</li>
+            <li><span class="dot"></span>File formats</li>
+          </ul>
+        </div>
+      </div>
+      <div class="legend reveal"><span><i class="dot full"></i>Covered</span><span><i class="dot part"></i>Partly covered</span><span><i class="dot"></i>Not covered yet</span></div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap split">
+      <div>
+        <div class="eyebrow reveal">Day to day</div>
+        <h2 class="display-section">It notices what a creative director would.</h2>
+        <p class="intro reveal">You keep working in the AI you know. The brain sits behind it, so every answer draws on your brand.</p>
+        <ul class="checks reveal">
+          <li>Turns a rough request into a proper brief</li>
+          <li>Reviews work and explains why it does or doesn&rsquo;t land</li>
+          <li>Catches the small things: line height, headline case, spacing, a stray full stop</li>
+          <li>Asks whether a rule break was deliberate before calling it a mistake</li>
+        </ul>
+      </div>
+      <div class="chat reveal" aria-label="Example conversation with a fictional brand">
+        <div class="tag">Example, fictional brand</div>
+        <div class="bubble you">Can you check this Instagram caption before it goes out?</div>
+        <div class="bubble brain">The voice is right: short, warm and specific. Two things before it posts. Your headlines are sentence case and this one is title case. And &ldquo;world-class&rdquo; is on your list of words to avoid, because you&rsquo;d rather show the proof. <b>Was the title case deliberate for this campaign?</b></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="eyebrow reveal">Works with</div>
+      <h2 class="display-section">Built for Claude first, with more to follow.</h2>
+      <p class="intro reveal">Creative in the Loop connects to the AI your team already pays for. We&rsquo;re starting with Claude and working on the others next.</p>
+      <div class="llms reveal">
+        <span class="llm live">Claude <em>First</em></span>
+        <span class="llm">Microsoft Copilot <em>Next</em></span>
+        <span class="llm">ChatGPT <em>Next</em></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="eyebrow reveal">Who it&rsquo;s for</div>
+      <h2 class="display-section">For brands, and for the agencies that look after them.</h2>
+      <div class="who reveal">
+        <div>
+          <h3>Brands</h3>
+          <p>One brain for your brand, so everyone producing with AI starts from the same strategy, voice and visual identity. Use it to judge the work your agency sends too.</p>
+        </div>
+        <div>
+          <h3>Agencies</h3>
+          <p>Run a brain for each client from one account, invite a client to their own brand only, and keep every project working from the right context.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap split">
+      <div>
+        <div class="eyebrow reveal">The human in the loop</div>
+        <h2 class="display-section">A real creative, always in the loop.</h2>
+      </div>
+      <p class="intro intro--flush reveal">Some questions need a person: positioning, a campaign idea, a gap in your brand that no document fills. When that happens, the brain hands you to a Salo creative, the same team that builds brands for agencies and in-house teams across the UK and US.</p>
+    </div>
+  </section>
+
+  <section class="closer" id="join">
+    <div class="wrap">
+      <h2 class="display-section">Be first to put a creative director in your AI.</h2>
+      <p class="intro reveal">Leave your email and we&rsquo;ll let you know as soon as you can start.</p>
+      <form class="waitlist light reveal" data-waitlist data-waitlist-source="closer" novalidate>
+        <label class="visually-hidden" for="email-join">Work email</label>
+        <input id="email-join" name="email" type="email" inputmode="email" autocomplete="email" maxlength="320" placeholder="Your work email" required>
+        <div class="visually-hidden" aria-hidden="true">
+          <label for="waitlist-bot-join">Leave this field blank</label>
+          <input class="waitlist-bot" id="waitlist-bot-join" type="text" tabindex="-1" autocomplete="off">
+        </div>
+        <button type="submit">Join the waitlist</button>
+        <p class="msg" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
 </main>
 
-<hr>
-
-
-<!-- ============================================================
-     FOOTER
-     ============================================================ -->
 <footer>
-  <div class="footer-l">Creative in the Loop is a service from <a href="https://salo.uk" target="_blank" rel="noopener noreferrer">Salo</a> &nbsp;·&nbsp; © 2026</div>
-  <div class="footer-r"><a href="https://salo.uk" target="_blank" rel="noopener noreferrer">salo.uk</a></div>
+  <div class="wrap">
+    <span>&copy; 2026 Creative in the Loop</span>
+    <span class="salo">
+      <svg viewBox="0 0 65 61" aria-hidden="true"><path d="M61.4436 18.1497C54.0838 2.40518 35.3527 -4.39039 19.6041 2.96748L18.2272 0.0193676C2.47865 7.37724 -4.32042 26.1036 3.03933 41.8482C10.3991 57.5928 29.1302 64.3883 44.8788 57.0304L46.2557 59.9768C62.0042 52.6189 68.8033 33.8925 61.4436 18.148V18.1497ZM39.3821 45.2752C30.1292 49.5981 19.125 45.6034 14.8011 36.3546C10.4771 27.1041 14.4728 16.1027 23.724 11.7799L25.1008 14.7245C34.3537 10.4016 45.3579 14.3963 49.6818 23.6451C54.0058 32.8956 50.0101 43.897 40.7589 48.2198L39.3821 45.2752Z"/></svg>
+      Built by Salo
+    </span>
+  </div>
 </footer>
 
-</div><!-- /.page -->
-
 <script src="main.js" defer></script>
-<script src="calculator.js" defer></script>
-
 </body>
 </html>
