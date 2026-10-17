@@ -6,6 +6,7 @@
   initWaitlist();
   initHeroField(reduce);
   initPairFields(reduce);
+  initStages(reduce);
   initBrain(reduce);
 
   function initReveals(still) {
@@ -353,14 +354,16 @@
       '  if(s<1.) return mix(c0,c1,s); if(s<2.) return mix(c1,c2,s-1.); if(s<3.) return mix(c2,c3,s-2.); if(s<4.) return mix(c3,c4,s-3.);',
       '  return mix(c4,c5,s-4.); }',
       'void main(){',
+      '  vec2 uv = gl_FragCoord.xy / uRes;',
+      '  float aspect = uRes.x / uRes.y;',
       '  vec2 p = (gl_FragCoord.xy - .5*uRes) / uRes.y;',
       '  float T = uTime;',
-      '  vec2 c = vec2(-.02 + uShift*.22, uShift*.08);',
+      '  vec2 c = vec2(-aspect*.5 + .16 + uShift*.02, .02 + (uShift-.28)*.2);',
       '  vec2 q = p - c;',
       '  q += .03*vec2(sin(q.y*3.4 + T*.28), cos(q.x*2.6 - T*.22));',
-      '  float d = sdRoundBox(q, vec2(.07, .62), .09);',
-      '  float w = .042, k = fract(d/w), band = floor(d/w);',
-      '  float fluted = 1. - smoothstep(0., .55, abs(d));',
+      '  float d = sdRoundBox(q, vec2(.18, .46), .2);',
+      '  float w = .04, k = fract(d/w), band = floor(d/w);',
+      '  float fluted = 1. - smoothstep(0., .5, abs(d));',
       '  vec2 n = normalize(q + 1e-4);',
       '  vec2 sp = p + n * (k - .5) * .07 * fluted;',
       '  float g = .28 + sp.y*.9 + uShift;',
@@ -369,13 +372,17 @@
       '  vec3 col = palette(t);',
       '  col *= mix(1., .82 + .26*smoothstep(0., 1., k), fluted);',
       '  col += (hash(gl_FragCoord.xy + fract(T)*90.) - .5) * .03;',
-      '  gl_FragColor = vec4(col, 1.);',
+      '  vec2 origin = vec2(.06, .5);',
+      '  float dist = length((uv - origin) * vec2(1.2, .72));',
+      '  float fade = 1. - smoothstep(.02, .32, dist);',
+      '  gl_FragColor = vec4(col * fade, fade);',
       '}'
     ].join('\n');
 
     var views = canvases.map(function (canvas) {
-      var gl = canvas.getContext('webgl', { antialias: false, premultipliedAlpha: false, alpha: false });
+      var gl = canvas.getContext('webgl', { antialias: false, premultipliedAlpha: true, alpha: true });
       if (!gl) return null;
+      canvas.style.background = 'transparent';
       var prog = link(gl, vert, frag);
       if (!prog) return null;
       gl.useProgram(prog);
@@ -402,7 +409,7 @@
 
     views.forEach(function (view) {
       resize(view);
-      if (window.ResizeObserver) new ResizeObserver(function () { resize(view); }).observe(view.canvas);
+      if (window.ResizeObserver) new ResizeObserver(function () { resize(view); }).observe(view.canvas.parentElement);
     });
     window.addEventListener('resize', function () { views.forEach(resize); });
 
@@ -420,6 +427,264 @@
         view.gl.uniform1f(view.uShift, view.shift);
         view.gl.drawArrays(view.gl.TRIANGLES, 0, 3);
       });
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function initStages(still) {
+    var stages = document.querySelector('.stages');
+    var section = stages && stages.closest('.how');
+    var bloom = document.getElementById('stageBloom');
+    var flow = document.getElementById('stageFlow');
+    if (!stages || !section || !bloom || !flow) return;
+
+    var ctx = flow.getContext('2d');
+    if (!ctx) return;
+    stages.classList.add('has-track');
+
+    var gl = bloom.getContext('webgl', { antialias: false, premultipliedAlpha: true, alpha: true });
+    var prog = null;
+    var uniforms = null;
+    if (gl) {
+      bloom.style.background = 'transparent';
+      var vert = 'attribute vec2 a; void main(){ gl_Position = vec4(a,0.,1.); }';
+      var frag = [
+        'precision highp float;',
+        'uniform vec2 uRes; uniform float uTime; uniform float uAlpha;',
+        'float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1,311.7))) * 43758.5453); }',
+        'float noise(vec2 p){ vec2 i = floor(p), f = fract(p); f = f*f*(3.-2.*f);',
+        '  return mix(mix(hash(i), hash(i+vec2(1,0)), f.x), mix(hash(i+vec2(0,1)), hash(i+vec2(1,1)), f.x), f.y); }',
+        'float fbm(vec2 p){ float v=0., a=.5; for(int i=0;i<4;i++){ v+=a*noise(p); p=p*2.03+17.; a*=.5; } return v; }',
+        'float sdRoundBox(vec2 p, vec2 b, float r){ vec2 q = abs(p)-b+r; return length(max(q,0.)) + min(max(q.x,q.y),0.) - r; }',
+        'vec3 palette(float t){ t = clamp(t, 0., 1.);',
+        '  vec3 c0=vec3(.06,.10,.20), c1=vec3(.04,.36,.56), c2=vec3(.84,.82,.75), c3=vec3(.72,.56,.75), c4=vec3(.24,.22,.68), c5=vec3(.80,.40,.20);',
+        '  float s = t*5.;',
+        '  if(s<1.) return mix(c0,c1,s); if(s<2.) return mix(c1,c2,s-1.); if(s<3.) return mix(c2,c3,s-2.); if(s<4.) return mix(c3,c4,s-3.);',
+        '  return mix(c4,c5,s-4.); }',
+        'void main(){',
+        '  vec2 uv = gl_FragCoord.xy / uRes;',
+        '  vec2 p = (gl_FragCoord.xy - .5*uRes) / uRes.y;',
+        '  float T = uTime;',
+        '  vec2 c = vec2(-.28, .06);',
+        '  vec2 q = p - c;',
+        '  q += .03*vec2(sin(q.y*2.2 + T*.2), cos(q.x*1.6 - T*.14));',
+        '  float d = sdRoundBox(q, vec2(.9, .55), .42);',
+        '  float w = .11, k = fract(d/w);',
+        '  float fluted = 1. - smoothstep(0., 1.15, abs(d));',
+        '  float ridge = smoothstep(.2, .8, k);',
+        '  vec2 sp = p + normalize(q + 1e-4) * (ridge - .5) * .04 * fluted;',
+        '  float g = .58 + uv.x * .16;',
+        '  float f = fbm(sp*1.1 + vec2(T*.018, -T*.012));',
+        '  float t = g + (f - .5) * .07 + (ridge - .5) * .045 * fluted;',
+        '  vec3 col = palette(t);',
+        '  col *= mix(.94, 1.04, ridge);',
+        '  vec2 origin = vec2(.3, .6);',
+        '  float dist = length((uv - origin) * vec2(.95, 1.15));',
+        '  float fade = 1. - smoothstep(.0, .58, dist);',
+        '  fade *= smoothstep(0., .16, uv.y) * smoothstep(0., .2, 1. - uv.y);',
+        '  fade *= uAlpha;',
+        '  gl_FragColor = vec4(col * fade, fade);',
+        '}'
+      ].join('\n');
+      prog = link(gl, vert, frag);
+      if (prog) {
+        gl.useProgram(prog);
+        fullscreen(gl);
+        gl.clearColor(0, 0, 0, 0);
+        uniforms = {
+          uRes: gl.getUniformLocation(prog, 'uRes'),
+          uTime: gl.getUniformLocation(prog, 'uTime'),
+          uAlpha: gl.getUniformLocation(prog, 'uAlpha')
+        };
+      } else {
+        gl = null;
+      }
+    }
+
+    var width = 0;
+    var height = 0;
+    var dpr = 1;
+    var lines = [];
+    var segments = [];
+    var total = 1;
+    var stacked = false;
+
+    function rgba(hex, alpha) {
+      var h = (hex || '').replace('#', '').trim();
+      if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+      var n = parseInt(h, 16);
+      if (!isFinite(n) || h.length !== 6) return 'rgba(196,90,40,' + alpha + ')';
+      return 'rgba(' + ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + alpha + ')';
+    }
+
+    function colors() {
+      var cs = getComputedStyle(document.documentElement);
+      var dark = cs.colorScheme === 'dark';
+      return {
+        ink: cs.getPropertyValue('--ink').trim() || '#0d1424',
+        warm: cs.getPropertyValue('--warm').trim() || '#c45a28',
+        head: dark ? '#f4f1ea' : '#9a3412',
+        glow: dark ? 'rgba(232,140,90,.95)' : 'rgba(196,90,40,.95)'
+      };
+    }
+
+    function measure() {
+      width = stages.clientWidth;
+      height = stages.clientHeight;
+      if (!width || !height) return;
+      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      flow.width = Math.max(1, Math.round(width * dpr));
+      flow.height = Math.max(1, Math.round(height * dpr));
+      if (gl) {
+        var bw = Math.max(1, Math.round(section.clientWidth * dpr));
+        var bh = Math.max(1, Math.round(section.clientHeight * dpr));
+        bloom.width = bw;
+        bloom.height = bh;
+        gl.viewport(0, 0, bw, bh);
+      }
+      var root = stages.getBoundingClientRect();
+      lines = Array.prototype.map.call(stages.querySelectorAll('.stage'), function (el) {
+        var rect = el.getBoundingClientRect();
+        return {
+          x0: rect.left - root.left,
+          x1: rect.right - root.left,
+          y: rect.top - root.top + 1
+        };
+      });
+      segments = [];
+      lines.forEach(function (line, index) {
+        segments.push({
+          x0: line.x0, y0: line.y, x1: line.x1, y1: line.y, draw: true,
+          len: Math.max(1, line.x1 - line.x0)
+        });
+        var next = lines[index + 1];
+        if (next && Math.abs(next.y - line.y) < 6) {
+          var gap = Math.max(1, next.x0 - line.x1);
+          segments.push({
+            x0: line.x1, y0: line.y, x1: next.x0, y1: next.y, draw: false, len: gap
+          });
+        }
+      });
+      total = segments.reduce(function (sum, seg) { return sum + seg.len; }, 0) || 1;
+      stacked = !segments.some(function (seg) { return !seg.draw; }) && segments.length > 1;
+    }
+
+    function sample(u) {
+      var dist = Math.min(1, Math.max(0, u)) * total;
+      var acc = 0;
+      for (var i = 0; i < segments.length; i++) {
+        var seg = segments[i];
+        if (dist <= acc + seg.len || i === segments.length - 1) {
+          var t = seg.len ? (dist - acc) / seg.len : 0;
+          t = Math.min(1, Math.max(0, t));
+          var edge = 1;
+          if (stacked && seg.draw) edge = Math.min(1, t / 0.08, (1 - t) / 0.08);
+          return {
+            x: seg.x0 + (seg.x1 - seg.x0) * t,
+            y: seg.y0 + (seg.y1 - seg.y0) * t,
+            edge: edge
+          };
+        }
+        acc += seg.len;
+      }
+      return { x: 0, y: 0, edge: 0 };
+    }
+
+    function ease(u) {
+      return u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
+    }
+
+    if (window.ResizeObserver) {
+      var resize = new ResizeObserver(measure);
+      resize.observe(stages);
+      resize.observe(section);
+    } else window.addEventListener('resize', measure);
+    measure();
+
+    var duration = 4.8;
+    var gapTime = 2.15;
+    var pulses = [];
+    var nextSpawn = 0.15;
+    var visible = true;
+    var start = performance.now();
+    watchVisibility(section, function (isVisible) { visible = isVisible; });
+
+    function draw(time) {
+      if (!width || !height) return;
+      var paint = colors();
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, width, height);
+      ctx.lineWidth = 2;
+      ctx.lineCap = 'butt';
+      ctx.strokeStyle = paint.ink;
+      segments.forEach(function (seg) {
+        if (!seg.draw) return;
+        ctx.beginPath();
+        ctx.moveTo(seg.x0, seg.y0);
+        ctx.lineTo(seg.x1, seg.y1);
+        ctx.stroke();
+      });
+
+      if (still) return;
+
+      lines.forEach(function (line) {
+        var near = 0;
+        pulses.forEach(function (pulse) {
+          var pt = sample(ease(Math.min(1, (time - pulse.t0) / duration)));
+          var dx = pt.x - line.x0;
+          var dy = pt.y - line.y;
+          var dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 26) near = Math.max(near, 1 - dist / 26);
+        });
+        if (near > 0.02) {
+          ctx.beginPath();
+          ctx.arc(line.x0, line.y, 5 + near * 7, 0, Math.PI * 2);
+          ctx.fillStyle = rgba(paint.warm, 0.22 * near);
+          ctx.fill();
+        }
+      });
+
+      pulses.forEach(function (pulse) {
+        var head = ease(Math.min(1, (time - pulse.t0) / duration));
+        for (var i = 7; i >= 0; i--) {
+          var back = i * 16 / total;
+          var u = head - back;
+          if (u <= 0) continue;
+          var pt = sample(u);
+          var fade = (1 - i / 8) * pt.edge;
+          if (fade <= 0) continue;
+          ctx.beginPath();
+          ctx.arc(pt.x, pt.y, (i ? 2.8 : 5.5) * (0.55 + 0.45 * fade), 0, Math.PI * 2);
+          ctx.fillStyle = i ? rgba(paint.warm, 0.62 * fade) : paint.head;
+          ctx.shadowColor = paint.glow;
+          ctx.shadowBlur = i ? 0 : 22;
+          ctx.fill();
+        }
+        ctx.shadowBlur = 0;
+      });
+    }
+
+    function frame(now) {
+      requestAnimationFrame(frame);
+      if (!visible || document.hidden || !width) return;
+      var time = (now - start) / 1000;
+      if (gl && uniforms) {
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.uniform2f(uniforms.uRes, bloom.width, bloom.height);
+        gl.uniform1f(uniforms.uTime, still ? 6 : time);
+        gl.uniform1f(uniforms.uAlpha, 0.22);
+        gl.drawArrays(gl.TRIANGLES, 0, 3);
+      }
+      if (!still) {
+        if (time > nextSpawn) {
+          pulses.push({ t0: time });
+          nextSpawn = time + gapTime;
+        }
+        pulses = pulses.filter(function (pulse) {
+          return time - pulse.t0 < duration;
+        });
+      }
+      draw(time);
     }
     requestAnimationFrame(frame);
   }
