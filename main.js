@@ -5,6 +5,7 @@
   initReveals(reduce);
   initWaitlist();
   initHeroField(reduce);
+  initPairFields(reduce);
   initBrain(reduce);
 
   function initReveals(still) {
@@ -329,6 +330,96 @@
       gl.uniform2f(uMouse, cur.x, cur.y);
       gl.uniform1f(uHover, cur.h);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function initPairFields(still) {
+    var canvases = Array.prototype.slice.call(document.querySelectorAll('.pair-field'));
+    if (!canvases.length) return;
+
+    var vert = 'attribute vec2 a; void main(){ gl_Position = vec4(a,0.,1.); }';
+    var frag = [
+      'precision highp float;',
+      'uniform vec2 uRes; uniform float uTime; uniform float uShift;',
+      'float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1,311.7))) * 43758.5453); }',
+      'float noise(vec2 p){ vec2 i = floor(p), f = fract(p); f = f*f*(3.-2.*f);',
+      '  return mix(mix(hash(i), hash(i+vec2(1,0)), f.x), mix(hash(i+vec2(0,1)), hash(i+vec2(1,1)), f.x), f.y); }',
+      'float fbm(vec2 p){ float v=0., a=.5; for(int i=0;i<4;i++){ v+=a*noise(p); p=p*2.03+17.; a*=.5; } return v; }',
+      'float sdRoundBox(vec2 p, vec2 b, float r){ vec2 q = abs(p)-b+r; return length(max(q,0.)) + min(max(q.x,q.y),0.) - r; }',
+      'vec3 palette(float t){ t = clamp(t, 0., 1.);',
+      '  vec3 c0=vec3(.06,.10,.20), c1=vec3(.04,.36,.56), c2=vec3(.84,.82,.75), c3=vec3(.72,.56,.75), c4=vec3(.24,.22,.68), c5=vec3(.80,.40,.20);',
+      '  float s = t*5.;',
+      '  if(s<1.) return mix(c0,c1,s); if(s<2.) return mix(c1,c2,s-1.); if(s<3.) return mix(c2,c3,s-2.); if(s<4.) return mix(c3,c4,s-3.);',
+      '  return mix(c4,c5,s-4.); }',
+      'void main(){',
+      '  vec2 p = (gl_FragCoord.xy - .5*uRes) / uRes.y;',
+      '  float T = uTime;',
+      '  vec2 c = vec2(-.02 + uShift*.22, uShift*.08);',
+      '  vec2 q = p - c;',
+      '  q += .03*vec2(sin(q.y*3.4 + T*.28), cos(q.x*2.6 - T*.22));',
+      '  float d = sdRoundBox(q, vec2(.07, .62), .09);',
+      '  float w = .042, k = fract(d/w), band = floor(d/w);',
+      '  float fluted = 1. - smoothstep(0., .55, abs(d));',
+      '  vec2 n = normalize(q + 1e-4);',
+      '  vec2 sp = p + n * (k - .5) * .07 * fluted;',
+      '  float g = .28 + sp.y*.9 + uShift;',
+      '  float f = fbm(sp*1.6 + vec2(T*.03, -T*.022));',
+      '  float t = mix(g, f*1.25 - .15, .4) + (k - .5)*.55*fluted + band*.015*fluted + .04*sin(T*.12);',
+      '  vec3 col = palette(t);',
+      '  col *= mix(1., .82 + .26*smoothstep(0., 1., k), fluted);',
+      '  col += (hash(gl_FragCoord.xy + fract(T)*90.) - .5) * .03;',
+      '  gl_FragColor = vec4(col, 1.);',
+      '}'
+    ].join('\n');
+
+    var views = canvases.map(function (canvas) {
+      var gl = canvas.getContext('webgl', { antialias: false, premultipliedAlpha: false, alpha: false });
+      if (!gl) return null;
+      var prog = link(gl, vert, frag);
+      if (!prog) return null;
+      gl.useProgram(prog);
+      fullscreen(gl);
+      return {
+        canvas: canvas,
+        gl: gl,
+        shift: parseFloat(canvas.getAttribute('data-shift') || '0') || 0,
+        uRes: gl.getUniformLocation(prog, 'uRes'),
+        uTime: gl.getUniformLocation(prog, 'uTime'),
+        uShift: gl.getUniformLocation(prog, 'uShift')
+      };
+    }).filter(Boolean);
+
+    if (!views.length) return;
+
+    function resize(view) {
+      var rect = view.canvas.getBoundingClientRect();
+      var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      view.canvas.width = Math.max(1, Math.round(rect.width * dpr));
+      view.canvas.height = Math.max(1, Math.round(rect.height * dpr));
+      view.gl.viewport(0, 0, view.canvas.width, view.canvas.height);
+    }
+
+    views.forEach(function (view) {
+      resize(view);
+      if (window.ResizeObserver) new ResizeObserver(function () { resize(view); }).observe(view.canvas);
+    });
+    window.addEventListener('resize', function () { views.forEach(resize); });
+
+    var visible = true;
+    watchVisibility(canvases[0].closest('.pair') || canvases[0], function (isVisible) { visible = isVisible; });
+    var start = performance.now();
+
+    function frame(now) {
+      requestAnimationFrame(frame);
+      if (!visible || document.hidden) return;
+      var time = still ? 9 : (now - start) / 1000;
+      views.forEach(function (view) {
+        view.gl.uniform2f(view.uRes, view.canvas.width, view.canvas.height);
+        view.gl.uniform1f(view.uTime, time);
+        view.gl.uniform1f(view.uShift, view.shift);
+        view.gl.drawArrays(view.gl.TRIANGLES, 0, 3);
+      });
     }
     requestAnimationFrame(frame);
   }
