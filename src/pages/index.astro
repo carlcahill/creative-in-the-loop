@@ -1,39 +1,11 @@
-<!DOCTYPE html>
-<html lang="en-GB">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Creative in the Loop</title>
-<meta name="description" content="The creative brain for your brand, working inside the AI your team already uses.">
-<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-<meta name="googlebot" content="index, follow">
-<link rel="canonical" href="https://creativeintheloop.com/">
+---
+import Base from '../layouts/Base.astro';
 
-<meta property="og:type" content="website">
-<meta property="og:locale" content="en_GB">
-<meta property="og:site_name" content="Creative in the Loop">
-<meta property="og:url" content="https://creativeintheloop.com/">
-<meta property="og:title" content="Creative in the Loop">
-<meta property="og:description" content="The creative brain for your brand, working inside the AI your team already uses.">
-<meta property="og:image" content="https://creativeintheloop.com/assets/share.png">
-<meta property="og:image:type" content="image/png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Creative in the Loop. Your AI produces. We make sure it’s worth producing.">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Creative in the Loop">
-<meta name="twitter:description" content="The creative brain for your brand, working inside the AI your team already uses.">
-<meta name="twitter:image" content="https://creativeintheloop.com/assets/share.png">
-<meta name="twitter:image:alt" content="Creative in the Loop. Your AI produces. We make sure it’s worth producing.">
-
-<!-- Waitlist emails are stored in Supabase. The key below is the public anon key: it can call the waitlist endpoint and cannot read the database. -->
-<meta name="citl-waitlist-url" content="https://znpltxiguxpfdyrybmva.supabase.co/functions/v1/waitlist">
-<meta name="citl-supabase-key" content="sb_publishable_KlJHdtsmjthbIfyIjxjL1g_TQSQmwMR">
-
-<meta name="theme-color" content="#f5f6f9" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0a0f1b" media="(prefers-color-scheme: dark)">
-
+const title = 'Creative in the Loop';
+const description = 'The creative brain for your brand, working inside the AI your team already uses.';
+---
+<Base title={title} description={description} canonicalPath="/">
+  <Fragment slot="head">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -79,18 +51,7 @@
   ]
 }
 </script>
-
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
-</head>
-<body>
-
-<a class="skip-link" href="#main-content">Skip to main content</a>
+  </Fragment>
 
 <header class="hero" id="top">
   <canvas id="bg" aria-hidden="true"></canvas>
@@ -376,17 +337,4 @@
     </div>
   </section>
 </main>
-
-<footer>
-  <div class="wrap">
-    <span>&copy; 2026 Creative in the Loop</span>
-    <span class="salo">
-      <svg viewBox="0 0 65 61" aria-hidden="true"><path d="M61.4436 18.1497C54.0838 2.40518 35.3527 -4.39039 19.6041 2.96748L18.2272 0.0193676C2.47865 7.37724 -4.32042 26.1036 3.03933 41.8482C10.3991 57.5928 29.1302 64.3883 44.8788 57.0304L46.2557 59.9768C62.0042 52.6189 68.8033 33.8925 61.4436 18.148V18.1497ZM39.3821 45.2752C30.1292 49.5981 19.125 45.6034 14.8011 36.3546C10.4771 27.1041 14.4728 16.1027 23.724 11.7799L25.1008 14.7245C34.3537 10.4016 45.3579 14.3963 49.6818 23.6451C54.0058 32.8956 50.0101 43.897 40.7589 48.2198L39.3821 45.2752Z"/></svg>
-      Built by Salo
-    </span>
-  </div>
-</footer>
-
-<script src="main.js" defer></script>
-</body>
-</html>
+</Base>
