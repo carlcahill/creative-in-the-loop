@@ -7,6 +7,7 @@
   initHeroField(reduce);
   initPairFields(reduce);
   initStages(reduce);
+  initChat(reduce);
   initBrain(reduce);
 
   function initReveals(still) {
@@ -687,6 +688,112 @@
       draw(time);
     }
     requestAnimationFrame(frame);
+  }
+
+  function initChat(still) {
+    var chat = document.querySelector('.chat');
+    if (!chat || still) return;
+    var messages = Array.prototype.map.call(chat.querySelectorAll('[data-chat]'), function (el) {
+      var show = el.querySelector('.chat-show');
+      return { el: el, show: show, text: show.textContent, kind: el.getAttribute('data-chat') };
+    });
+    var typings = Array.prototype.slice.call(chat.querySelectorAll('[data-typing]'));
+    if (!messages.length) return;
+
+    messages.forEach(function (msg) {
+      msg.show.textContent = '';
+      msg.el.hidden = true;
+    });
+
+    var run = 0;
+    var timer = 0;
+    var visible = false;
+
+    function wait(ms) {
+      return new Promise(function (resolve) {
+        timer = window.setTimeout(resolve, ms);
+      });
+    }
+
+    function typeText(show, text, token) {
+      return new Promise(function (resolve) {
+        var i = 0;
+        var caret = document.createElement('span');
+        caret.className = 'chat-caret';
+        caret.setAttribute('aria-hidden', 'true');
+        show.textContent = '';
+        show.appendChild(caret);
+        function step() {
+          if (token !== run) return;
+          var ch = text.charAt(i);
+          i += 1;
+          caret.before(document.createTextNode(ch));
+          if (i >= text.length) {
+            caret.remove();
+            resolve();
+            return;
+          }
+          var pause = ch === ' ' ? 28 : 18 + Math.random() * 34;
+          if (ch === '.' || ch === ',') pause += 120;
+          timer = window.setTimeout(step, pause);
+        }
+        step();
+      });
+    }
+
+    function reveal(el) {
+      el.hidden = false;
+      el.classList.remove('chat-in');
+      void el.offsetWidth;
+      el.classList.add('chat-in');
+    }
+
+    function reset() {
+      messages.forEach(function (msg) {
+        msg.show.textContent = '';
+        msg.el.hidden = true;
+        msg.el.classList.remove('chat-in');
+      });
+      typings.forEach(function (dot) { dot.hidden = true; });
+    }
+
+    async function play(token) {
+      reset();
+      await wait(350);
+      if (token !== run) return;
+      messages[0].show.textContent = messages[0].text;
+      reveal(messages[0].el);
+      await wait(700);
+      if (token !== run) return;
+
+      for (var i = 1; i < messages.length; i++) {
+        var dots = typings[i - 1];
+        if (dots) {
+          dots.hidden = false;
+          await wait(i === 1 ? 1200 : 850);
+          if (token !== run) return;
+          dots.hidden = true;
+        }
+        reveal(messages[i].el);
+        await typeText(messages[i].show, messages[i].text, token);
+        if (token !== run) return;
+        await wait(420);
+        if (token !== run) return;
+      }
+
+      if (!chat.style.minHeight) chat.style.minHeight = chat.offsetHeight + 'px';
+      await wait(5200);
+      if (token !== run || !visible) return;
+      play(token);
+    }
+
+    watchVisibility(chat, function (isVisible) {
+      visible = isVisible;
+      window.clearTimeout(timer);
+      run += 1;
+      if (isVisible) play(run);
+      else reset();
+    });
   }
 
   function initBrain(still) {

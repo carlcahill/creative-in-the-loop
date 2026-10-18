@@ -301,8 +301,20 @@
       </div>
       <div class="chat reveal" aria-label="Example conversation with a fictional brand">
         <div class="tag">Example, fictional brand</div>
-        <div class="bubble you">Can you check this Instagram caption before it goes out?</div>
-        <div class="bubble brain">The voice is right: short, warm and specific. Two things before it posts. Your headlines are sentence case and this one is title case. And &ldquo;world-class&rdquo; is on your list of words to avoid, because you&rsquo;d rather show the proof. <b>Was the title case deliberate for this campaign?</b></div>
+        <div class="bubble you" data-chat="send">
+          <span class="chat-show" aria-hidden="true">Can you check this Instagram caption before it goes out?</span>
+          <span class="visually-hidden">Can you check this Instagram caption before it goes out?</span>
+        </div>
+        <div class="bubble typing" data-typing hidden aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="bubble brain" data-chat="type">
+          <span class="chat-show" aria-hidden="true">The voice is right: short, warm and specific. Two things before it posts. Your headlines are sentence case and this one is title case. And &ldquo;world-class&rdquo; is on your list of words to avoid, because you&rsquo;d rather show the proof.</span>
+          <span class="visually-hidden">The voice is right: short, warm and specific. Two things before it posts. Your headlines are sentence case and this one is title case. And &ldquo;world-class&rdquo; is on your list of words to avoid, because you&rsquo;d rather show the proof.</span>
+        </div>
+        <div class="bubble typing" data-typing hidden aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="bubble brain" data-chat="type">
+          <b class="chat-show" aria-hidden="true">Was the title case deliberate for this campaign?</b>
+          <span class="visually-hidden">Was the title case deliberate for this campaign?</span>
+        </div>
       </div>
     </div>
   </section>
