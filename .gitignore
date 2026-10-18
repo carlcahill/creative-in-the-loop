@@ -1,4 +1,24 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.astro/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Editor
 .DS_Store
 Thumbs.db
+.vscode/
+.idea/
+
+# Supabase
 supabase/.temp/
 .citl-keys.json
+
+# Debug
+npm-debug.log*
