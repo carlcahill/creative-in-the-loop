@@ -3,7 +3,10 @@ import Base from '../../layouts/Base.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
+  const isDev = import.meta.env.DEV;
+  const posts = await getCollection('blog', ({ data }) => {
+    return isDev || !data.draft;
+  });
   return posts.map((post) => ({
     params: { slug: post.id },
     props: post,
@@ -35,6 +38,11 @@ const ogImage = post.data.heroImage || '/assets/share.png';
   "description": post.data.description,
   "datePublished": post.data.publishDate.toISOString(),
   "image": post.data.heroImage ? `https://creativeintheloop.com${post.data.heroImage}` : "https://creativeintheloop.com/assets/share.png",
+  "author": {
+    "@type": "Person",
+    "name": post.data.author
+  },
+  "keywords": post.data.tags?.join(', '),
   "inLanguage": "en-GB",
   "isPartOf": { "@id": "https://creativeintheloop.com/blog/#blog" },
   "publisher": { "@id": "https://creativeintheloop.com/#org" }
@@ -46,15 +54,25 @@ const ogImage = post.data.heroImage || '/assets/share.png';
     <div class="wrap wrap--narrow">
       <a href="/blog/" class="back-link reveal">&larr; All posts</a>
       <header class="post-header reveal">
-        <time datetime={post.data.publishDate.toISOString()}>
-          {post.data.publishDate.toLocaleDateString('en-GB', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          })}
-        </time>
+        <div class="post-meta">
+          <time datetime={post.data.publishDate.toISOString()}>
+            {post.data.publishDate.toLocaleDateString('en-GB', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}
+          </time>
+          <span class="post-author">{post.data.author}</span>
+        </div>
         <h1 class="display-section">{post.data.title}</h1>
         <p class="intro">{post.data.description}</p>
+        {post.data.tags && post.data.tags.length > 0 && (
+          <div class="post-tags">
+            {post.data.tags.map((tag) => (
+              <span class="post-tag">{tag}</span>
+            ))}
+          </div>
+        )}
       </header>
       {post.data.heroImage && (
         <img
@@ -95,15 +113,38 @@ const ogImage = post.data.heroImage || '/assets/share.png';
   margin-bottom: 2rem;
 }
 
-.post-header time {
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 0.875rem;
   color: var(--muted);
-  display: block;
   margin-bottom: 0.75rem;
+}
+
+.post-author::before {
+  content: '·';
+  margin-right: 0.5rem;
 }
 
 .post-header h1 {
   margin-bottom: 1rem;
+}
+
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.post-tag {
+  font-size: 0.8125rem;
+  padding: 0.25rem 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
 }
 
 .post-hero {

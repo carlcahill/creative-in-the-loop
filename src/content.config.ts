@@ -8,6 +8,9 @@ const blog = defineCollection({
     description: z.string(),
     publishDate: z.coerce.date(),
     heroImage: z.string().optional(),
+    author: z.string().default('Carl Cahill'),
+    tags: z.array(z.string()).optional(),
+    draft: z.boolean().default(false),
   }),
 });
 

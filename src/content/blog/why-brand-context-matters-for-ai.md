@@ -2,6 +2,9 @@
 title: "Why brand context matters more than better prompts"
 description: "Most teams assume their AI output problems are prompting problems. They're not. They're context problems — and fixing them means thinking differently about what your AI knows."
 publishDate: 2026-10-15
+author: "Carl Cahill"
+tags: ["brand", "ai", "creative-direction"]
+draft: false
 ---
 
 Every marketing team using AI has the same conversation eventually: "Why doesn't this sound like us?"

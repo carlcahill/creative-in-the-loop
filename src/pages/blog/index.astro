@@ -2,7 +2,11 @@
 import Base from '../../layouts/Base.astro';
 import { getCollection } from 'astro:content';
 
-const posts = (await getCollection('blog')).sort(
+const isDev = import.meta.env.DEV;
+
+const posts = (await getCollection('blog', ({ data }) => {
+  return isDev || !data.draft;
+})).sort(
   (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
 );
 
@@ -49,15 +53,25 @@ const description = 'Thoughts on brand, AI, and keeping creative humans in the l
                 />
               )}
               <div class="blog-content">
-                <time datetime={post.data.publishDate.toISOString()}>
-                  {post.data.publishDate.toLocaleDateString('en-GB', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })}
-                </time>
+                <div class="blog-meta">
+                  <time datetime={post.data.publishDate.toISOString()}>
+                    {post.data.publishDate.toLocaleDateString('en-GB', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    })}
+                  </time>
+                  <span class="blog-author">{post.data.author}</span>
+                </div>
                 <h2>{post.data.title}</h2>
                 <p>{post.data.description}</p>
+                {post.data.tags && post.data.tags.length > 0 && (
+                  <div class="blog-tags">
+                    {post.data.tags.map((tag) => (
+                      <span class="blog-tag">{tag}</span>
+                    ))}
+                  </div>
+                )}
               </div>
             </a>
           </li>
@@ -108,11 +122,37 @@ const description = 'Thoughts on brand, AI, and keeping creative humans in the l
   padding: 1.5rem;
 }
 
-.blog-content time {
+.blog-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 0.875rem;
   color: var(--muted);
-  display: block;
   margin-bottom: 0.5rem;
+}
+
+.blog-meta time {
+  display: block;
+}
+
+.blog-author::before {
+  content: '·';
+  margin-right: 0.5rem;
+}
+
+.blog-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.blog-tag {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  background: var(--line);
+  border-radius: 4px;
+  color: var(--muted);
 }
 
 .blog-content h2 {
