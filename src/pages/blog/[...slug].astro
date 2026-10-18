@@ -1,0 +1,203 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: post,
+  }));
+}
+
+const post = Astro.props;
+const { Content } = await render(post);
+
+const title = `${post.data.title} – Creative in the Loop`;
+const description = post.data.description;
+const canonicalPath = `/blog/${post.id}/`;
+const ogImage = post.data.heroImage || '/assets/share.png';
+---
+<Base
+  title={title}
+  description={description}
+  canonicalPath={canonicalPath}
+  ogType="article"
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "@id": `https://creativeintheloop.com${canonicalPath}#article`,
+  "url": `https://creativeintheloop.com${canonicalPath}`,
+  "headline": post.data.title,
+  "description": post.data.description,
+  "datePublished": post.data.publishDate.toISOString(),
+  "image": post.data.heroImage ? `https://creativeintheloop.com${post.data.heroImage}` : "https://creativeintheloop.com/assets/share.png",
+  "inLanguage": "en-GB",
+  "isPartOf": { "@id": "https://creativeintheloop.com/blog/#blog" },
+  "publisher": { "@id": "https://creativeintheloop.com/#org" }
+})} />
+  </Fragment>
+
+<main id="main-content">
+  <article class="band blog-post">
+    <div class="wrap wrap--narrow">
+      <a href="/blog/" class="back-link reveal">&larr; All posts</a>
+      <header class="post-header reveal">
+        <time datetime={post.data.publishDate.toISOString()}>
+          {post.data.publishDate.toLocaleDateString('en-GB', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          })}
+        </time>
+        <h1 class="display-section">{post.data.title}</h1>
+        <p class="intro">{post.data.description}</p>
+      </header>
+      {post.data.heroImage && (
+        <img
+          src={post.data.heroImage}
+          alt=""
+          class="post-hero reveal"
+          loading="eager"
+          decoding="async"
+        />
+      )}
+      <div class="prose reveal">
+        <Content />
+      </div>
+    </div>
+  </article>
+</main>
+</Base>
+
+<style>
+.wrap--narrow {
+  max-width: 720px;
+}
+
+.back-link {
+  display: inline-block;
+  font-size: 0.875rem;
+  color: var(--muted);
+  text-decoration: none;
+  margin-bottom: 2rem;
+  transition: color 0.15s;
+}
+
+.back-link:hover {
+  color: var(--ink);
+}
+
+.post-header {
+  margin-bottom: 2rem;
+}
+
+.post-header time {
+  font-size: 0.875rem;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.post-header h1 {
+  margin-bottom: 1rem;
+}
+
+.post-hero {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+.prose {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+
+.prose h2 {
+  font-size: 1.5rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.prose h3 {
+  font-size: 1.25rem;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose p {
+  margin-bottom: 1.25rem;
+}
+
+.prose ul,
+.prose ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+
+.prose li {
+  margin-bottom: 0.5rem;
+}
+
+.prose a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.prose blockquote {
+  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
+  border-left: 3px solid var(--accent);
+  background: var(--surface);
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+}
+
+.prose blockquote p {
+  margin-bottom: 0;
+}
+
+.prose code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.9em;
+  background: var(--surface);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+}
+
+.prose pre {
+  background: var(--surface);
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin-bottom: 1.25rem;
+}
+
+.prose pre code {
+  background: none;
+  padding: 0;
+}
+
+.prose img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+}
+
+.prose hr {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 2.5rem 0;
+}
+</style>

@@ -1,0 +1,140 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+
+const title = 'Blog – Creative in the Loop';
+const description = 'Thoughts on brand, AI, and keeping creative humans in the loop.';
+---
+<Base title={title} description={description} canonicalPath="/blog/">
+  <Fragment slot="head">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "@id": "https://creativeintheloop.com/blog/#blog",
+  "url": "https://creativeintheloop.com/blog/",
+  "name": "Blog – Creative in the Loop",
+  "description": "Thoughts on brand, AI, and keeping creative humans in the loop.",
+  "inLanguage": "en-GB",
+  "isPartOf": { "@id": "https://creativeintheloop.com/#website" }
+}
+</script>
+  </Fragment>
+
+<main id="main-content">
+  <section class="band">
+    <div class="wrap">
+      <div class="eyebrow reveal">Blog</div>
+      <h1 class="display-section">Thoughts on brand, AI, and keeping creative humans in the loop.</h1>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <ul class="blog-list reveal">
+        {posts.map((post) => (
+          <li class="blog-item">
+            <a href={`/blog/${post.id}/`} class="blog-link">
+              {post.data.heroImage && (
+                <img
+                  src={post.data.heroImage}
+                  alt=""
+                  class="blog-hero"
+                  loading="lazy"
+                  decoding="async"
+                />
+              )}
+              <div class="blog-content">
+                <time datetime={post.data.publishDate.toISOString()}>
+                  {post.data.publishDate.toLocaleDateString('en-GB', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </time>
+                <h2>{post.data.title}</h2>
+                <p>{post.data.description}</p>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+      {posts.length === 0 && (
+        <p class="intro">No posts yet. Check back soon.</p>
+      )}
+    </div>
+  </section>
+</main>
+</Base>
+
+<style>
+.blog-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 2rem;
+}
+
+.blog-item {
+  margin: 0;
+}
+
+.blog-link {
+  display: block;
+  text-decoration: none;
+  background: var(--surface);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: box-shadow 0.2s var(--ease-out), transform 0.2s var(--ease-out);
+}
+
+.blog-link:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.blog-hero {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.blog-content {
+  padding: 1.5rem;
+}
+
+.blog-content time {
+  font-size: 0.875rem;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.blog-content h2 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--ink);
+}
+
+.blog-content p {
+  color: var(--body);
+  font-size: 0.9375rem;
+}
+
+@media (min-width: 640px) {
+  .blog-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  .blog-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+</style>
