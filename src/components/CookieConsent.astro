@@ -1,0 +1,144 @@
+---
+interface Props {
+  gaId?: string;
+}
+
+const { gaId } = Astro.props;
+---
+
+{gaId && (
+  <script is:inline define:vars={{ gaId }}>
+    (function() {
+      const CONSENT_KEY = 'citl_cookie_consent';
+      
+      function hasConsent() {
+        return localStorage.getItem(CONSENT_KEY) === 'granted';
+      }
+      
+      function loadGA() {
+        if (!gaId || window.gaLoaded) return;
+        window.gaLoaded = true;
+        
+        const script = document.createElement('script');
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaId;
+        script.async = true;
+        document.head.appendChild(script);
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', gaId, { anonymize_ip: true });
+      }
+      
+      if (hasConsent()) {
+        loadGA();
+      }
+      
+      window.acceptCookies = function() {
+        localStorage.setItem(CONSENT_KEY, 'granted');
+        loadGA();
+        document.getElementById('cookie-banner')?.remove();
+      };
+      
+      window.declineCookies = function() {
+        localStorage.setItem(CONSENT_KEY, 'denied');
+        document.getElementById('cookie-banner')?.remove();
+      };
+    })();
+  </script>
+)}
+
+<div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Cookie consent" hidden>
+  <div class="cookie-content">
+    <p>We use cookies to analyse site traffic and improve your experience. By clicking "Accept", you consent to our use of cookies.</p>
+    <div class="cookie-actions">
+      <button type="button" class="cookie-btn cookie-btn--decline" onclick="declineCookies()">Decline</button>
+      <button type="button" class="cookie-btn cookie-btn--accept" onclick="acceptCookies()">Accept</button>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function() {
+    const CONSENT_KEY = 'citl_cookie_consent';
+    const consent = localStorage.getItem(CONSENT_KEY);
+    if (!consent) {
+      document.getElementById('cookie-banner')?.removeAttribute('hidden');
+    }
+  })();
+</script>
+
+<style>
+  .cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    padding: 1rem;
+    background: var(--surface);
+    border-top: 1px solid var(--line);
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  .cookie-banner[hidden] {
+    display: none;
+  }
+
+  .cookie-content {
+    max-width: var(--wrap);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  @media (min-width: 640px) {
+    .cookie-content {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .cookie-content p {
+    font-size: 0.875rem;
+    color: var(--body);
+    margin: 0;
+    flex: 1;
+  }
+
+  .cookie-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  .cookie-btn {
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+
+  .cookie-btn:hover {
+    opacity: 0.85;
+  }
+
+  .cookie-btn--decline {
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--muted);
+  }
+
+  .cookie-btn--accept {
+    background: var(--ink);
+    border: 1px solid var(--ink);
+    color: var(--bg);
+  }
+</style>

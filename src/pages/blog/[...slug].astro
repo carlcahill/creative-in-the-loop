@@ -9,12 +9,17 @@ export async function getStaticPaths() {
   });
   return posts.map((post) => ({
     params: { slug: post.id },
-    props: post,
+    props: { post, allPosts: posts },
   }));
 }
 
-const post = Astro.props;
+const { post, allPosts } = Astro.props;
 const { Content } = await render(post);
+
+const recentPosts = allPosts
+  .filter((p) => p.id !== post.id)
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+  .slice(0, 3);
 
 const title = `${post.data.title} – Creative in the Loop`;
 const description = post.data.description;
@@ -88,6 +93,30 @@ const ogImage = post.data.heroImage || '/assets/share.png';
       </div>
     </div>
   </article>
+
+  {recentPosts.length > 0 && (
+    <section class="band recent-posts">
+      <div class="wrap">
+        <h2 class="recent-title reveal">More articles</h2>
+        <ul class="recent-list reveal">
+          {recentPosts.map((p) => (
+            <li class="recent-item">
+              <a href={`/blog/${p.id}/`} class="recent-link">
+                <time datetime={p.data.publishDate.toISOString()}>
+                  {p.data.publishDate.toLocaleDateString('en-GB', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                  })}
+                </time>
+                <span class="recent-item-title">{p.data.title}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
 </main>
 </Base>
 
@@ -246,5 +275,59 @@ const ogImage = post.data.heroImage || '/assets/share.png';
   border: none;
   border-top: 1px solid var(--line);
   margin: 2.5rem 0;
+}
+
+.recent-posts {
+  border-top: 1px solid var(--line);
+  margin-top: 3rem;
+}
+
+.recent-title {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.recent-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.recent-item {
+  margin: 0;
+}
+
+.recent-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1rem;
+  background: var(--surface);
+  border-radius: 8px;
+  text-decoration: none;
+  transition: box-shadow 0.15s var(--ease-out), transform 0.15s var(--ease-out);
+}
+
+.recent-link:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
+}
+
+.recent-link time {
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+.recent-item-title {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+@media (min-width: 640px) {
+  .recent-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 </style>
