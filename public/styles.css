@@ -242,6 +242,38 @@ a { color: inherit; }
   background: var(--night-muted);
 }
 
+.hero-works {
+  margin-top: 28px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 18px;
+}
+
+.hero-works p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1;
+  color: var(--night-muted);
+}
+
+.hero-works ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+.hero-works img,
+.llm img {
+  display: block;
+  height: 28px;
+  width: auto;
+}
+
 .hero-step-n {
   flex: none;
   width: 22px;
