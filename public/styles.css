@@ -214,6 +214,51 @@ a { color: inherit; }
   color: var(--night-ink);
 }
 
+.hero-steps {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  row-gap: 12px;
+  margin: 28px 0 0;
+  padding: 0;
+}
+
+.hero-steps li {
+  flex: none;
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--night-ink);
+}
+
+.hero-steps li + li::before {
+  content: "";
+  flex: none;
+  width: 1px;
+  height: 22px;
+  margin-inline: 16px;
+  background: var(--night-muted);
+}
+
+.hero-step-n {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  margin-right: 16px;
+  border: 1px solid var(--night-muted);
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--night-ink);
+}
+
 .hero .signoff {
   margin-top: 56px;
   font-size: 15px;
@@ -1035,6 +1080,16 @@ footer .wrap {
   .topbar { padding-block: 18px; }
   .hero .signoff { margin-top: 40px; }
   .hero-body { padding-bottom: 56px; }
+
+  .hero-steps {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .hero-steps li + li::before {
+    content: none;
+  }
 
   .waitlist {
     flex-direction: column;
