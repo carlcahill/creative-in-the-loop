@@ -217,11 +217,13 @@ a { color: inherit; }
 .hero .steps {
   list-style: none;
   margin: 24px 0 0;
-  padding: 0;
+  padding: 12px 14px;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  align-items: center;
+  align-items: start;
   column-gap: 16px;
+  border-radius: 16px;
+  background: rgba(8, 14, 28, 0.78);
   font-size: 15px;
   line-height: 1.4;
   color: var(--night-muted);
@@ -1084,7 +1086,8 @@ footer .wrap {
     justify-items: start;
   }
 
-  .hero .steps li {
+  .hero .steps li,
+  .hero .steps li:not(:last-child) {
     border-right: 0;
     padding-right: 0;
   }
