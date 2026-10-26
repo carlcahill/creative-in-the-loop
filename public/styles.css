@@ -999,8 +999,25 @@ footer .wrap {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 16px;
+  gap: 16px 28px;
   flex-wrap: wrap;
+}
+
+footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+}
+
+footer nav a {
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+footer nav a:hover,
+footer nav a[aria-current="page"] {
+  color: var(--ink);
 }
 
 .salo {
