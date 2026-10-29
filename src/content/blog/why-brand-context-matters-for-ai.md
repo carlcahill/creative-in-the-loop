@@ -47,4 +47,4 @@ When you connect it to Claude, every response draws on your positioning, voice, 
 
 ---
 
-Interested in being one of the first to try it? [Join the waitlist](/#join) and we'll let you know when you can start.
+Early access is open. [Get early access](https://app.creativeintheloop.com/signup). It's free, and no card is needed.

@@ -29,6 +29,8 @@ const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`
 const path = Astro.url.pathname;
 const onSecurity = path === '/security' || path === '/security/';
 const onBlog = path === '/blog' || path === '/blog/';
+const onPrivacy = path === '/privacy' || path === '/privacy/';
+const onTerms = path === '/terms' || path === '/terms/';
 ---
 <!DOCTYPE html>
 <html lang="en-GB">
@@ -65,10 +67,6 @@ const onBlog = path === '/blog' || path === '/blog/';
 <meta name="twitter:image" content={ogImageUrl}>
 <meta name="twitter:image:alt" content={ogImageAlt}>
 
-<!-- Waitlist emails are stored in Supabase. The key below is the public anon key: it can call the waitlist endpoint and cannot read the database. -->
-<meta name="citl-waitlist-url" content="https://znpltxiguxpfdyrybmva.supabase.co/functions/v1/waitlist">
-<meta name="citl-supabase-key" content="sb_publishable_KlJHdtsmjthbIfyIjxjL1g_TQSQmwMR">
-
 <meta name="theme-color" content="#f5f6f9" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0a0f1b" media="(prefers-color-scheme: dark)">
 
@@ -94,6 +92,9 @@ const onBlog = path === '/blog' || path === '/blog/';
     <nav aria-label="Footer">
       <a href="/blog/" aria-current={onBlog ? 'page' : undefined}>Blog</a>
       <a href="/security/" aria-current={onSecurity ? 'page' : undefined}>Data and security</a>
+      <a href="/privacy/" aria-current={onPrivacy ? 'page' : undefined}>Privacy</a>
+      <a href="/terms/" aria-current={onTerms ? 'page' : undefined}>Terms</a>
+      <button type="button" onclick="openCookieSettings()">Cookies</button>
     </nav>
   </div>
 </footer>

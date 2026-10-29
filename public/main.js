@@ -3,7 +3,6 @@
   document.documentElement.classList.add('js-reveal');
 
   initReveals(reduce);
-  initWaitlist();
   initHeroField(reduce);
   initPairFields(reduce);
   initStages(reduce);
@@ -122,71 +121,6 @@
     });
     Array.prototype.forEach.call(nodes, function (el) {
       obs.observe(el);
-    });
-  }
-
-  function waitlistConfig() {
-    var urlMeta = document.querySelector('meta[name="citl-waitlist-url"]');
-    var keyMeta = document.querySelector('meta[name="citl-supabase-key"]');
-    if (!urlMeta || !keyMeta) return null;
-    var url = (urlMeta.getAttribute('content') || '').trim();
-    var key = (keyMeta.getAttribute('content') || '').trim();
-    if (!url || !key) return null;
-    return { url: url, key: key };
-  }
-
-  function initWaitlist() {
-    document.querySelectorAll('[data-waitlist]').forEach(function (form) {
-      form.addEventListener('submit', function (event) {
-        event.preventDefault();
-        var input = form.querySelector('input[type="email"]');
-        var msg = form.querySelector('.msg');
-        var button = form.querySelector('button');
-        var bot = form.querySelector('.waitlist-bot');
-        var email = (input.value || '').trim();
-
-        if (!email || !input.checkValidity()) {
-          msg.textContent = 'Enter a valid email address, like you@company.com.';
-          input.focus();
-          return;
-        }
-
-        if (bot && bot.value) {
-          msg.textContent = 'You’re on the list. We’ll be in touch.';
-          form.reset();
-          return;
-        }
-
-        var config = waitlistConfig();
-        if (!config) {
-          msg.textContent = 'The waitlist isn’t connected yet. Email hello@salo.uk and we’ll add you.';
-          return;
-        }
-
-        var source = form.getAttribute('data-waitlist-source');
-        if (source !== 'hero' && source !== 'closer') source = 'hero';
-
-        button.disabled = true;
-        msg.textContent = 'Joining…';
-
-        fetch(config.url, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            apikey: config.key,
-            Authorization: 'Bearer ' + config.key
-          },
-          body: JSON.stringify({ email: email, source: source })
-        }).then(function (res) {
-          if (!res.ok) throw new Error('Could not send');
-          form.reset();
-          msg.textContent = 'You’re on the list. We’ll be in touch.';
-        }).catch(function () {
-          msg.textContent = 'We couldn’t save that just now. Email hello@salo.uk and we’ll add you.';
-        }).then(function () {
-          button.disabled = false;
-        });
-      });
     });
   }
 

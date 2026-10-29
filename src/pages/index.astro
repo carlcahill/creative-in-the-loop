@@ -58,7 +58,7 @@ const description = 'Your brand\'s creative brain, inside the AI your team alrea
   <div class="wrap">
     <div class="topbar">
       <a class="wordmark" href="#top">Creative in the loop</a>
-      <a class="pill" href="#join">Join the waitlist</a>
+      <a class="pill" href="https://app.creativeintheloop.com/login">Sign in</a>
     </div>
     <div class="hero-body">
       <h1 class="display-hero"><span class="line">AI work worth making.</span></h1>
@@ -76,16 +76,10 @@ const description = 'Your brand\'s creative brain, inside the AI your team alrea
           <li><img src="/assets/logos/copilot.svg" alt="Microsoft Copilot"></li>
         </ul>
       </div>
-      <form class="waitlist reveal" data-waitlist data-waitlist-source="hero" novalidate>
-        <label class="visually-hidden" for="email-hero">Work email</label>
-        <input id="email-hero" name="email" type="email" inputmode="email" autocomplete="email" maxlength="320" placeholder="Your work email" required>
-        <div class="visually-hidden" aria-hidden="true">
-          <label for="waitlist-bot-hero">Leave this field blank</label>
-          <input class="waitlist-bot" id="waitlist-bot-hero" type="text" tabindex="-1" autocomplete="off">
-        </div>
-        <button type="submit">Join the waitlist</button>
-        <p class="msg" role="status" aria-live="polite"></p>
-      </form>
+      <div class="access reveal">
+        <a class="access-btn" href="https://app.creativeintheloop.com/signup">Get early access</a>
+        <p>Free during early access. No card needed.</p>
+      </div>
       <p class="signoff reveal">Built on how designers judge work, so your team can run it without one.</p>
     </div>
   </div>
@@ -336,17 +330,11 @@ const description = 'Your brand\'s creative brain, inside the AI your team alrea
   <section class="closer" id="join">
     <div class="wrap">
       <h2 class="display-section">Be first to put a creative director in your AI.</h2>
-      <p class="intro reveal">Leave your email and we&rsquo;ll let you know as soon as you can start.</p>
-      <form class="waitlist light reveal" data-waitlist data-waitlist-source="closer" novalidate>
-        <label class="visually-hidden" for="email-join">Work email</label>
-        <input id="email-join" name="email" type="email" inputmode="email" autocomplete="email" maxlength="320" placeholder="Your work email" required>
-        <div class="visually-hidden" aria-hidden="true">
-          <label for="waitlist-bot-join">Leave this field blank</label>
-          <input class="waitlist-bot" id="waitlist-bot-join" type="text" tabindex="-1" autocomplete="off">
-        </div>
-        <button type="submit">Join the waitlist</button>
-        <p class="msg" role="status" aria-live="polite"></p>
-      </form>
+      <p class="intro reveal">Create your account and start with your brand.</p>
+      <div class="access access--light reveal">
+        <a class="access-btn" href="https://app.creativeintheloop.com/signup">Get early access</a>
+        <p>Free during early access. No card needed.</p>
+      </div>
     </div>
   </section>
 </main>

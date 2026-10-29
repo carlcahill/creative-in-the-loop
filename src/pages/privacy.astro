@@ -1,0 +1,181 @@
+---
+import Document from '../layouts/Document.astro';
+
+const title = 'Privacy notice – Creative in the Loop';
+const description = 'How Salo Creative Ltd uses personal data when you join the waitlist, use Creative in the Loop, or contact us.';
+---
+<Document title={title} description={description} canonicalPath="/privacy/">
+  <Fragment slot="head">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://creativeintheloop.com/privacy/#webpage",
+  "url": "https://creativeintheloop.com/privacy/",
+  "name": "Privacy notice",
+  "description": "How Salo Creative Ltd uses personal data when you join the waitlist, use Creative in the Loop, or contact us.",
+  "inLanguage": "en-GB",
+  "isPartOf": { "@id": "https://creativeintheloop.com/#website" },
+  "about": { "@id": "https://creativeintheloop.com/#org" },
+  "publisher": { "@id": "https://creativeintheloop.com/#org" }
+}
+</script>
+  </Fragment>
+
+  <header class="reveal">
+    <p class="eyebrow">Privacy</p>
+    <h1 class="display-section">Privacy notice</h1>
+    <p class="draft">Draft for review, version 0.2, 29 October 2026. Not yet in force.</p>
+  </header>
+
+  <p class="intro reveal">This notice explains how Salo Creative Ltd (&ldquo;we&rdquo;, &ldquo;us&rdquo;) uses personal data about the people who join our waitlist, sign up for or use Creative in the Loop, or contact us.</p>
+  <p class="reveal">We are the controller for that data. Our company number is 11825337, our registered office is 57 Worgret Road, Wareham, Dorset, BH20 4PH, United Kingdom, and our ICO registration number is ZB883093. Contact us about privacy at <a href="mailto:support@creativeintheloop.com">support@creativeintheloop.com</a>.</p>
+  <p class="reveal">Brand material that organisations upload is covered by our <a href="/terms/">terms of service</a>. For any personal data in that material, the organisation is the controller and we process it on their behalf.</p>
+
+  <section class="reveal">
+    <h2>What we collect</h2>
+    <ul>
+      <li><strong>Waitlist:</strong> your email address, which form you used and when.</li>
+      <li><strong>Your account:</strong> your email address, name, the organisation you belong to, your role, and how you sign in (an email link, Google or Microsoft). From Google or Microsoft we receive your name, email address and whether the address is verified. We never see your password for those services.</li>
+      <li><strong>Using the service:</strong> which brands you open, changes you make or approve, and when. When an AI assistant uses a brand on your behalf, we record which tool it called, when, which brand, which assistant it was (for example Claude or ChatGPT) and whether it worked. We don&rsquo;t store the conversation you had with the assistant.</li>
+      <li><strong>Emails we send:</strong> whether they were delivered.</li>
+      <li><strong>Security:</strong> IP addresses and browser details in our logs, and a captcha check when you sign in.</li>
+      <li><strong>Support:</strong> whatever you send us when you get in touch.</li>
+    </ul>
+  </section>
+
+  <section class="reveal">
+    <h2>Why we use it, and our lawful basis</h2>
+    <div class="table-scroll">
+      <table>
+        <caption class="visually-hidden">Why we use personal data, and the lawful basis for each purpose</caption>
+        <thead>
+          <tr>
+            <th scope="col">Purpose</th>
+            <th scope="col">Lawful basis</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Running your account and the service, including signing you in and sending service emails (sign-in links, invites, &ldquo;your questions are ready&rdquo;)</th>
+            <td>Contract with your organisation, and our legitimate interest in providing the service to its people</td>
+          </tr>
+          <tr>
+            <th scope="row">Telling you when early access changes or a trial is ending</th>
+            <td>Legitimate interest</td>
+          </tr>
+          <tr>
+            <th scope="row">Following up on your waitlist sign-up or new account</th>
+            <td>Legitimate interest. You can ask us to stop at any time</td>
+          </tr>
+          <tr>
+            <th scope="row">Keeping the service secure and preventing abuse</th>
+            <td>Legitimate interest</td>
+          </tr>
+          <tr>
+            <th scope="row">Understanding how the service is used, so we can improve it</th>
+            <td>Legitimate interest</td>
+          </tr>
+          <tr>
+            <th scope="row">Billing, once paid plans start</th>
+            <td>Contract, and legal obligation for tax records</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>We don&rsquo;t sell personal data, and we don&rsquo;t use it for advertising.</p>
+  </section>
+
+  <section class="reveal">
+    <h2>Who we share it with</h2>
+    <p>We use these providers to run the service. Each is bound by contract to use the data only to provide their service to us.</p>
+    <div class="table-scroll">
+      <table>
+        <caption class="visually-hidden">Providers we share personal data with</caption>
+        <thead>
+          <tr>
+            <th scope="col">Provider</th>
+            <th scope="col">What for</th>
+            <th scope="col">Where</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Supabase</th>
+            <td>Database, file storage and sign-in</td>
+            <td>UK (London)</td>
+          </tr>
+          <tr>
+            <th scope="row">Vercel</th>
+            <td>Hosting the app</td>
+            <td>UK (London) and US (Washington, D.C.). Logs are processed in the US</td>
+          </tr>
+          <tr>
+            <th scope="row">Anthropic</th>
+            <td>AI that reads uploaded guidelines</td>
+            <td>US</td>
+          </tr>
+          <tr>
+            <th scope="row">Resend</th>
+            <td>Sending emails</td>
+            <td>US</td>
+          </tr>
+          <tr>
+            <th scope="row">Cloudflare</th>
+            <td>Captcha on sign-in</td>
+            <td>Global</td>
+          </tr>
+          <tr>
+            <th scope="row">Google, Microsoft</th>
+            <td>Sign-in, if you choose them</td>
+            <td>Global</td>
+          </tr>
+          <tr>
+            <th scope="row">Google Analytics</th>
+            <td>Website visits, only if you accept cookies on creativeintheloop.com</td>
+            <td>US</td>
+          </tr>
+          <tr>
+            <th scope="row">Stripe</th>
+            <td>Payments, once paid plans start</td>
+            <td>Added when paid plans start</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>When your organisation connects an AI assistant, brand material is sent to that assistant&rsquo;s provider when someone uses it. That happens under your organisation&rsquo;s own agreement with that provider.</p>
+    <p>Some providers are in the US. Where personal data leaves the UK, we rely on the UK&ndash;US data bridge (the UK extension to the EU&ndash;US Data Privacy Framework) where the provider is certified, or on the UK&rsquo;s approved international data transfer agreement or addendum in our contract with them.</p>
+    <p>We may also share data if the law requires it, or with a company that takes over the service, in which case this notice continues to apply.</p>
+  </section>
+
+  <section class="reveal">
+    <h2>How long we keep it</h2>
+    <ul>
+      <li><strong>Waitlist:</strong> until you ask us to remove you, or 2 years after you joined if you never sign up.</li>
+      <li><strong>Accounts:</strong> while your organisation&rsquo;s account is open, then 90 days after it closes, then deleted.</li>
+      <li><strong>Usage records:</strong> 2 years, then deleted or anonymised.</li>
+      <li><strong>Logs:</strong> up to 30 days at our hosting and email providers, then deleted.</li>
+      <li><strong>Backups:</strong> our database is backed up daily and each backup is kept for 7 days, so deleted data can remain in a backup for up to 7 days.</li>
+      <li><strong>Billing records:</strong> 6 years, as UK tax law requires.</li>
+    </ul>
+  </section>
+
+  <section class="reveal">
+    <h2>Your rights</h2>
+    <p>You can ask us for a copy of your data, to correct it, to delete it, to restrict or object to how we use it, or to move it to another service. Email <a href="mailto:support@creativeintheloop.com">support@creativeintheloop.com</a> and we&rsquo;ll reply within a month.</p>
+    <p>If your data is in brand material that an organisation uploaded, we&rsquo;ll pass your request to that organisation, because they control it.</p>
+    <p>If you&rsquo;re unhappy with how we&rsquo;ve handled your data, please tell us first. You can also complain to the Information Commissioner&rsquo;s Office at <a href="https://ico.org.uk">ico.org.uk</a>.</p>
+  </section>
+
+  <section class="reveal">
+    <h2>Cookies</h2>
+    <p>The app at app.creativeintheloop.com uses only cookies that are needed to sign you in and keep you signed in.</p>
+    <p>Our website, creativeintheloop.com, sets no cookies unless you accept them. If you accept, it loads Google Analytics, which sets the cookies <code>_ga</code> and <code>_ga_FNT41H3HBG</code> for up to 2 years to count visits, with your IP address shortened. Your choice is saved in your browser&rsquo;s storage so we don&rsquo;t ask again. You can change it at any time from the cookie link at the bottom of each page.</p>
+    <p>The website also loads its typeface from Google Fonts, which means your browser connects to Google&rsquo;s servers.</p>
+  </section>
+
+  <section class="reveal">
+    <h2>Changes</h2>
+    <p>If we change this notice in a way that matters, we&rsquo;ll email account owners before the change takes effect. The version and date are at the top.</p>
+  </section>
+</Document>

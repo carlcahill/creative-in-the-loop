@@ -1,10 +1,10 @@
 ---
-import Base from '../layouts/Base.astro';
+import Document from '../layouts/Document.astro';
 
 const title = 'Security and your data – Creative in the Loop';
 const description = 'Your brand is safe with us, and you stay in control of who uses it. Brand data is stored in London.';
 ---
-<Base title={title} description={description} canonicalPath="/security/">
+<Document title={title} description={description} canonicalPath="/security/">
   <Fragment slot="head">
 <script type="application/ld+json">
 {
@@ -21,11 +21,6 @@ const description = 'Your brand is safe with us, and you stay in control of who 
 }
 </script>
   </Fragment>
-
-<main id="main-content">
-  <article class="band security">
-    <div class="wrap narrow">
-      <a class="home-link" href="/">Creative in the loop</a>
 
       <header class="reveal">
         <p class="eyebrow">Data and security</p>
@@ -118,122 +113,4 @@ const description = 'Your brand is safe with us, and you stay in control of who 
         <h2>Questions or concerns</h2>
         <p>If your security or IT team has questions, or you think something&rsquo;s wrong, email <a href="mailto:support@creativeintheloop.com">support@creativeintheloop.com</a>. We&rsquo;re happy to talk it through.</p>
       </section>
-    </div>
-  </article>
-</main>
-</Base>
-
-<style>
-.narrow {
-  max-width: 720px;
-}
-
-.security .home-link {
-  display: inline-block;
-  margin-bottom: 2.5rem;
-  font-size: 17px;
-  color: var(--muted);
-  text-decoration: none;
-}
-
-.security .home-link:hover {
-  color: var(--ink);
-  text-decoration: none;
-}
-
-.security {
-  padding-top: max(28px, env(safe-area-inset-top, 0px));
-  padding-bottom: clamp(72px, 10vw, 120px);
-}
-
-.security header {
-  margin-bottom: 0.25rem;
-}
-
-.security h1 {
-  font-size: clamp(34px, 5vw, 52px);
-  line-height: 1.08;
-  max-width: 12em;
-}
-
-.security .intro {
-  max-width: none;
-}
-
-.security h2 {
-  max-width: none;
-  font-size: clamp(24px, 3vw, 32px);
-  line-height: 1.2;
-  margin-top: 3.25rem;
-  margin-bottom: 0.85rem;
-}
-
-.security h3 {
-  font-size: 18px;
-  line-height: 1.35;
-  margin-top: 1.75rem;
-  margin-bottom: 0.4rem;
-}
-
-.security p {
-  margin-bottom: 1rem;
-}
-
-.security p a {
-  color: var(--accent);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.security p a:hover {
-  text-decoration-thickness: 2px;
-}
-
-.table-scroll {
-  margin: 0.5rem 0 1.25rem;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 15px;
-  line-height: 1.45;
-}
-
-th,
-td {
-  text-align: left;
-  vertical-align: top;
-  padding: 12px 20px 12px 0;
-  border-bottom: 1px solid var(--line);
-}
-
-th:last-child,
-td:last-child {
-  padding-right: 0;
-}
-
-thead th {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-th[scope="row"] {
-  font-size: 15px;
-  font-weight: 500;
-  letter-spacing: 0;
-  text-transform: none;
-  color: var(--ink);
-  white-space: nowrap;
-}
-
-td:last-child,
-thead th:last-child {
-  white-space: nowrap;
-}
-</style>
+</Document>
