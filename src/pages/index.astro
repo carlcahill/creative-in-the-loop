@@ -2,7 +2,8 @@
 import Base from '../layouts/Base.astro';
 
 const title = 'Creative in the Loop';
-const description = 'Your brand\'s creative brain, inside the AI your team already uses. Everything it makes looks, sounds and thinks like you.';
+const description = 'Your brand\'s creative brain, inside the AI your team already uses. So everything it makes looks, sounds and thinks like you.';
+const signupUrl = 'https://app.creativeintheloop.com/signup';
 ---
 <Base title={title} description={description} canonicalPath="/">
   <Fragment slot="head">
@@ -15,7 +16,7 @@ const description = 'Your brand\'s creative brain, inside the AI your team alrea
       "@id": "https://creativeintheloop.com/#website",
       "url": "https://creativeintheloop.com/",
       "name": "Creative in the Loop",
-      "description": "Your brand's creative brain, inside the AI your team already uses. Everything it makes looks, sounds and thinks like you.",
+      "description": "Your brand's creative brain, inside the AI your team already uses. So everything it makes looks, sounds and thinks like you.",
       "inLanguage": "en-GB",
       "publisher": { "@id": "https://creativeintheloop.com/#org" }
     },
@@ -40,7 +41,7 @@ const description = 'Your brand\'s creative brain, inside the AI your team alrea
       "@id": "https://creativeintheloop.com/#webpage",
       "url": "https://creativeintheloop.com/",
       "name": "Creative in the Loop",
-      "description": "Your brand's creative brain, inside the AI your team already uses. Everything it makes looks, sounds and thinks like you.",
+      "description": "Your brand's creative brain, inside the AI your team already uses. So everything it makes looks, sounds and thinks like you.",
       "isPartOf": { "@id": "https://creativeintheloop.com/#website" },
       "about": { "@id": "https://creativeintheloop.com/#org" },
       "primaryImageOfPage": {
@@ -58,29 +59,16 @@ const description = 'Your brand\'s creative brain, inside the AI your team alrea
   <div class="wrap">
     <div class="topbar">
       <a class="wordmark" href="#top">Creative in the loop</a>
-      <a class="pill" href="https://app.creativeintheloop.com/login">Sign in</a>
+      <a class="signin" href="https://app.creativeintheloop.com/login">Sign in</a>
     </div>
     <div class="hero-body">
       <h1 class="display-hero"><span class="line">AI work worth making.</span></h1>
-      <p class="lede reveal">Your brand&rsquo;s creative brain, inside the AI your team already uses. Everything it makes looks, sounds and thinks like you.</p>
-      <ol class="hero-steps" aria-label="How it works">
-        <li><span class="hero-step-n" aria-hidden="true">1</span>Add your brand guidelines</li>
-        <li><span class="hero-step-n" aria-hidden="true">2</span>Connect it to your AI</li>
-        <li><span class="hero-step-n" aria-hidden="true">3</span>Create work that&rsquo;s on brand</li>
-      </ol>
-      <div class="hero-works">
-        <p id="hero-works-label">Works with</p>
-        <ul aria-labelledby="hero-works-label">
-          <li><img src="/assets/logos/claude.svg" alt="Claude"></li>
-          <li><img src="/assets/logos/chatgpt.svg" alt="ChatGPT"></li>
-          <li><img src="/assets/logos/copilot.svg" alt="Microsoft Copilot"></li>
-        </ul>
-      </div>
+      <p class="lede reveal">Your brand&rsquo;s creative brain, inside the AI your team already uses. So everything it makes looks, sounds and thinks like you.</p>
       <div class="access reveal">
-        <a class="access-btn" href="https://app.creativeintheloop.com/signup">Get early access</a>
-        <p>Free during early access. No card needed.</p>
+        <a class="access-btn" href={signupUrl}>See your brand&rsquo;s score</a>
+        <p>Free, no card.</p>
       </div>
-      <p class="signoff reveal">Built on how designers judge work, so your team can run it without one.</p>
+      <p class="hero-note reveal">Works with Claude today. ChatGPT and Copilot soon.</p>
     </div>
   </div>
 </header>
@@ -90,60 +78,57 @@ const description = 'Your brand\'s creative brain, inside the AI your team alrea
     <div class="wrap split">
       <div>
         <div class="eyebrow reveal">The gap</div>
-        <h2 class="display-section">The tools aren&rsquo;t the problem.</h2>
-        <p class="intro reveal">When your AI doesn&rsquo;t know your brand deeply, it shows. Better prompts won&rsquo;t fix that, because it&rsquo;s a context problem, not a prompting problem.</p>
+        <h2 class="display-section">Your guidelines live in a PDF in a shared drive. Your team&rsquo;s AI has never read it.</h2>
       </div>
-      <ul class="symptoms reveal" aria-label="What teams tell us">
-        <li>Output that doesn&rsquo;t quite feel like your brand</li>
-        <li>Work that looks different from one channel to the next</li>
-        <li>The same request re-prompted again and again</li>
-        <li>Work that looks like everyone else&rsquo;s</li>
-      </ul>
+      <div>
+        <p class="intro intro--flush reveal">So every caption, every brief, every quick &ldquo;does this sound like us?&rdquo; is a guess.</p>
+        <p class="intro reveal">The brand doesn&rsquo;t break in one big mistake. It drifts, in a hundred small ones nobody has time to catch.</p>
+      </div>
     </div>
   </section>
 
-  <section class="band">
+  <section class="band" id="score">
     <div class="wrap">
-      <div class="eyebrow reveal">What it is</div>
-      <h2 class="display-section">The judgement your AI is missing.</h2>
-      <p class="intro reveal">Any AI can read a guidelines PDF and check a hex code. Creative in the Loop gives it two things it doesn&rsquo;t have, so it can form an opinion on your work rather than run a compliance check.</p>
-      <div class="pair reveal">
-        <div class="pair-card">
-          <canvas class="pair-field" data-shift="0.0" aria-hidden="true"></canvas>
-          <div class="pair-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 3.5 20 7.5 12 11.5 4 7.5 12 3.5Z"/>
-              <path d="m4 12 8 4 8-4"/>
-              <path d="m4 16.5 8 4 8-4"/>
-            </svg>
-          </div>
-          <div class="pair-copy">
-            <h3>Everything about your brand, structured</h3>
-            <p>Strategy, positioning, voice and visual identity, organised into one knowledge base and scored, so you can see what&rsquo;s there and how strong it is.</p>
-          </div>
-        </div>
-        <div class="pair-card">
-          <canvas class="pair-field" data-shift="0.55" aria-hidden="true"></canvas>
-          <div class="pair-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M14.2 4.8 19.2 9.8 9 20H4v-5L14.2 4.8Z"/>
-              <path d="m12.2 6.8 5 5"/>
-            </svg>
-          </div>
-          <div class="pair-copy">
-            <h3>Design knowledge behind every answer</h3>
-            <p>Type, colour, layout and design principles, so feedback comes with a reason: why something works, what would make it better, and what a creative director would pick up.</p>
-          </div>
-        </div>
+      <div class="eyebrow reveal">The score</div>
+      <h2 class="display-section">How much of your brand can your AI actually use?</h2>
+      <p class="intro reveal">We asked that about our own brand. The answer was 38%.</p>
+      <p class="intro reveal">A score doesn&rsquo;t tell you your brand is bad. It tells you what your AI is missing, and what to fix first.</p>
+      <p class="intro reveal">Add your guidelines and get yours, free.</p>
+      <div class="access access--light reveal">
+        <a class="access-btn" href={signupUrl}>Get your score</a>
+        <p>Free, no card.</p>
       </div>
+    </div>
+  </section>
+
+  <section class="band how">
+    <canvas class="stage-bloom" id="stageBloom" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <div class="eyebrow reveal">How it works</div>
+      <h2 class="display-section">Three steps. Connected in minutes.</h2>
+      <ol class="stages reveal" aria-label="How it works">
+        <canvas class="stage-flow" id="stageFlow" aria-hidden="true"></canvas>
+        <li class="stage">
+          <div class="n" aria-hidden="true">1</div>
+          <h3>Add your brand guidelines</h3>
+        </li>
+        <li class="stage">
+          <div class="n" aria-hidden="true">2</div>
+          <h3>Connect it to the AI your team already uses</h3>
+        </li>
+        <li class="stage">
+          <div class="n" aria-hidden="true">3</div>
+          <h3>Create work that&rsquo;s on brand</h3>
+        </li>
+      </ol>
     </div>
   </section>
 
   <section class="band">
     <div class="wrap">
       <div class="eyebrow reveal">How it connects</div>
-      <h2 class="display-section">Your brand&rsquo;s brain, plugged into the AI you use.</h2>
-      <p class="intro reveal">The creative brain holds what your brand knows. Connect it to Claude and each answer draws on your positioning, voice, visual rules and the design knowledge behind them.</p>
+      <h2 class="display-section">Your brand, inside the tools your team already has.</h2>
+      <p class="intro reveal">No new tool to learn. Connect the brain once and every answer draws on your positioning, voice, visual rules and the design knowledge behind them.</p>
       <div class="connect-panel reveal" id="connect">
         <canvas id="brainField" aria-hidden="true"></canvas>
         <canvas id="flow" aria-hidden="true"></canvas>
@@ -173,167 +158,55 @@ const description = 'Your brand\'s creative brain, inside the AI your team alrea
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section class="band how">
-    <canvas class="stage-bloom" id="stageBloom" aria-hidden="true"></canvas>
-    <div class="wrap">
-      <div class="eyebrow reveal">How it works</div>
-      <h2 class="display-section">Three stages, and the brain keeps learning.</h2>
-      <div class="stages reveal">
-        <canvas class="stage-flow" id="stageFlow" aria-hidden="true"></canvas>
-        <div class="stage">
-          <div class="n">1</div>
-          <h3>Learn</h3>
-          <p>Upload your brand guidelines. We read them, structure what they say and score it, then ask you short questions wherever they&rsquo;re unclear or contradict themselves.</p>
-        </div>
-        <div class="stage">
-          <div class="n">2</div>
-          <h3>Build</h3>
-          <p>You review and approve what the brain knows. Then you connect it to your AI, and your whole team is working from the same brand.</p>
-        </div>
-        <div class="stage">
-          <div class="n">3</div>
-          <h3>Run</h3>
-          <p>Write stronger briefs, check work before it goes out and get ideas grounded in your brand. When a question needs a person, it says so rather than guessing.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="band">
-    <div class="wrap">
-      <div class="eyebrow reveal">Brand Strength</div>
-      <h2 class="display-section">See exactly what your AI knows about your brand.</h2>
-      <p class="intro reveal">Most guidelines cover the visual identity well and say little about positioning, audience or proof. Brand Strength shows what&rsquo;s present, what&rsquo;s missing and how strong each part is. Where there&rsquo;s a gap, the brain asks the questions that close it.</p>
-      <div class="pillars reveal" aria-label="Example Brand Strength checklist">
-        <div class="pillar">
-          <h3>Positioning <small>Example</small></h3>
-          <ul>
-            <li><span class="dot part"></span>Positioning statement</li>
-            <li><span class="dot"></span>Values</li>
-            <li><span class="dot part"></span>Audience and personas</li>
-            <li><span class="dot"></span>Competitor context</li>
-            <li><span class="dot"></span>Goals and objectives</li>
-            <li class="more" aria-hidden="true"><span class="dot"></span>Brand story</li>
-            <li class="more" aria-hidden="true"><span class="dot"></span>Purpose, vision, mission</li>
-            <li class="more" aria-hidden="true"><span class="dot"></span>Emotional territory</li>
-            <li class="more" aria-hidden="true"><span class="dot"></span>Naming and taglines</li>
-            <li class="more" aria-hidden="true"><span class="dot"></span>Strategy document</li>
-            <li class="more" aria-hidden="true"><span class="dot"></span>Marketing plan</li>
-          </ul>
-        </div>
-        <div class="pillar">
-          <h3>Verbal <small>Example</small></h3>
-          <ul>
-            <li><span class="dot full"></span>Tone of voice</li>
-            <li><span class="dot part"></span>Vocabulary</li>
-            <li><span class="dot"></span>Evidence and proof</li>
-            <li><span class="dot"></span>Channel guidance</li>
-            <li><span class="dot"></span>Accessibility</li>
-            <li class="more" aria-hidden="true"><span class="dot"></span>Persona-specific guidance</li>
-          </ul>
-        </div>
-        <div class="pillar">
-          <h3>Visual <small>Example</small></h3>
-          <ul>
-            <li><span class="dot full"></span>Logo and usage rules</li>
-            <li><span class="dot full"></span>Colour</li>
-            <li><span class="dot full"></span>Typography</li>
-            <li><span class="dot part"></span>Imagery</li>
-            <li><span class="dot"></span>File formats</li>
-            <li class="more" aria-hidden="true"><span class="dot full"></span>App icon</li>
-            <li class="more" aria-hidden="true"><span class="dot part"></span>UI and design system</li>
-            <li class="more" aria-hidden="true"><span class="dot"></span>Iconography</li>
-            <li class="more" aria-hidden="true"><span class="dot"></span>Visual accessibility</li>
-          </ul>
-        </div>
-      </div>
-      <div class="legend reveal"><span><i class="dot full"></i>Covered</span><span><i class="dot part"></i>Partly covered</span><span><i class="dot"></i>Not covered yet</span></div>
-    </div>
-  </section>
-
-  <section class="band">
-    <div class="wrap split">
-      <div>
-        <div class="eyebrow reveal">Day to day</div>
-        <h2 class="display-section">It notices what a creative director would.</h2>
-        <p class="intro reveal">You keep working in the AI you know. The brain sits behind it, so every answer draws on your brand.</p>
-        <ul class="checks reveal">
-          <li>Turns a rough request into a proper brief</li>
-          <li>Reviews work and explains why it does or doesn&rsquo;t land</li>
-          <li>Catches the small things: line height, headline case, spacing, a stray full stop</li>
-          <li>Asks whether a rule break was deliberate before calling it a mistake</li>
+      <div class="works reveal">
+        <p id="works-label">Works with</p>
+        <ul class="llms" aria-labelledby="works-label">
+          <li class="llm live"><img src="/assets/logos/claude.svg" alt="Claude"> <em>Available now</em></li>
+          <li class="llm"><img src="/assets/logos/chatgpt.svg" alt="ChatGPT"> <em>Coming soon</em></li>
+          <li class="llm"><img src="/assets/logos/copilot.svg" alt="Microsoft Copilot"> <em>Coming soon</em></li>
         </ul>
       </div>
-      <div class="chat reveal" aria-label="Example conversation with a fictional brand">
-        <div class="tag">Example, fictional brand</div>
-        <div class="bubble you" data-chat="send">
-          <span class="chat-show" aria-hidden="true">Can you check this Instagram caption before it goes out?</span>
-          <span class="visually-hidden">Can you check this Instagram caption before it goes out?</span>
-        </div>
-        <div class="bubble typing" data-typing hidden aria-hidden="true"><i></i><i></i><i></i></div>
-        <div class="bubble brain" data-chat="type">
-          <span class="chat-show" aria-hidden="true">The voice is right: short, warm and specific. Two things before it posts. Your headlines are sentence case and this one is title case. And &ldquo;world-class&rdquo; is on your list of words to avoid, because you&rsquo;d rather show the proof.</span>
-          <span class="visually-hidden">The voice is right: short, warm and specific. Two things before it posts. Your headlines are sentence case and this one is title case. And &ldquo;world-class&rdquo; is on your list of words to avoid, because you&rsquo;d rather show the proof.</span>
-        </div>
-        <div class="bubble typing" data-typing hidden aria-hidden="true"><i></i><i></i><i></i></div>
-        <div class="bubble brain" data-chat="type">
-          <b class="chat-show" aria-hidden="true">Was the title case deliberate for this campaign?</b>
-          <span class="visually-hidden">Was the title case deliberate for this campaign?</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="band">
-    <div class="wrap">
-      <div class="eyebrow reveal">Works with</div>
-      <h2 class="display-section">Built for Claude first, with more to follow.</h2>
-      <p class="intro reveal">Creative in the Loop connects to the AI your team already pays for. We&rsquo;re starting with Claude, with ChatGPT and Microsoft Copilot coming soon.</p>
-      <div class="llms reveal">
-        <span class="llm live"><img src="/assets/logos/claude.svg" alt="Claude"> <em>Available now</em></span>
-        <span class="llm"><img src="/assets/logos/chatgpt.svg" alt="ChatGPT"> <em>Coming soon</em></span>
-        <span class="llm"><img src="/assets/logos/copilot.svg" alt="Microsoft Copilot"> <em>Coming soon</em></span>
-      </div>
-    </div>
-  </section>
-
-  <section class="band">
-    <div class="wrap">
-      <div class="eyebrow reveal">Who it&rsquo;s for</div>
-      <h2 class="display-section">For brands, and for the agencies that look after them.</h2>
-      <div class="who reveal">
-        <div>
-          <h3>Brands</h3>
-          <p>One brain for your brand, so everyone producing with AI starts from the same strategy, voice and visual identity. Use it to judge the work your agency sends too.</p>
-        </div>
-        <div>
-          <h3>Agencies</h3>
-          <p>Run a brain for each client from one account, invite a client to their own brand only, and keep every project working from the right context.</p>
-        </div>
-      </div>
     </div>
   </section>
 
   <section class="band">
     <div class="wrap split">
       <div>
-        <div class="eyebrow reveal">The human in the loop</div>
-        <h2 class="display-section">It knows when a person should decide.</h2>
+        <div class="eyebrow reveal">Judgement</div>
+        <h2 class="display-section">Plenty of tools can check a hex code. That&rsquo;s the easy part.</h2>
       </div>
-      <p class="intro intro--flush reveal">Some questions need a person: positioning, a campaign idea, a gap in your brand that no document fills. The brain doesn&rsquo;t guess. It flags the question to whoever looks after your brand, with the context they need to answer it.</p>
+      <p class="intro intro--flush reveal">Creative in the Loop is built and scored by real designers. It tells you why a headline lands or doesn&rsquo;t, catches the small things like line height and headline case, and if you&rsquo;ve broken a rule, it asks whether you meant to before calling it a mistake.</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap split">
+      <div>
+        <div class="eyebrow reveal">A person when it counts</div>
+        <h2 class="display-section">Some calls no brain should make alone.</h2>
+      </div>
+      <div>
+        <p class="intro intro--flush reveal">A positioning decision. A campaign idea. A gap your guidelines never covered.</p>
+        <p class="intro reveal">When it hits one of those, it says so, and brings in a creative director. Not on every job. Only when it counts.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="eyebrow reveal">For agencies</div>
+      <h2 class="display-section">Looking after more than one brand?</h2>
+      <p class="intro reveal">Run a brain for every client from a single account. One place, every brand on brand, whoever&rsquo;s doing the making.</p>
     </div>
   </section>
 
   <section class="closer" id="join">
     <div class="wrap">
-      <h2 class="display-section">Be first to put a creative director in your AI.</h2>
-      <p class="intro reveal">Create your account and start with your brand.</p>
+      <h2 class="display-section">See what your AI is missing.</h2>
+      <p class="intro reveal">Get your brand&rsquo;s score, free.</p>
       <div class="access access--light reveal">
-        <a class="access-btn" href="https://app.creativeintheloop.com/signup">Get early access</a>
-        <p>Free during early access. No card needed.</p>
+        <a class="access-btn" href={signupUrl}>Get your score</a>
+        <p>Add your guidelines, get your score. No card needed.</p>
       </div>
     </div>
   </section>
