@@ -1,0 +1,15 @@
+---
+interface Props {
+  id?: string;
+}
+
+const { id = 'works-label' } = Astro.props;
+---
+<div class="works reveal">
+  <p id={id}>Works with</p>
+  <ul class="llms" aria-labelledby={id}>
+    <li class="llm live"><img src="/assets/logos/claude.svg" alt="Claude"> <em>Available now</em></li>
+    <li class="llm"><img src="/assets/logos/chatgpt.svg" alt="ChatGPT"> <em>Coming soon</em></li>
+    <li class="llm"><img src="/assets/logos/copilot.svg" alt="Microsoft Copilot"> <em>Coming soon</em></li>
+  </ul>
+</div>

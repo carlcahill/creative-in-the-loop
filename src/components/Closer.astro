@@ -1,0 +1,20 @@
+---
+import ScoreCta from './ScoreCta.astro';
+
+interface Props {
+  heading: string;
+  intro: string;
+  ctaLabel: string;
+  ctaCaption?: string;
+  id?: string;
+}
+
+const { heading, intro, ctaLabel, ctaCaption, id = 'join' } = Astro.props;
+---
+<section class="closer" id={id}>
+  <div class="wrap">
+    <h2 class="display-section">{heading}</h2>
+    <p class="intro reveal">{intro}</p>
+    <ScoreCta label={ctaLabel} caption={ctaCaption} light />
+  </div>
+</section>

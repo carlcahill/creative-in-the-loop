@@ -1,0 +1,39 @@
+---
+import ScoreCta from './ScoreCta.astro';
+
+interface Props {
+  headline: string;
+  lede: string;
+  ctaLabel: string;
+  ctaCaption?: string;
+  ctaHref?: string;
+  /** Short line under the CTA, e.g. which AIs it works with. */
+  note?: string;
+  wordmarkHref?: string;
+}
+
+const {
+  headline,
+  lede,
+  ctaLabel,
+  ctaCaption,
+  ctaHref,
+  note,
+  wordmarkHref = '/',
+} = Astro.props;
+---
+<header class="hero" id="top">
+  <canvas id="bg" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="topbar">
+      <a class="wordmark" href={wordmarkHref}>Creative in the loop</a>
+      <a class="signin" href="https://app.creativeintheloop.com/login">Sign in</a>
+    </div>
+    <div class="hero-body">
+      <h1 class="display-hero"><span class="line">{headline}</span></h1>
+      <p class="lede reveal">{lede}</p>
+      <ScoreCta label={ctaLabel} caption={ctaCaption} href={ctaHref} />
+      {note && <p class="hero-note reveal">{note}</p>}
+    </div>
+  </div>
+</header>

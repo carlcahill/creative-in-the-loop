@@ -1,0 +1,20 @@
+---
+interface Props {
+  label: string;
+  caption?: string;
+  href?: string;
+  /** Use on light backgrounds (anywhere outside the hero). */
+  light?: boolean;
+}
+
+const {
+  label,
+  caption,
+  href = 'https://app.creativeintheloop.com/signup',
+  light = false,
+} = Astro.props;
+---
+<div class:list={['access', { 'access--light': light }, 'reveal']}>
+  <a class="access-btn" href={href}>{label}</a>
+  {caption && <p>{caption}</p>}
+</div>
