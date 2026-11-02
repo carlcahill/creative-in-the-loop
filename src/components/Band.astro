@@ -1,0 +1,32 @@
+---
+/**
+ * A standard content section: eyebrow, heading, then whatever goes in the slot.
+ * With `split`, the heading sits in the left column and the slot in the right.
+ */
+interface Props {
+  eyebrow: string;
+  heading: string;
+  split?: boolean;
+  id?: string;
+  class?: string;
+}
+
+const { eyebrow, heading, split = false, id, class: className } = Astro.props;
+---
+<section class:list={['band', className]} id={id}>
+  {split ? (
+    <div class="wrap split">
+      <div>
+        <div class="eyebrow reveal">{eyebrow}</div>
+        <h2 class="display-section">{heading}</h2>
+      </div>
+      <div><slot /></div>
+    </div>
+  ) : (
+    <div class="wrap">
+      <div class="eyebrow reveal">{eyebrow}</div>
+      <h2 class="display-section">{heading}</h2>
+      <slot />
+    </div>
+  )}
+</section>
