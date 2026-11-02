@@ -375,6 +375,21 @@ section.band {
   margin-top: 0;
 }
 
+/* A quiet in-page pointer, e.g. the home page's link to the agencies page. */
+.quiet-link {
+  display: inline-block;
+  margin-top: 20px;
+  padding-block: 8px;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+
+.quiet-link:hover {
+  color: var(--ink);
+}
+
 .split {
   display: grid;
   grid-template-columns: 1fr 1fr;

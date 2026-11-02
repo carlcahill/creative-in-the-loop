@@ -1,0 +1,79 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Band from '../components/Band.astro';
+import ScoreCta from '../components/ScoreCta.astro';
+import WorksWith from '../components/WorksWith.astro';
+import Closer from '../components/Closer.astro';
+
+const title = 'Creative in the Loop for agencies';
+const description = 'A brand brain for each client you look after, inside the AI your team already uses. One account, every brand consistent, whoever\'s doing the making.';
+---
+<Base title={title} description={description} canonicalPath="/agencies/">
+  <Fragment slot="head">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://creativeintheloop.com/agencies/#webpage",
+  "url": "https://creativeintheloop.com/agencies/",
+  "name": "Creative in the Loop for agencies",
+  "description": "A brand brain for each client you look after, inside the AI your team already uses. One account, every brand consistent, whoever's doing the making.",
+  "inLanguage": "en-GB",
+  "isPartOf": { "@id": "https://creativeintheloop.com/#website" },
+  "about": { "@id": "https://creativeintheloop.com/#org" },
+  "publisher": { "@id": "https://creativeintheloop.com/#org" }
+}
+</script>
+  </Fragment>
+
+<Hero
+  headline="Every client, on brand."
+  lede="A brand brain for each client you look after, inside the AI your team already uses. One account, every brand consistent, whoever’s doing the making."
+  ctaLabel="Score a brand, free"
+  ctaCaption="No card."
+  note="Agencies often run Claude while clients sit in Microsoft. One brain serves both."
+/>
+
+<main id="main-content">
+  <Band eyebrow="The gap" heading="You look after a dozen brands. Your team’s AI has read none of them." split>
+    <p class="intro intro--flush reveal">So every caption, every first draft, every quick &ldquo;does this sound like the client?&rdquo; is a guess. Times twelve.</p>
+    <p class="intro reveal">And when it drifts, you&rsquo;re the one answerable for it.</p>
+  </Band>
+
+  <Band eyebrow="The score" heading="How much of each client’s brand can your AI actually use?" id="score">
+    <p class="intro reveal">Add a client&rsquo;s guidelines and get a score, free. It shows what the AI is missing, and what to fix first.</p>
+    <p class="intro reveal">Run it across your roster and see where the gaps are.</p>
+    <ScoreCta label="Score a brand, free" caption="No card." light />
+  </Band>
+
+  <Band eyebrow="One account, every client" heading="Run a brain for every client from one account.">
+    <p class="intro reveal">Add a brand in minutes by dropping in their guidelines or pasting their guidelines site.</p>
+    <p class="intro reveal">Your whole team connects at no extra cost. We price on brands, not seats, so everyone works from the same brand without you counting heads.</p>
+    <p class="intro reveal">Recharge clients however you like.</p>
+    <WorksWith />
+  </Band>
+
+  <Band eyebrow="Nothing bleeds between clients" heading="One client’s work never touches another’s." split>
+    <p class="intro intro--flush reveal">Ask for a caption in a client&rsquo;s voice and that&rsquo;s all the AI sees. It won&rsquo;t pull another client&rsquo;s colours, copy or campaign into the room.</p>
+  </Band>
+
+  <Band eyebrow="Give clients their own view" heading="Hand a client a link to their own brand." split>
+    <p class="intro intro--flush reveal">View-only, no account needed. They check their own work in their own AI, and you stay in control of what&rsquo;s in it.</p>
+  </Band>
+
+  <Band eyebrow="Built by designers" heading="Plenty of tools can check a hex code. That’s the easy part." split>
+    <p class="intro intro--flush reveal">Creative in the Loop is built and scored by real designers, so when it reviews work it tells you why something lands or doesn&rsquo;t, not just whether a rule was broken.</p>
+  </Band>
+
+  <Band eyebrow="Your people, where it counts" heading="Spend your judgement where it counts." split>
+    <p class="intro intro--flush reveal">The tool keeps every brand consistent, so your team spends its judgement on the work that actually needs it. Not on policing line height across twelve clients.</p>
+  </Band>
+
+  <Closer
+    heading="See where each client stands."
+    intro="Score a brand, free. No card needed."
+    ctaLabel="Score a brand, free"
+  />
+</main>
+</Base>
