@@ -1,0 +1,23 @@
+---
+import Document from '../layouts/Document.astro';
+
+const title = 'Page not found | Creative in the Loop';
+const description = 'That page has drifted. Head back to the home page, or see how Creative in the Loop works for agencies.';
+---
+<Document title={title} description={description} canonicalPath="/404/" noIndex>
+  <header class="reveal">
+    <p class="eyebrow">404</p>
+    <h1 class="display-section">That page has drifted.</h1>
+    <p class="intro">The link may be old, or the address may have a typo in it. Either way, there&rsquo;s nothing here.</p>
+  </header>
+
+  <section class="reveal">
+    <h2>Try one of these instead</h2>
+    <ul>
+      <li><a href="/">Home</a>, and your brand&rsquo;s free score</li>
+      <li><a href="/agencies/">For agencies</a>, one account for every client brand</li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="https://app.creativeintheloop.com/login">Sign in</a>, if you already have an account</li>
+    </ul>
+  </section>
+</Document>

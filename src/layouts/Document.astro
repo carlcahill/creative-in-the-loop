@@ -5,11 +5,12 @@ interface Props {
   title: string;
   description: string;
   canonicalPath?: string;
+  noIndex?: boolean;
 }
 
-const { title, description, canonicalPath = '' } = Astro.props;
+const { title, description, canonicalPath = '', noIndex = false } = Astro.props;
 ---
-<Base title={title} description={description} canonicalPath={canonicalPath}>
+<Base title={title} description={description} canonicalPath={canonicalPath} noIndex={noIndex}>
   <slot name="head" slot="head" />
 
   <main id="main-content">
