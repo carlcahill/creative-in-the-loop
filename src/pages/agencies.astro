@@ -9,6 +9,7 @@ import Conversation from '../components/Conversation.astro';
 import BrandRoster from '../components/BrandRoster.astro';
 import BrandStrength from '../components/BrandStrength.astro';
 import Prompts from '../components/Prompts.astro';
+import Compare from '../components/Compare.astro';
 
 const title = 'Creative in the Loop for agencies';
 const description = 'A brand brain for each client you look after, inside the AI your team already uses. One account, every brand consistent, whoever\'s doing the making.';
@@ -88,6 +89,8 @@ const description = 'A brand brain for each client you look after, inside the AI
       },
     ]}
   />
+
+  <Compare />
 
   <Band eyebrow="Nothing bleeds between clients" heading="One client’s work never touches another’s." split icon="shield">
     <p class="intro intro--flush reveal">Ask for a caption in a client&rsquo;s voice and that&rsquo;s all the AI sees. It won&rsquo;t pull another client&rsquo;s colours, copy or campaign into the room.</p>

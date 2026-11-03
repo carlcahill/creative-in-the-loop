@@ -1,0 +1,39 @@
+---
+/**
+ * Agencies only. The DIY route beside what Creative in the Loop does.
+ * Wording is fixed: this section appears once.
+ */
+import Band from './Band.astro';
+
+const usual = [
+  'You paste guidelines into a chat, or build a custom GPT. It works, until the chat resets or the guidelines change.',
+  'It can quote a hex code. It can’t tell you why a headline’s off.',
+  'Every client lives in a different chat, and nothing stops one bleeding into another.',
+  'Someone new on the team starts from scratch.',
+  'When it hits something the guidelines don’t cover, it guesses.',
+];
+
+const ours = [
+  'One brain per client, the same for everyone, always current.',
+  'Built and scored by designers, so it tells you why, not just what.',
+  'Every client kept separate by design. One client’s work never touches another’s.',
+  'Your whole team works from the same brain, no setup each time.',
+  'When it hits a gap, it says so, and brings in a creative director.',
+];
+---
+<Band eyebrow="The honest version" heading="You could build this yourself. Here’s where it stops.">
+  <div class="compare reveal">
+    <div class="compare-col">
+      <h3>The usual way</h3>
+      <ul>
+        {usual.map((line) => <li>{line}</li>)}
+      </ul>
+    </div>
+    <div class="compare-col compare-col--ours">
+      <h3>With Creative in the Loop</h3>
+      <ul>
+        {ours.map((line) => <li>{line}</li>)}
+      </ul>
+    </div>
+  </div>
+</Band>
