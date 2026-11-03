@@ -221,7 +221,7 @@ a { color: inherit; }
 .hero-body--aside {
   max-width: none;
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(240px, 0.95fr);
+  grid-template-columns: minmax(0, 1.18fr) minmax(240px, 0.88fr);
   column-gap: clamp(32px, 5vw, 72px);
   align-items: start;
 }
