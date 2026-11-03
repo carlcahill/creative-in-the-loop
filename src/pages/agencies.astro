@@ -8,6 +8,7 @@ import Closer from '../components/Closer.astro';
 import Conversation from '../components/Conversation.astro';
 import BrandRoster from '../components/BrandRoster.astro';
 import BrandStrength from '../components/BrandStrength.astro';
+import Prompts from '../components/Prompts.astro';
 
 const title = 'Creative in the Loop for agencies';
 const description = 'A brand brain for each client you look after, inside the AI your team already uses. One account, every brand consistent, whoever\'s doing the making.';
@@ -59,6 +60,34 @@ const description = 'A brand brain for each client you look after, inside the AI
     <p class="intro reveal">Recharge clients however you like.</p>
     <WorksWith />
   </Band>
+
+  <Prompts
+    eyebrow="In practice"
+    heading="What you’d actually ask it, for every client."
+    groups={[
+      {
+        heading: 'Make the work',
+        prompts: [
+          'Write three launch captions for this client’s new feature.',
+          'Draft a brief for the client’s next social campaign.',
+        ],
+      },
+      {
+        heading: 'Check the work',
+        prompts: [
+          'Does this copy sound like the client?',
+          'Review this layout against the client’s brand.',
+        ],
+      },
+      {
+        heading: 'Think it through',
+        prompts: [
+          'The client’s entering a new market. How should their tone shift?',
+          'What’s missing from this client’s guidelines that keeps tripping us up?',
+        ],
+      },
+    ]}
+  />
 
   <Band eyebrow="Nothing bleeds between clients" heading="One client’s work never touches another’s." split icon="shield">
     <p class="intro intro--flush reveal">Ask for a caption in a client&rsquo;s voice and that&rsquo;s all the AI sees. It won&rsquo;t pull another client&rsquo;s colours, copy or campaign into the room.</p>

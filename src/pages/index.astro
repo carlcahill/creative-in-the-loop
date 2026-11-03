@@ -8,6 +8,7 @@ import Closer from '../components/Closer.astro';
 import Conversation from '../components/Conversation.astro';
 import BrandRoster from '../components/BrandRoster.astro';
 import BrandStrength from '../components/BrandStrength.astro';
+import Prompts from '../components/Prompts.astro';
 import Icon from '../components/Icon.astro';
 
 const title = 'Creative in the Loop';
@@ -152,6 +153,34 @@ const description = 'Your brand\'s creative brain, inside the AI your team alrea
     </div>
     <WorksWith />
   </Band>
+
+  <Prompts
+    eyebrow="In practice"
+    heading="What you’d actually ask it."
+    groups={[
+      {
+        heading: 'Make the work',
+        prompts: [
+          'Write three launch captions for our new feature.',
+          'Draft a brief for our next social campaign.',
+        ],
+      },
+      {
+        heading: 'Check the work',
+        prompts: [
+          'Does this landing page copy sound like us?',
+          'Review this layout against our brand.',
+        ],
+      },
+      {
+        heading: 'Think it through',
+        prompts: [
+          'We’re entering a new market. How should our tone shift?',
+          'What’s missing from our guidelines that keeps tripping the team up?',
+        ],
+      },
+    ]}
+  />
 
   <Band eyebrow="Judgement" heading="Plenty of tools can check a hex code. That’s the easy part.">
     <p class="intro reveal">Creative in the Loop is built and scored by real designers. It tells you why a headline lands or doesn&rsquo;t, catches the small things like line height and headline case, and if you&rsquo;ve broken a rule, it asks whether you meant to before calling it a mistake.</p>

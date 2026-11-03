@@ -924,6 +924,44 @@ section.band {
 
 .pillars { align-items: start; }
 
+.prompt-groups {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(28px, 4vw, 48px);
+  align-items: start;
+}
+
+.prompt-group h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 14px;
+}
+
+.prompt-cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.prompt-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 18px 20px;
+  min-width: 0;
+}
+
+.prompt-card p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink);
+  text-wrap: pretty;
+}
+
 .pillar li.more:nth-child(6) { filter: blur(0.35px); }
 .pillar li.more:nth-child(7) { filter: blur(0.9px); }
 .pillar li.more:nth-child(8) { filter: blur(1.6px); }
@@ -1466,6 +1504,7 @@ footer nav button {
   .split,
   .stages,
   .pillars,
+  .prompt-groups,
   .media,
   .hero-body--aside {
     grid-template-columns: 1fr;

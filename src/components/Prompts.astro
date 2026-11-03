@@ -1,0 +1,36 @@
+---
+/**
+ * Example prompts, grouped. The same section on home and agencies;
+ * each page passes its own heading and prompts.
+ */
+import Band from './Band.astro';
+
+interface Group {
+  heading: string;
+  prompts: string[];
+}
+
+interface Props {
+  eyebrow: string;
+  heading: string;
+  groups: Group[];
+}
+
+const { eyebrow, heading, groups } = Astro.props;
+---
+<Band eyebrow={eyebrow} heading={heading}>
+  <div class="prompt-groups reveal">
+    {groups.map((group) => (
+      <div class="prompt-group">
+        <h3>{group.heading}</h3>
+        <ul class="prompt-cards">
+          {group.prompts.map((prompt) => (
+            <li class="prompt-card">
+              <p>&ldquo;{prompt}&rdquo;</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+</Band>
