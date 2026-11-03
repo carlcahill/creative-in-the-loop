@@ -1,0 +1,35 @@
+---
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+interface Props {
+  name: string;
+  alt: string;
+  caption: string;
+}
+
+const { name, alt, caption } = Astro.props;
+
+// A plain filename only, so a missing or odd name cannot escape the assets folder.
+const safeName = /^[a-z0-9-]+$/.test(name) ? name : '';
+const imageFile = safeName
+  ? fileURLToPath(new URL(`../../public/assets/app/${safeName}.png`, import.meta.url))
+  : '';
+const hasImage = imageFile !== '' && fs.existsSync(imageFile);
+---
+<figure class="shot">
+  {hasImage ? (
+    <img
+      class="shot-img"
+      src={`/assets/app/${safeName}.png`}
+      alt={alt}
+      width="1600"
+      height="1000"
+      loading="lazy"
+      decoding="async"
+    />
+  ) : (
+    <div class="shot-fallback">Screenshot: {name}</div>
+  )}
+  <figcaption>{caption}</figcaption>
+</figure>

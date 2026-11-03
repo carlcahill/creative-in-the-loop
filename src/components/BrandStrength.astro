@@ -1,0 +1,73 @@
+---
+/** Example brand strength checklist. The tail of each list fades out. */
+const columns = [
+  {
+    title: 'Positioning',
+    items: [
+      ['part', 'Positioning statement'],
+      ['empty', 'Values'],
+      ['part', 'Audience and personas'],
+      ['empty', 'Competitor context'],
+      ['empty', 'Goals and objectives'],
+      ['empty', 'Brand story'],
+      ['empty', 'Purpose, vision, mission'],
+      ['empty', 'Emotional territory'],
+      ['empty', 'Naming and taglines'],
+      ['empty', 'Strategy document'],
+      ['empty', 'Marketing plan'],
+    ],
+  },
+  {
+    title: 'Verbal',
+    items: [
+      ['full', 'Tone of voice'],
+      ['part', 'Vocabulary'],
+      ['empty', 'Evidence and proof'],
+      ['empty', 'Channel guidance'],
+      ['empty', 'Accessibility'],
+      ['empty', 'Persona-specific guidance'],
+    ],
+  },
+  {
+    title: 'Visual',
+    items: [
+      ['full', 'Logo and usage rules'],
+      ['full', 'Colour'],
+      ['full', 'Typography'],
+      ['part', 'Imagery'],
+      ['empty', 'File formats'],
+      ['full', 'App icon'],
+      ['part', 'UI and design system'],
+      ['empty', 'Iconography'],
+      ['empty', 'Visual accessibility'],
+    ],
+  },
+];
+
+const statusLabel = {
+  full: 'Covered',
+  part: 'Partly covered',
+  empty: 'Not covered yet',
+};
+---
+<div class="pillars reveal" role="group" aria-label="Example brand strength checklist">
+  {columns.map((column) => (
+    <div class="pillar">
+      <h3>{column.title} <small>Example</small></h3>
+      <ul>
+        {column.items.map(([status, label], index) => (
+          <li class:list={[{ more: index >= 5 }]} aria-hidden={index >= 5 ? 'true' : undefined}>
+            <span class:list={['dot', status === 'full' && 'full', status === 'part' && 'part']} aria-hidden="true"></span>
+            {index < 5 && <span class="visually-hidden">{statusLabel[status]}. </span>}
+            {label}
+          </li>
+        ))}
+      </ul>
+    </div>
+  ))}
+</div>
+<div class="legend reveal">
+  <span><i class="dot full" aria-hidden="true"></i>Covered</span>
+  <span><i class="dot part" aria-hidden="true"></i>Partly covered</span>
+  <span><i class="dot" aria-hidden="true"></i>Not covered yet</span>
+</div>

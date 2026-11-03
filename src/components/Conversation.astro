@@ -1,0 +1,29 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  youLabel?: string;
+  assistantLabel?: string;
+}
+
+const { youLabel = 'You', assistantLabel = 'Claude' } = Astro.props;
+---
+<div class="thread">
+  <ol class="thread-log" aria-label="Example brand review">
+    <li class="thread-msg thread-msg--you">
+      <div class="thread-bubble">
+        <span class="thread-who">{youLabel}</span>
+        <p>Does this sound like us? &ldquo;We&rsquo;re thrilled to announce our game-changing new feature that will revolutionise your workflow.&rdquo;</p>
+      </div>
+    </li>
+    <li class="thread-msg thread-msg--assistant">
+      <span class="thread-who">{assistantLabel}</span>
+      <p>Not quite. &ldquo;Thrilled to announce&rdquo;, &ldquo;game-changing&rdquo; and &ldquo;revolutionise&rdquo; are all on your avoid list, and the sentence is doing three jobs at once. Your guidelines ask for one clear idea, plainly put. Try: &ldquo;New feature. It takes the busywork out of your workflow.&rdquo; Want me to check the rest of the post against your brand?</p>
+    </li>
+  </ol>
+  <div class="thread-compose" aria-hidden="true">
+    <span class="thread-compose-plus"><Icon name="plus" size={16} /></span>
+    <span class="thread-compose-label">Write new message</span>
+    <span class="thread-compose-mic"><Icon name="mic" size={16} /></span>
+  </div>
+</div>

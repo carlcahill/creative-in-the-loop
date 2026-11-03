@@ -1,30 +1,68 @@
 ---
 /**
  * A standard content section: eyebrow, heading, then whatever goes in the slot.
- * With `split`, the heading sits in the left column and the slot in the right.
+ * `split` puts the heading in the left column and the slot in the right.
+ * `bleed` paints a full-width surface behind the same wrap.
+ * `media` places the default slot beside the `shot` slot. `left` and `right` say which side the shot is on.
  */
+import Icon from './Icon.astro';
+
 interface Props {
   eyebrow: string;
   heading: string;
   split?: boolean;
+  bleed?: boolean;
+  media?: 'left' | 'right';
+  icon?: 'file-text' | 'waypoints' | 'pen-line' | 'shield' | 'eye' | 'user';
   id?: string;
   class?: string;
 }
 
-const { eyebrow, heading, split = false, id, class: className } = Astro.props;
+const {
+  eyebrow,
+  heading,
+  split = false,
+  bleed = false,
+  media,
+  icon,
+  id,
+  class: className,
+} = Astro.props;
+
+const isMedia = media === 'left' || media === 'right';
 ---
-<section class:list={['band', className]} id={id}>
-  {split ? (
+<section class:list={['band', { 'band--bleed': bleed }, className]} id={id}>
+  {isMedia ? (
+    <div class:list={['wrap', 'media', media === 'left' && 'media--shot-left']}>
+      <div class="media-copy">
+        <div class="eyebrow reveal">
+          {icon && <Icon name={icon} size={16} />}
+          <span>{eyebrow}</span>
+        </div>
+        <h2 class="display-section">{heading}</h2>
+        <slot />
+      </div>
+      <div class="media-shot">
+        <slot name="shot" />
+      </div>
+    </div>
+  ) : split ? (
     <div class="wrap split">
       <div>
-        <div class="eyebrow reveal">{eyebrow}</div>
+        <div class="eyebrow reveal">
+          {icon && <Icon name={icon} size={16} />}
+          <span>{eyebrow}</span>
+        </div>
         <h2 class="display-section">{heading}</h2>
       </div>
       <div><slot /></div>
     </div>
   ) : (
     <div class="wrap">
-      <div class="eyebrow reveal">{eyebrow}</div>
+      <div class="eyebrow reveal">
+        {icon && <Icon name={icon} size={16} />}
+        <span>{eyebrow}</span>
+      </div>
       <h2 class="display-section">{heading}</h2>
       <slot />
     </div>

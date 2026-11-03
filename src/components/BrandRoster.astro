@@ -1,0 +1,32 @@
+---
+const brands = [
+  { name: 'Kiwi', letter: 'K', score: 41, used: 'Last used a week ago', updated: 'Updated 20.10.26' },
+  { name: 'Bramble', letter: 'B', score: 68, used: 'Last used yesterday', updated: 'Updated 02.11.26' },
+  { name: 'Field', letter: 'F', score: 27, used: 'Last used three days ago', updated: 'Updated 28.10.26' },
+];
+---
+<ul class="roster" aria-label="Example brands and their strength scores">
+  {brands.map((brand) => (
+    <li class="roster-card">
+      <p class="roster-live"><span class="roster-dot" aria-hidden="true"></span> Live</p>
+      <svg class="roster-mark" viewBox="0 0 64 64" aria-hidden="true">
+        <rect width="64" height="64" rx="14" fill="#e8eaef" />
+        <rect x="12" y="12" width="40" height="40" fill="#111418" />
+        <path d="M12 32h40M32 12v40" stroke="rgba(255,255,255,0.22)" stroke-width="1" />
+        <text x="32" y="39" text-anchor="middle" fill="#fff" font-size="22" font-weight="600" font-family="Figtree, Helvetica Neue, Arial, sans-serif">{brand.letter}</text>
+      </svg>
+      <p class="roster-name">{brand.name}</p>
+      <p class="roster-meta">
+        <span>{brand.used}</span>
+        <span>{brand.updated}</span>
+      </p>
+      <p class="roster-score">
+        <svg class="roster-ring" viewBox="0 0 48 48" aria-hidden="true">
+          <circle class="roster-ring-track" cx="24" cy="24" r="18" />
+          <circle class="roster-ring-value" cx="24" cy="24" r="18" pathLength="100" stroke-dasharray={`${brand.score} 100`} transform="rotate(-90 24 24)" />
+        </svg>
+        <span class="roster-score-num"><span class="visually-hidden">Score </span>{brand.score}</span>
+      </p>
+    </li>
+  ))}
+</ul>

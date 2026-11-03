@@ -5,6 +5,10 @@ import Band from '../components/Band.astro';
 import ScoreCta from '../components/ScoreCta.astro';
 import WorksWith from '../components/WorksWith.astro';
 import Closer from '../components/Closer.astro';
+import Conversation from '../components/Conversation.astro';
+import BrandRoster from '../components/BrandRoster.astro';
+import BrandStrength from '../components/BrandStrength.astro';
+import Icon from '../components/Icon.astro';
 
 const title = 'Creative in the Loop';
 const description = 'Your brand\'s creative brain, inside the AI your team already uses. So everything it makes looks, sounds and thinks like you.';
@@ -65,19 +69,22 @@ const description = 'Your brand\'s creative brain, inside the AI your team alrea
   ctaCaption="Free, no card."
   note="Works with Claude today. ChatGPT and Copilot soon."
   wordmarkHref="#top"
-/>
+>
+  <Conversation slot="aside" />
+</Hero>
 
 <main id="main-content">
-  <Band eyebrow="The gap" heading="Your guidelines live in a PDF in a shared drive. Your team’s AI has never read it." split>
+  <Band eyebrow="The gap" heading="Your guidelines live in a PDF in a shared drive. Your team’s AI has never read it." split bleed>
     <p class="intro intro--flush reveal">So every caption, every brief, every quick &ldquo;does this sound like us?&rdquo; is a guess.</p>
     <p class="intro reveal">The brand doesn&rsquo;t break in one big mistake. It drifts, in a hundred small ones nobody has time to catch.</p>
   </Band>
 
-  <Band eyebrow="The score" heading="How much of your brand can your AI actually use?" id="score">
+  <Band eyebrow="The score" heading="How much of your brand can your AI actually use?" id="score" media="left">
     <p class="intro reveal">We asked that about our own brand. The answer was 38%.</p>
     <p class="intro reveal">A score doesn&rsquo;t tell you your brand is bad. It tells you what your AI is missing, and what to fix first.</p>
     <p class="intro reveal">Add your guidelines and get yours, free.</p>
     <ScoreCta label="Get your score" caption="Free, no card." light />
+    <BrandRoster slot="shot" />
   </Band>
 
   <section class="band how">
@@ -88,15 +95,24 @@ const description = 'Your brand\'s creative brain, inside the AI your team alrea
       <ol class="stages reveal" aria-label="How it works">
         <canvas class="stage-flow" id="stageFlow" aria-hidden="true"></canvas>
         <li class="stage">
-          <div class="n" aria-hidden="true">1</div>
+          <div class="stage-mark">
+            <Icon name="file-text" />
+            <span class="stage-num" aria-hidden="true">1</span>
+          </div>
           <h3>Add your brand guidelines</h3>
         </li>
         <li class="stage">
-          <div class="n" aria-hidden="true">2</div>
+          <div class="stage-mark">
+            <Icon name="waypoints" />
+            <span class="stage-num" aria-hidden="true">2</span>
+          </div>
           <h3>Connect it to the AI your team already uses</h3>
         </li>
         <li class="stage">
-          <div class="n" aria-hidden="true">3</div>
+          <div class="stage-mark">
+            <Icon name="pen-line" />
+            <span class="stage-num" aria-hidden="true">3</span>
+          </div>
           <h3>Create work that&rsquo;s on brand</h3>
         </li>
       </ol>
@@ -137,11 +153,12 @@ const description = 'Your brand\'s creative brain, inside the AI your team alrea
     <WorksWith />
   </Band>
 
-  <Band eyebrow="Judgement" heading="Plenty of tools can check a hex code. That’s the easy part." split>
-    <p class="intro intro--flush reveal">Creative in the Loop is built and scored by real designers. It tells you why a headline lands or doesn&rsquo;t, catches the small things like line height and headline case, and if you&rsquo;ve broken a rule, it asks whether you meant to before calling it a mistake.</p>
+  <Band eyebrow="Judgement" heading="Plenty of tools can check a hex code. That’s the easy part.">
+    <p class="intro reveal">Creative in the Loop is built and scored by real designers. It tells you why a headline lands or doesn&rsquo;t, catches the small things like line height and headline case, and if you&rsquo;ve broken a rule, it asks whether you meant to before calling it a mistake.</p>
+    <BrandStrength />
   </Band>
 
-  <Band eyebrow="A person when it counts" heading="Some calls no brain should make alone." split>
+  <Band eyebrow="A person when it counts" heading="Some calls no brain should make alone." split icon="user">
     <p class="intro intro--flush reveal">A positioning decision. A campaign idea. A gap your guidelines never covered.</p>
     <p class="intro reveal">When it hits one of those, it says so, and brings in a creative director. Not on every job. Only when it counts.</p>
   </Band>

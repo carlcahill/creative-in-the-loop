@@ -21,6 +21,8 @@ const {
   note,
   wordmarkHref = '/',
 } = Astro.props;
+
+const hasAside = Astro.slots.has('aside');
 ---
 <header class="hero" id="top">
   <canvas id="bg" aria-hidden="true"></canvas>
@@ -29,11 +31,18 @@ const {
       <a class="wordmark" href={wordmarkHref}>Creative in the loop</a>
       <a class="signin" href="https://app.creativeintheloop.com/login">Sign in</a>
     </div>
-    <div class="hero-body">
-      <h1 class="display-hero"><span class="line">{headline}</span></h1>
-      <p class="lede reveal">{lede}</p>
-      <ScoreCta label={ctaLabel} caption={ctaCaption} href={ctaHref} />
-      {note && <p class="hero-note reveal">{note}</p>}
+    <div class:list={['hero-body', { 'hero-body--aside': hasAside }]}>
+      <div class="hero-copy">
+        <h1 class="display-hero"><span class="line">{headline}</span></h1>
+        <p class="lede reveal">{lede}</p>
+        <ScoreCta label={ctaLabel} caption={ctaCaption} href={ctaHref} />
+        {note && <p class="hero-note reveal">{note}</p>}
+      </div>
+      {hasAside && (
+        <div class="hero-aside">
+          <slot name="aside" />
+        </div>
+      )}
     </div>
   </div>
 </header>

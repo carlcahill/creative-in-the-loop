@@ -459,13 +459,14 @@
         ink: cs.getPropertyValue('--ink').trim() || '#0d1424',
         warm: cs.getPropertyValue('--warm').trim() || '#c45a28',
         head: dark ? '#f4f1ea' : '#9a3412',
-        glow: dark ? 'rgba(232,140,90,.95)' : 'rgba(196,90,40,.95)'
+        glow: dark ? 'rgba(232,140,90,.95)' : 'rgba(196,90,40,.95)',
+        track: dark ? 0.34 : 0.2
       };
     }
 
     function measure() {
-      width = stages.clientWidth;
-      height = stages.clientHeight;
+      width = flow.clientWidth;
+      height = flow.clientHeight;
       if (!width || !height) return;
       dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       flow.width = Math.max(1, Math.round(width * dpr));
@@ -477,14 +478,30 @@
         bloom.height = bh;
         gl.viewport(0, 0, bw, bh);
       }
-      var root = stages.getBoundingClientRect();
+      var root = flow.getBoundingClientRect();
       lines = Array.prototype.map.call(stages.querySelectorAll('.stage'), function (el) {
         var rect = el.getBoundingClientRect();
         return {
-          x0: rect.left - root.left,
-          x1: rect.right - root.left,
-          y: rect.top - root.top + 1
+          x0: Math.round((rect.left - root.left) * dpr) / dpr,
+          x1: Math.round((rect.right - root.left) * dpr) / dpr,
+          y: rect.top - root.top
         };
+      });
+      lines.forEach(function (line) {
+        line.y = (Math.round(line.y * dpr) + 0.5) / dpr;
+      });
+      var rows = [];
+      lines.forEach(function (line) {
+        var row = null;
+        for (var i = 0; i < rows.length; i++) {
+          if (Math.abs(rows[i].y - line.y) < 4) row = rows[i];
+        }
+        if (row) row.members.push(line);
+        else rows.push({ y: line.y, members: [line] });
+      });
+      rows.forEach(function (row) {
+        var y = row.members.reduce(function (min, line) { return Math.min(min, line.y); }, row.members[0].y);
+        row.members.forEach(function (line) { line.y = y; });
       });
       segments = [];
       lines.forEach(function (line, index) {
@@ -549,9 +566,9 @@
       var paint = colors();
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, width, height);
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 1 / dpr;
       ctx.lineCap = 'butt';
-      ctx.strokeStyle = paint.ink;
+      ctx.strokeStyle = rgba(paint.ink, paint.track);
       segments.forEach(function (seg) {
         if (!seg.draw) return;
         ctx.beginPath();
