@@ -25,7 +25,7 @@ const description = 'Your brand is safe with us, and you stay in control of who 
       <header class="reveal">
         <p class="eyebrow">Data and security</p>
         <h1 class="display-section">Security and your data</h1>
-        <p class="intro">Your brand is safe with us, and you stay in control of who uses it. People sign in with the work accounts they already have. Every request Claude makes is checked against who&rsquo;s allowed in at that moment. Your brand data is stored in London, and no one outside your team can reach it.</p>
+        <p class="intro">Your brand is safe with us, and you stay in control of who uses it. People sign in with the work accounts they already have. Every request Claude makes is checked against who&rsquo;s allowed in at that moment. Your brand data is stored in London, and no other customer can reach it.</p>
       </header>
 
       <section class="reveal">
@@ -40,19 +40,19 @@ const description = 'Your brand is safe with us, and you stay in control of who 
 
       <section class="reveal">
         <h2>What Claude can and can&rsquo;t do</h2>
-        <p>Claude can read your brand, check work against it, and save drafts and requests for your team to review. It can&rsquo;t approve anything, and it can&rsquo;t change content you&rsquo;ve approved.</p>
+        <p>Claude can read your brand and check work against it. It can&rsquo;t approve anything. Editors&rsquo; saves from Claude go live straight away and can be undone. Everyone else&rsquo;s go to the team for approval.</p>
         <p>View-only links can&rsquo;t save anything at all. Only the people you make owners or editors can approve, invite others or change settings, and they do that in the Creative in the Loop app, not through Claude.</p>
       </section>
 
       <section class="reveal">
         <h2>Keeping brands separate</h2>
-        <p>Each request from Claude covers one brand, and work that mixes material from two brands is refused. That matters most for agencies looking after several clients.</p>
+        <p>Each request from Claude covers one brand. A request covering more than one brand is refused, and work that mentions another brand gets a warning. That matters most for agencies looking after several clients.</p>
         <p>If someone asks about a brand they can&rsquo;t reach, they get the same answer as if it didn&rsquo;t exist, so nothing gives away which brands we hold. Repeated guessing at links is blocked after a few attempts.</p>
       </section>
 
       <section class="reveal">
         <h2>Where your data lives and who handles it</h2>
-        <p>Your brand data and files are stored in London, and the app runs there too. Our database can&rsquo;t be reached from the public internet directly: every request goes through our app, which checks who&rsquo;s asking first.</p>
+        <p>Your brand data and files are stored in London. The app runs in London and Washington, D.C. Our database can&rsquo;t be reached from the public internet directly: every request goes through our app, which checks who&rsquo;s asking first.</p>
         <p>We use a small number of trusted companies to run the service:</p>
         <div class="table-scroll">
           <table>
@@ -73,11 +73,16 @@ const description = 'Your brand is safe with us, and you stay in control of who 
               <tr>
                 <th scope="row">Vercel</th>
                 <td>Hosts the app</td>
-                <td>London</td>
+                <td>London and Washington, D.C.</td>
               </tr>
               <tr>
                 <th scope="row">Anthropic</th>
                 <td>Reads the guidelines you upload and turns them into your brand</td>
+                <td>USA</td>
+              </tr>
+              <tr>
+                <th scope="row">Resend</th>
+                <td>Sending emails</td>
                 <td>USA</td>
               </tr>
               <tr>

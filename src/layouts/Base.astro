@@ -75,10 +75,7 @@ const onTerms = path === '/terms' || path === '/terms/';
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/styles.css?v=6">
+<link rel="stylesheet" href="/styles.css?v=7">
 </head>
 <body>
 
@@ -88,14 +85,17 @@ const onTerms = path === '/terms' || path === '/terms/';
 
 <footer>
   <div class="wrap">
-    <span>&copy; 2026 Creative in the Loop</span>
-    <nav aria-label="Footer">
-      <a href="/blog/" aria-current={onBlog ? 'page' : undefined}>Blog</a>
-      <a href="/security/" aria-current={onSecurity ? 'page' : undefined}>Data and security</a>
-      <a href="/privacy/" aria-current={onPrivacy ? 'page' : undefined}>Privacy</a>
-      <a href="/terms/" aria-current={onTerms ? 'page' : undefined}>Terms</a>
-      <button type="button" onclick="openCookieSettings()">Cookies</button>
-    </nav>
+    <div class="footer-row">
+      <span>&copy; 2026 Creative in the Loop</span>
+      <nav aria-label="Footer">
+        <a href="/blog/" aria-current={onBlog ? 'page' : undefined}>Blog</a>
+        <a href="/security/" aria-current={onSecurity ? 'page' : undefined}>Data and security</a>
+        <a href="/privacy/" aria-current={onPrivacy ? 'page' : undefined}>Privacy</a>
+        <a href="/terms/" aria-current={onTerms ? 'page' : undefined}>Terms</a>
+        <button type="button" onclick="openCookieSettings()">Cookies</button>
+      </nav>
+    </div>
+    <p class="footer-legal">Creative in the Loop is run by Salo Creative Ltd, registered in England and Wales, company number 11825337. Registered office: 57 Worgret Road, Wareham, Dorset, BH20 4PH.</p>
   </div>
 </footer>
 

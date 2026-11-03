@@ -16,7 +16,7 @@ const { title, description, canonicalPath = '', noIndex = false } = Astro.props;
   <main id="main-content">
     <article class="band doc">
       <div class="wrap narrow">
-        <a class="home-link" href="/">Creative in the loop</a>
+        <a class="home-link" href="/">Creative in the Loop</a>
         <slot />
       </div>
     </article>
@@ -47,6 +47,13 @@ const { title, description, canonicalPath = '', noIndex = false } = Astro.props;
 
 .doc :global(header) {
   margin-bottom: 0.25rem;
+}
+
+.doc :global(.doc-updated) {
+  margin: 0.85rem 0 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--muted);
 }
 
 .doc :global(h1) {
