@@ -65,10 +65,12 @@
     '    for (int j = 0; j < 7; j++) {',
     '      int i = pass == 0 ? j : 6 - j;',
     '      float fi = float(i);',
-    '      float R = 1. - fi * .12;',
+    '      float R = (1. - fi * .12) * (1. + .006 * sin(T * (.7 + fi * .05) + fi * 2.1));',
     '      float kb = clamp(uBuild * 7. - fi, 0., 1.);',
     '      if (kb <= 0.) continue;',
-    '      float h0 = fi * stp + (1. - kb) * .6, h1 = h0 + H;',
+    // Each ring drifts up and down on its own slow cycle, like a jellyfish.
+    '      float drift = .022 * sin(T * (.95 + fi * .11) - fi * .9) + .008 * sin(T * (.43 + fi * .07) + fi * 2.7);',
+    '      float h0 = fi * stp + drift + (1. - kb) * .6, h1 = h0 + H;',
     '      vec3 c = colAt(i);',
     '      float side = pass == 0 ? -1. : 1.;',
     // wall: a thin glass band
@@ -107,7 +109,7 @@
     '    }',
     '  }',
     // Light from the top: shafts that drift, flicker and lean towards the pointer
-    '  float topY = 6. * stp * ce + H * ce;',
+    '  float topY = (6. * stp + H + .022 * sin(T * 1.61 - 5.4) + .008 * sin(T * .85 + 16.2)) * ce;',
     '  vec2 o = vec2(0., topY - .02);',
     '  vec2 v = p - o;',
     '  float dist = length(v);',
