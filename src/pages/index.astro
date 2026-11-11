@@ -1,13 +1,11 @@
 ---
-import Base from '../layouts/Base.astro';
+import Site from '../layouts/Site.astro';
 
 const title = 'Creative in the Loop';
 const description = 'Your brand\'s creative brain, inside the AI your team already uses. So everything it makes looks, sounds and thinks like you.';
 ---
-<Base title={title} description={description} canonicalPath="/" bare>
+<Site title={title} description={description} canonicalPath="/" pageCss="/home.css?v=2" pageJs="/home.js?v=2">
   <Fragment slot="head">
-<link rel="preload" href="/assets/fonts/figtree-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/home.css?v=1">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -55,19 +53,6 @@ const description = 'Your brand\'s creative brain, inside the AI your team alrea
 </script>
   </Fragment>
 
-<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
-
-<div class="dock-wrap">
-  <nav class="dock glass" aria-label="Main">
-    <a class="mark" href="#top"><span class="dot" aria-hidden="true"></span>Creative in the Loop</a>
-    <div class="chapter" aria-live="polite">
-      <svg viewBox="0 0 20 20" aria-hidden="true"><circle class="trk" cx="10" cy="10" r="8" fill="none" stroke-width="2.5"></circle><circle class="val" id="progRing" cx="10" cy="10" r="8" fill="none" stroke-width="2.5" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"></circle></svg>
-      <span id="chapterLabel">Start</span>
-    </div>
-    <a class="signin" href="https://app.creativeintheloop.com/login">Sign in</a>
-  </nav>
-</div>
-
 <main id="main-content">
 
   <!-- 1. Hero -->
@@ -83,7 +68,7 @@ const description = 'Your brand\'s creative brain, inside the AI your team alrea
         <div class="works" aria-label="Works with"><span class="pill live">Claude today</span><span class="pill">ChatGPT and Copilot to follow</span></div>
       </div>
       <div class="hero-loop" aria-hidden="true">
-        <div class="tilt" id="heroTilt">
+        <div class="tilt" data-tilt>
           <div class="loop" style="--size: min(520px, 78vw)">
             <div class="stack">
               <span style="--i:0;--c:#0c1a33"></span><span style="--i:1;--c:#1d4b6b"></span><span style="--i:2;--c:#2c7393"></span><span style="--i:3;--c:#8fb6c0"></span><span style="--i:4;--c:#e7e2d2"></span><span style="--i:5;--c:#cdb6ea"></span><span style="--i:6;--c:#b79ae6"></span>
@@ -227,7 +212,7 @@ const description = 'Your brand\'s creative brain, inside the AI your team alrea
   </section>
 
   <!-- 6. Judgement -->
-  <section class="judge gutter reveal" data-chapter="Judgement" id="judge">
+  <section class="judge gutter reveal" data-chapter="Judgement">
     <div class="judge-head">
       <p class="eyebrow">Judgement</p>
       <h2 class="h2">Checking a hex code is the easy part.</h2>
@@ -279,17 +264,4 @@ const description = 'Your brand\'s creative brain, inside the AI your team alrea
     <div style="margin-top:28px;display:flex;flex-direction:column;align-items:center"><a class="btn" href="https://app.creativeintheloop.com/signup">Get your score</a><p class="micro">Add your guidelines, get your score. No card needed.</p></div>
   </section>
 </main>
-
-<footer class="foot gutter">
-  <div class="foot-in">
-    <div class="r">
-      <a class="mark" href="#top" style="padding-left:0;text-decoration:none"><span class="dot" aria-hidden="true"></span>Creative in the Loop</a>
-      <nav aria-label="Footer"><a href="/blog/">Blog</a><a href="/security/">Data and security</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><button type="button" onclick="openCookieSettings()">Cookies</button></nav>
-    </div>
-    <p>© 2026 Creative in the Loop. Run by Salo Creative Ltd, registered in England and Wales, company number 11825337. Registered office 57 Worgret Road, Wareham, Dorset, BH20 4PH.</p>
-  </div>
-</footer>
-
-
-<script is:inline src="/home.js?v=1" defer></script>
-</Base>
+</Site>

@@ -1,20 +1,32 @@
 ---
-import Base from '../layouts/Base.astro';
-import Hero from '../components/Hero.astro';
-import Band from '../components/Band.astro';
-import ScoreCta from '../components/ScoreCta.astro';
-import WorksWith from '../components/WorksWith.astro';
-import Closer from '../components/Closer.astro';
-import Conversation from '../components/Conversation.astro';
-import BrandRoster from '../components/BrandRoster.astro';
-import BrandStrength from '../components/BrandStrength.astro';
-import Prompts from '../components/Prompts.astro';
-import Compare from '../components/Compare.astro';
+import Site from '../layouts/Site.astro';
 
 const title = 'Creative in the Loop for agencies';
 const description = 'A brand brain for each client you look after, inside the AI your team already uses. One account, every brand consistent, whoever\'s doing the making.';
+
+// Example brands, drawn in their own colours.
+const brands = {
+  kiwi: { name: 'Kiwi', b1: '#3f7d3a', b2: '#a6c96a', rings: ['#24402a', '#3f7d3a', '#a6c96a', '#efe9d6', '#6b4a2e'] },
+  bramble: { name: 'Bramble', b1: '#6a3d73', b2: '#c7a3cf', rings: ['#2e1b33', '#6a3d73', '#c7a3cf', '#f3ece4', '#8a3b4f'] },
+  field: { name: 'Field', b1: '#b8862b', b2: '#e8c873', rings: ['#3b2f1a', '#b8862b', '#e8c873', '#f4efe2', '#7c8a4e'] },
+};
+const lead = ['#0c1a33', '#1d4b6b', '#2c7393', '#8fb6c0', '#e7e2d2', '#cdb6ea', '#b79ae6'];
+
+// Live-site roster scores for the example brands. `to` is the order once sorted, weakest first.
+const roster = [
+  { ...brands.kiwi, score: 41, used: 'Used a week ago', from: 0, to: 1 },
+  { ...brands.bramble, score: 68, used: 'Used yesterday', from: 1, to: 2 },
+  { ...brands.field, score: 27, used: 'Used 3 days ago', from: 2, to: 0, fix: true },
+];
+
+const compare = [
+  { usual: 'Guidelines pasted into a chat, gone when it resets.', ours: 'One brain per client, always current.' },
+  { usual: 'It can quote a hex code, not say why a headline’s off.', ours: 'Built by designers, so it explains why.' },
+  { usual: 'Every client in a different chat, nothing keeping them apart.', ours: 'Every client kept separate by design.' },
+  { usual: 'Someone new on the team starts from scratch.', ours: 'The whole team works from the same brain.' },
+];
 ---
-<Base title={title} description={description} canonicalPath="/agencies/">
+<Site title={title} description={description} canonicalPath="/agencies/" pageCss="/agencies.css?v=1" pageJs="/agencies.js?v=1">
   <Fragment slot="head">
 <script type="application/ld+json">
 {
@@ -32,87 +44,168 @@ const description = 'A brand brain for each client you look after, inside the AI
 </script>
   </Fragment>
 
-<Hero
-  headline="Every client, on brand."
-  lede="A brand brain for each client you look after, inside the AI your team already uses. One account, every brand consistent, whoever’s doing the making."
-  ctaLabel="Score a brand, free"
-  ctaCaption="No card."
-  note="Agencies often run Claude while clients sit in Microsoft. One brain serves both."
->
-  <Conversation slot="aside" />
-</Hero>
-
 <main id="main-content">
-  <Band eyebrow="The gap" heading="You look after a dozen brands. Your team’s AI has read none of them." split bleed>
-    <p class="intro intro--flush reveal">So every caption, every first draft, every quick &ldquo;does this sound like the client?&rdquo; is a guess. Times twelve.</p>
-    <p class="intro reveal">And when it drifts, you&rsquo;re the one answerable for it.</p>
-  </Band>
 
-  <Band eyebrow="The score" heading="How much of each client’s brand can your AI actually use?" id="score" media="left">
-    <p class="intro reveal">Add a client&rsquo;s guidelines and get a score, free. It shows what the AI is missing, and what to fix first.</p>
-    <p class="intro reveal">Run it across your roster and see where the gaps are.</p>
-    <ScoreCta label="Score a brand, free" caption="No card." light />
-    <BrandRoster slot="shot" />
-  </Band>
+  <!-- 1. Hero: one loop becomes a brain per client -->
+  <section class="scene a-hero" data-scene="ahero" data-h="2.2" data-chapter="Agencies" style="--h:2.2" id="top">
+    <div class="pin gutter">
+      <div class="a-copy centre">
+        <p class="eyebrow">For agencies</p>
+        <h1 class="mega">Every client, on brand.</h1>
+        <p class="lede">A brand brain for each client, inside the AI your team already uses.</p>
+        <div class="hero-cta">
+          <a class="btn" href="https://app.creativeintheloop.com/signup">Score a brand, free <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+          <p class="micro">No card.</p>
+        </div>
+        <div class="works" aria-label="Works with"><span class="pill live">Claude today</span><span class="pill">ChatGPT and Copilot to follow</span></div>
+      </div>
+      <div class="split-stage" aria-hidden="true">
+        <div class="one lead"><div class="tilt" data-tilt><div class="loop"><div class="stack">{lead.map((c, i) => <span style={`--i:${i};--c:${c}`}></span>)}</div></div></div></div>
+        {[['kiwi', -320], ['bramble', 0], ['field', 320]].map(([k, x]) => (
+          <div class="one client" style={`--x:${x}`}>
+            <div class="loop"><div class="stack">{brands[k as keyof typeof brands].rings.map((c, i) => <span style={`--i:${i};--c:${c}`}></span>)}</div></div>
+            <b>{brands[k as keyof typeof brands].name}</b>
+          </div>
+        ))}
+      </div>
+      <div class="hero-hint" aria-hidden="true">Scroll<i></i></div>
+    </div>
+  </section>
 
-  <Band eyebrow="One account, every client" heading="Run a brain for every client from one account.">
-    <p class="intro reveal">Add a brand in minutes by dropping in their guidelines or pasting their guidelines site.</p>
-    <p class="intro reveal">Your whole team connects at no extra cost. We price on brands, not seats, so everyone works from the same brand without you counting heads.</p>
-    <p class="intro reveal">Recharge clients however you like.</p>
-    <WorksWith />
-  </Band>
+  <!-- 2. The gap -->
+  <section class="scene gap" data-scene="gap" data-h="2.6" data-chapter="The gap" style="--h:2.6">
+    <div class="pin gutter">
+      <div class="band" aria-hidden="true"></div>
+      <div class="gap-grid">
+        <div>
+          <p class="eyebrow">The gap</p>
+          <h2 class="h2">You look after a dozen brands. Your AI has read none of them.</h2>
+          <p class="lede step-in" style="--at:.35">So every first draft is a guess, twelve times over.</p>
+        </div>
+        <div class="outputs" aria-hidden="true">
+          <div class="guide"><span><b>Client guidelines</b><br>Spread across shared drives</span><span class="sw"><i style="background:#3f7d3a"></i><i style="background:#6a3d73"></i><i style="background:#b8862b"></i><i style="background:#2c7393"></i></span></div>
+          <div class="tiles">
+            <div class="tile" style="--th:.2;--rot:-3;--dy:6;--hue:40"><small>Kiwi</small><div class="art" style="background:linear-gradient(135deg,#3f7d3a,#a6c96a)"></div><div class="ln w"></div><div class="ln" style="width:55%"></div><span class="off">Off brand</span></div>
+            <div class="tile" style="--th:.28;--rot:2;--dy:-4;--hue:-70"><small>Bramble</small><div class="art" style="background:linear-gradient(135deg,#6a3d73,#c7a3cf)"></div><div class="ln w"></div><div class="ln" style="width:62%"></div><span class="off">Off brand</span></div>
+            <div class="tile" style="--th:.36;--rot:-1;--dy:10;--hue:110"><small>Field</small><div class="art" style="background:linear-gradient(135deg,#b8862b,#e8c873)"></div><div class="ln w"></div><div class="ln" style="width:48%"></div><span class="off">Off brand</span></div>
+            <div class="tile" style="--th:.44;--rot:4;--dy:-8;--hue:-150"><small>Client 4</small><div class="art"></div><div class="ln w"></div><div class="ln" style="width:70%"></div><span class="off">Off brand</span></div>
+            <div class="tile" style="--th:.52;--rot:-4;--dy:4;--hue:80"><small>Client 5</small><div class="art" style="background:linear-gradient(135deg,#8a3b4f,#e6a8b8)"></div><div class="ln w"></div><div class="ln" style="width:40%"></div><span class="off">Off brand</span></div>
+            <div class="tile" style="--th:.6;--rot:3;--dy:-6;--hue:-40"><small>Client 6</small><div class="art" style="background:linear-gradient(135deg,#0e3b52,#5fa3b5)"></div><div class="ln w"></div><div class="ln" style="width:58%"></div><span class="off">Off brand</span></div>
+          </div>
+          <div class="drift-meter"><span>Drift</span><span class="bar"><i></i></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <Prompts
-    eyebrow="In practice"
-    heading="What you’d actually ask it, for every client."
-    groups={[
-      {
-        heading: 'Make the work',
-        prompts: [
-          'Write three launch captions for this client’s new feature.',
-          'Draft a brief for the client’s next social campaign.',
-        ],
-      },
-      {
-        heading: 'Check the work',
-        prompts: [
-          'Does this copy sound like the client?',
-          'Review this layout against the client’s brand.',
-        ],
-      },
-      {
-        heading: 'Think it through',
-        prompts: [
-          'The client’s entering a new market. How should their tone shift?',
-          'What’s missing from this client’s guidelines that keeps tripping us up?',
-        ],
-      },
-    ]}
-  />
+  <!-- 3. Roster -->
+  <section class="scene roster-scene" data-scene="roster" data-h="2.4" data-chapter="Your roster" style="--h:2.4">
+    <div class="pin gutter">
+      <div class="scene-inner split">
+        <div>
+          <p class="eyebrow">The score</p>
+          <h2 class="h2">How much of each client’s brand can your AI use?</h2>
+          <p class="lede">Score your roster and see where the gaps are.</p>
+          <div style="margin-top:28px"><a class="btn" href="https://app.creativeintheloop.com/signup">Score a brand, free</a><p class="micro">No card.</p></div>
+        </div>
+        <div>
+          <div class="roster glass" role="img" aria-label="Example roster: Field scores 27, Kiwi 41, Bramble 68. Field comes first to fix.">
+            {roster.map((r) => (
+              <div class="r-row" style={`--from:${r.from};--to:${r.to};--b1:${r.b1};--b2:${r.b2};--v:${r.score}`} aria-hidden="true">
+                <div class="bstage"><div class="mini"><div class="stack">{r.rings.slice(0, 4).map((c, i) => <span style={`--i:${i};--c:${c}`}></span>)}</div></div></div>
+                <div class="r-name"><h3>{r.name}</h3><p>{r.used}</p></div>
+                {r.fix && <span class="fix">Fix first</span>}
+                <span class="mring"><b data-score={r.score}>{r.score}</b></span>
+              </div>
+            ))}
+          </div>
+          <p class="roster-note">Example brands.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <Compare />
+  <!-- 4. Kept apart -->
+  <section class="scene rooms-scene" data-scene="rooms" data-h="2.4" data-chapter="Kept apart" style="--h:2.4">
+    <div class="pin gutter">
+      <div class="scene-inner centre">
+        <p class="eyebrow">Nothing bleeds between clients</p>
+        <h2 class="h2">One client’s work never touches another’s.</h2>
+        <p class="lede">Ask in a client’s voice and that’s all the AI sees.</p>
+        <div class="rooms-wrap" aria-hidden="true">
+          <div class="ask">Write a caption for Bramble.</div>
+          <span class="beam"></span>
+          <div class="rooms">
+            {[['kiwi', 'other'], ['bramble', 'target'], ['field', 'other']].map(([k, role]) => {
+              const b = brands[k as keyof typeof brands];
+              return (
+                <div class={`room solid ${role}`} style={`--b1:${b.b1};--b2:${b.b2}`}>
+                  {role === 'other' && <span class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 018 0v3"></path></svg></span>}
+                  <div class="bstage"><div class="mini"><div class="stack">{b.rings.slice(0, 4).map((c, i) => <span style={`--i:${i};--c:${c}`}></span>)}</div></div></div>
+                  <h3>{b.name}</h3>
+                  <small>{role === 'target' ? 'Brain in use' : 'Not shared'}</small>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <Band eyebrow="Nothing bleeds between clients" heading="One client’s work never touches another’s." split icon="shield">
-    <p class="intro intro--flush reveal">Ask for a caption in a client&rsquo;s voice and that&rsquo;s all the AI sees. It won&rsquo;t pull another client&rsquo;s colours, copy or campaign into the room.</p>
-  </Band>
+  <!-- 5. Client links -->
+  <section class="scene share-scene" data-scene="share" data-h="2.2" data-chapter="Client links" style="--h:2.2">
+    <div class="pin gutter">
+      <div class="scene-inner split">
+        <div>
+          <p class="eyebrow">Give clients their own view</p>
+          <h2 class="h2">Hand a client a link to their own brand.</h2>
+          <p class="lede">View-only, no account needed. You stay in control of what’s in it.</p>
+        </div>
+        <div class="share-stage" aria-hidden="true">
+          <span class="copied">Link copied</span>
+          <div class="linkpill solid"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1"></path><path d="M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"></path></svg></i>Share link for Bramble <em>View only</em></div>
+          <div class="client-view glass" style={`--b1:${brands.bramble.b1};--b2:${brands.bramble.b2}`}>
+            <div class="cv-top">
+              <div class="bstage"><div class="mini"><div class="stack">{brands.bramble.rings.slice(0, 4).map((c, i) => <span style={`--i:${i};--c:${c}`}></span>)}</div></div></div>
+              <h3>Bramble</h3>
+              <span class="pill">View only</span>
+            </div>
+            <div class="msg"><div class="who"><b class="me">B</b>Bramble’s team</div><p>Does this sound like us?</p></div>
+            <div class="msg"><div class="who"><b>C</b>Claude, with Bramble’s brain</div><p>Mostly. The second line is warmer than your voice. Here’s a tighter version.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <Band eyebrow="Give clients their own view" heading="Hand a client a link to their own brand." bleed icon="eye">
-    <p class="intro reveal">View-only, no account needed. They check their own work in their own AI, and you stay in control of what&rsquo;s in it.</p>
-  </Band>
+  <!-- 6. The honest version -->
+  <section class="scene honest-scene" data-scene="honest" data-h="2.6" data-chapter="The honest version" style="--h:2.6">
+    <div class="pin gutter">
+      <div class="scene-inner">
+        <div class="centre">
+          <p class="eyebrow">The honest version</p>
+          <h2 class="h2">You could build this yourself. Here’s where it stops.</h2>
+        </div>
+        <div class="compare glass">
+          <div class="cmp-head"><span>The usual way</span><span>With Creative in the Loop</span></div>
+          {compare.map((c, i) => (
+            <div class="cmp-row" style={`--i:${i}`}>
+              <span class="usual">{c.usual}</span>
+              <span class="ours"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>{c.ours}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <Band eyebrow="Built by designers" heading="Plenty of tools can check a hex code. That’s the easy part.">
-    <p class="intro reveal">Creative in the Loop is built and scored by real designers, so when it reviews work it tells you why something lands or doesn&rsquo;t, not just whether a rule was broken.</p>
-    <BrandStrength />
-  </Band>
-
-  <Band eyebrow="Your people, where it counts" heading="Spend your judgement where it counts." split icon="user">
-    <p class="intro intro--flush reveal">The tool keeps every brand consistent, so your team spends its judgement on the work that actually needs it. Not on policing line height across twelve clients.</p>
-  </Band>
-
-  <Closer
-    heading="See where each client stands."
-    intro="Score a brand, free. No card needed."
-    ctaLabel="Score a brand, free"
-  />
+  <!-- 7. Close -->
+  <section class="close gutter" data-chapter="Your score">
+    <div class="loop" aria-hidden="true"><div class="stack">{lead.map((c, i) => <span style={`--i:${i};--c:${c}`}></span>)}</div></div>
+    <h2 class="h2" style="margin-top:28px">See where each client stands.</h2>
+    <p class="lede">Score a brand, free.</p>
+    <div style="margin-top:28px;display:flex;flex-direction:column;align-items:center"><a class="btn" href="https://app.creativeintheloop.com/signup">Score a brand, free</a><p class="micro">No card needed.</p></div>
+  </section>
 </main>
-</Base>
+</Site>

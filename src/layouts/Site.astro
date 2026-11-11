@@ -1,0 +1,68 @@
+---
+/**
+ * The new site frame (spec 22 look): colour wash, floating menu, footer and the scene engine.
+ * Pages pass their own stylesheet and script for anything scene-specific.
+ */
+import Base from './Base.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath?: string;
+  ogType?: string;
+  noIndex?: boolean;
+  /** Extra stylesheet for this page, e.g. "/home.css?v=2" */
+  pageCss?: string;
+  /** Extra script for this page. It runs before the shared engine. */
+  pageJs?: string;
+}
+
+const { title, description, canonicalPath = '', ogType, noIndex, pageCss, pageJs } = Astro.props;
+
+const path = Astro.url.pathname;
+const current = (p: string) => (path === p || path === p.replace(/\/$/, '')) ? 'page' : undefined;
+const onHome = path === '/' || path === '';
+---
+<Base title={title} description={description} canonicalPath={canonicalPath} ogType={ogType} noIndex={noIndex} bare>
+  <Fragment slot="head">
+    <link rel="preload" href="/assets/fonts/figtree-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/site.css?v=1">
+    {pageCss && <link rel="stylesheet" href={pageCss}>}
+    <slot name="head" />
+  </Fragment>
+
+  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+
+  <div class="dock-wrap">
+    <nav class="dock glass" aria-label="Main">
+      <a class="mark" href={onHome ? '#top' : '/'}><span class="dot" aria-hidden="true"></span>Creative in the Loop</a>
+      <div class="chapter" aria-live="polite">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle class="trk" cx="10" cy="10" r="8" fill="none" stroke-width="2.5"></circle><circle class="val" id="progRing" cx="10" cy="10" r="8" fill="none" stroke-width="2.5" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"></circle></svg>
+        <span id="chapterLabel">Start</span>
+      </div>
+      <a class="signin" href="https://app.creativeintheloop.com/login">Sign in</a>
+    </nav>
+  </div>
+
+  <slot />
+
+  <footer class="foot gutter">
+    <div class="foot-in">
+      <div class="r">
+        <a class="mark" href="/" style="padding-left:0;text-decoration:none"><span class="dot" aria-hidden="true"></span>Creative in the Loop</a>
+        <nav aria-label="Footer">
+          <a href="/agencies/" aria-current={current('/agencies/')}>Agencies</a>
+          <a href="/blog/" aria-current={current('/blog/')}>Blog</a>
+          <a href="/security/" aria-current={current('/security/')}>Data and security</a>
+          <a href="/privacy/" aria-current={current('/privacy/')}>Privacy</a>
+          <a href="/terms/" aria-current={current('/terms/')}>Terms</a>
+          <button type="button" onclick="openCookieSettings()">Cookies</button>
+        </nav>
+      </div>
+      <p>© 2026 Creative in the Loop. Run by Salo Creative Ltd, registered in England and Wales, company number 11825337. Registered office 57 Worgret Road, Wareham, Dorset, BH20 4PH.</p>
+    </div>
+  </footer>
+
+  {pageJs && <script is:inline src={pageJs} defer></script>}
+  <script is:inline src="/site.js?v=1" defer></script>
+</Base>

@@ -1,0 +1,142 @@
+/* Agencies page scenes. Shared styles live in site.css.
+   The story: one loop becomes a brain per client, each scored, kept apart, shareable. */
+
+.scene-inner { width: min(1120px, 100%); padding-inline: 24px; }
+.split { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 64px; align-items: center; }
+.centre { text-align: center; display: flex; flex-direction: column; align-items: center; }
+.centre .lede { margin-inline: auto; text-align: center; }
+
+/* 1. Hero: one loop splits into a brain per client */
+.a-hero .pin { align-content: center; }
+.a-copy { position: relative; z-index: 2;
+  --out: clamp(0, calc((var(--p) - .25) / .4), 1);
+  opacity: calc(1 - var(--out)); transform: translateY(calc(var(--out) * -70px)); filter: blur(calc(var(--out) * 10px)); }
+html:not(.motion) .a-copy { --out: 0; }
+.a-copy .hero-cta { display: flex; flex-direction: column; align-items: center; margin-top: 30px; }
+.a-copy .works { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 18px; }
+.split-stage { position: absolute; left: 50%; top: 50%; width: 0; height: 0; z-index: 1; pointer-events: none;
+  --k: clamp(0, calc((var(--p) - .3) / .45), 1);
+  --rise: clamp(0, calc(var(--p) / .45), 1);
+  transform: translateY(calc(34vh - var(--rise) * 34vh)); }
+html:not(.motion) .split-stage { position: relative; left: auto; top: auto; width: 100%; height: 300px; transform: none; --k: 1; margin-top: 40px; }
+.split-stage .one { position: absolute; left: 0; top: 0; }
+.split-stage .one .loop { --size: 300px; margin: -120px 0 0 -150px; }
+.split-stage .lead { opacity: calc(1 - var(--k)); transform: scale(calc(1 + var(--rise) * .25 - var(--k) * .3)); }
+.split-stage .client { opacity: var(--k); transform: translateX(calc(var(--k) * var(--x) * var(--fx, 1) * 1px)) scale(calc(var(--cs, .6) + var(--k) * var(--cg, .2))); }
+.split-stage .client .loop .stack { animation-duration: 18s; }
+.split-stage .client b { position: absolute; left: 0; top: 150px; transform: translateX(-50%); font-size: 18px; font-weight: 600; white-space: nowrap; opacity: clamp(0, calc((var(--p) - .65) / .1), 1); }
+html:not(.motion) .split-stage .lead { display: none; }
+.a-hero .hero-hint { position: absolute; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); left: 50%; transform: translateX(-50%); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--quiet); display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: calc(1 - var(--p) * 6); }
+.a-hero .hero-hint i { width: 1.5px; height: 34px; background: linear-gradient(var(--quiet), transparent); animation: hint 1.8s var(--ease) infinite; transform-origin: top; }
+@keyframes hint { 0% { transform: scaleY(0); } 60% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+html:not(.motion) .a-hero .hero-hint { display: none; }
+
+/* 3. Roster: scores fill, then the list sorts so the weakest brand comes first */
+.roster { padding: 10px; position: relative; --rh: 84px; height: calc(var(--rh) * 3 + 20px);
+  --s: clamp(0, calc((var(--p) - .08) / .4), 1);
+  --o: clamp(0, calc((var(--p) - .55) / .2), 1); }
+html:not(.motion) .roster { --s: 1; --o: 1; }
+.r-row { position: absolute; left: 10px; right: 10px; height: calc(var(--rh) - 8px); top: calc(10px + var(--from) * var(--rh));
+  display: flex; align-items: center; gap: 14px; padding: 0 14px; border-radius: 18px; background: var(--glass-strong); box-shadow: 0 0 0 1px var(--glass-edge);
+  transform: translateY(calc((var(--to) - var(--from)) * var(--rh) * var(--o))); }
+.r-row .bstage { width: 64px; height: 56px; margin: 0; flex: none; border-radius: 12px; }
+.r-row .mini { --size: 52px; }
+.r-row .mini .stack span { border-width: 4px; --gap: 4px; }
+.r-name { flex: 1; min-width: 0; }
+.r-name h3 { margin: 0; font-size: 17px; font-weight: 600; }
+.r-name p { margin: 2px 0 0; font-size: 13px; color: var(--quiet); }
+.r-row .mring { width: 46px; height: 46px; background: conic-gradient(from -90deg, var(--b1) calc(var(--v) * var(--s) * 1%), var(--track) 0); }
+.r-row .mring b { width: 36px; height: 36px; font-size: 13px; }
+.fix { font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; color: var(--warn); background: color-mix(in srgb, var(--warn) 14%, transparent); opacity: var(--o); white-space: nowrap; }
+.roster-note { margin: 14px 0 0; font-size: 13px; color: var(--quiet); text-align: center; }
+
+/* 4. Rooms: a request reaches one client's brain and nothing else */
+.rooms-wrap { position: relative; width: min(760px, 100%); margin: 48px auto 0;
+  --a: clamp(0, calc((var(--p) - .1) / .3), 1);
+  --b: clamp(0, calc((var(--p) - .4) / .15), 1);
+  --c: clamp(0, calc((var(--p) - .5) / .15), 1); }
+html:not(.motion) .rooms-wrap { --a: 1; --b: 1; --c: 1; }
+.ask { position: relative; z-index: 2; width: fit-content; margin: 0 auto; padding: 10px 16px; border-radius: 999px; font-size: 15px; font-weight: 500; background: var(--btn-bg); color: var(--btn-fg);
+  transform: translateY(calc(var(--a) * 96px)) scale(calc(1 - var(--a) * .15)); opacity: calc(1 - var(--b) * .9); }
+.rooms { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 110px; }
+.room { position: relative; padding: 16px; border-radius: 24px; text-align: center; transition: box-shadow .4s; }
+.room .bstage { height: 110px; margin-bottom: 12px; }
+.room .mini { --size: 96px; }
+.room .mini .stack span { border-width: 6px; }
+.room h3 { margin: 0; font-size: 16px; font-weight: 600; }
+.room small { display: block; font-size: 12px; color: var(--quiet); margin-top: 2px; }
+.room.target { box-shadow: 0 0 0 calc(var(--b) * 2px) var(--teal), var(--shadow); transform: translateY(calc(var(--b) * -6px)); }
+.room.target small { color: var(--good); font-weight: 600; opacity: var(--b); }
+.room.other { opacity: calc(1 - var(--c) * .55); filter: grayscale(calc(var(--c) * .8)); }
+.room .lock { position: absolute; top: 12px; right: 12px; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--track); color: var(--quiet); opacity: var(--c); transform: scale(calc(.6 + var(--c) * .4)); }
+.room .lock svg { width: 15px; height: 15px; }
+.beam { position: absolute; left: 50%; top: 40px; width: 2px; height: 100px; margin-left: -1px; background: linear-gradient(var(--teal), var(--lilac)); transform-origin: top; transform: scaleY(var(--a)); opacity: calc(1 - var(--b) * .6); border-radius: 2px; }
+
+/* 5. Share: a link becomes the client's own view */
+.share-stage { position: relative; height: 380px;
+  --a: clamp(0, calc((var(--p) - .12) / .3), 1);
+  --b: clamp(0, calc((var(--p) - .4) / .25), 1); }
+html:not(.motion) .share-stage { --a: 1; --b: 1; }
+.linkpill { position: absolute; left: 0; top: 40px; display: inline-flex; align-items: center; gap: 10px; padding: 12px 16px 12px 12px; border-radius: 999px; font-size: 14px; font-weight: 600;
+  transform: translate(calc(var(--a) * 40px), calc(var(--a) * 10px)) scale(calc(1 - var(--b) * .1)); opacity: calc(1 - var(--b) * .5); }
+.linkpill i { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--btn-bg); color: var(--btn-fg); }
+.linkpill i svg { width: 16px; height: 16px; }
+.linkpill em { font-style: normal; font-weight: 500; color: var(--quiet); font-size: 13px; }
+.copied { position: absolute; left: 24px; top: 4px; font-size: 12px; font-weight: 600; color: var(--good); opacity: clamp(0, calc(var(--a) * 3 - 1.5), 1); }
+.client-view { position: absolute; right: 0; bottom: 0; width: min(380px, 100%); padding: 16px;
+  opacity: var(--b); transform: translate(calc((1 - var(--b)) * -60px), calc((1 - var(--b)) * 30px)) rotate(calc((1 - var(--b)) * -4deg)); }
+.cv-top { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.cv-top .bstage { width: 56px; height: 48px; margin: 0; flex: none; border-radius: 12px; }
+.cv-top .mini { --size: 46px; }
+.cv-top .mini .stack span { border-width: 4px; --gap: 4px; }
+.cv-top h3 { margin: 0; font-size: 16px; font-weight: 600; flex: 1; }
+.cv-top .pill { font-size: 11px; }
+
+/* 6. The honest version: the usual way gets crossed out, line by line */
+.compare { margin-top: 44px; padding: 10px 24px 14px; }
+.cmp-head, .cmp-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; }
+.cmp-head { padding: 12px 0; font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--quiet); }
+.cmp-head span:last-child { color: var(--eyebrow); }
+.cmp-row { padding: 16px 0; border-top: 1px solid var(--line); align-items: center;
+  --r: clamp(0, calc((var(--p) - .1 - var(--i) * .16) / .12), 1); }
+html:not(.motion) .cmp-row { --r: 1; }
+.usual { position: relative; color: var(--quiet); font-size: 16px; opacity: calc(1 - var(--r) * .45); width: fit-content; }
+.usual::after { content: ""; position: absolute; left: 0; right: 0; top: 55%; height: 2px; border-radius: 2px; background: color-mix(in srgb, var(--bad) 70%, transparent); transform-origin: left; transform: scaleX(var(--r)); }
+.ours { display: flex; gap: 10px; align-items: flex-start; font-size: 17px; font-weight: 600; opacity: var(--r); transform: translateX(calc((1 - var(--r)) * 24px)); }
+.ours svg { width: 20px; height: 20px; flex: none; color: var(--good); margin-top: 2px; }
+
+/* 7. Close */
+.close { padding-block: 120px 140px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.close .loop { --size: 240px; }
+.close .lede { margin-inline: auto; }
+
+@media (max-width: 960px) {
+  .split { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+}
+@media (max-width: 640px) {
+  .scene-inner { padding-inline: 4px; }
+  .split-stage { --fx: .4; --cs: .34; --cg: .1; }
+  .split-stage .client b { top: 120px; font-size: 34px; }
+  .split-stage .one .loop { --size: 230px; margin: -92px 0 0 -115px; }
+  .roster { --rh: 72px; }
+  .r-row { gap: 10px; padding: 0 10px; }
+  .r-row .bstage { width: 50px; height: 44px; }
+  .r-row .mini { --size: 42px; }
+  .r-name h3 { font-size: 15px; }
+  .r-name p { font-size: 12px; }
+  .rooms { gap: 8px; margin-top: 96px; }
+  .room { padding: 8px; border-radius: 18px; }
+  .room .bstage { height: 72px; }
+  .room .mini { --size: 62px; }
+  .room h3 { font-size: 14px; }
+  .room small { font-size: 11px; }
+  .room .lock { width: 24px; height: 24px; top: 6px; right: 6px; }
+  .ask { font-size: 13px; }
+  .share-stage { height: 340px; }
+  .linkpill { left: 50%; margin-left: -150px; width: 300px; }
+  .compare { padding: 6px 16px 10px; }
+  .cmp-head { display: none; }
+  .cmp-row { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .usual { font-size: 14px; }
+  .ours { font-size: 16px; }
+}
