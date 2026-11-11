@@ -1,21 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
-import Hero from '../components/Hero.astro';
-import Band from '../components/Band.astro';
-import ScoreCta from '../components/ScoreCta.astro';
-import WorksWith from '../components/WorksWith.astro';
-import Closer from '../components/Closer.astro';
-import Conversation from '../components/Conversation.astro';
-import BrandRoster from '../components/BrandRoster.astro';
-import BrandStrength from '../components/BrandStrength.astro';
-import Prompts from '../components/Prompts.astro';
-import Icon from '../components/Icon.astro';
 
 const title = 'Creative in the Loop';
 const description = 'Your brand\'s creative brain, inside the AI your team already uses. So everything it makes looks, sounds and thinks like you.';
 ---
-<Base title={title} description={description} canonicalPath="/">
+<Base title={title} description={description} canonicalPath="/" bare>
   <Fragment slot="head">
+<link rel="preload" href="/assets/fonts/figtree-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/home.css?v=1">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -63,145 +55,241 @@ const description = 'Your brand\'s creative brain, inside the AI your team alrea
 </script>
   </Fragment>
 
-<Hero
-  headline="AI work worth making."
-  lede="Your brand’s creative brain, inside the AI your team already uses. So everything it makes looks, sounds and thinks like you."
-  ctaLabel="See your brand’s score"
-  ctaCaption="Free, no card."
-  note="Works with Claude today. ChatGPT and Copilot soon."
-  wordmarkHref="#top"
->
-  <Conversation slot="aside" />
-</Hero>
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<div class="dock-wrap">
+  <nav class="dock glass" aria-label="Main">
+    <a class="mark" href="#top"><span class="dot" aria-hidden="true"></span>Creative in the Loop</a>
+    <div class="chapter" aria-live="polite">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><circle class="trk" cx="10" cy="10" r="8" fill="none" stroke-width="2.5"></circle><circle class="val" id="progRing" cx="10" cy="10" r="8" fill="none" stroke-width="2.5" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"></circle></svg>
+      <span id="chapterLabel">Start</span>
+    </div>
+    <a class="signin" href="https://app.creativeintheloop.com/login">Sign in</a>
+  </nav>
+</div>
 
 <main id="main-content">
-  <Band eyebrow="The gap" heading="Your guidelines live in a PDF in a shared drive. Your team’s AI has never read it." split bleed>
-    <p class="intro intro--flush reveal">So every caption, every brief, every quick &ldquo;does this sound like us?&rdquo; is a guess.</p>
-    <p class="intro reveal">The brand doesn&rsquo;t break in one big mistake. It drifts, in a hundred small ones nobody has time to catch.</p>
-  </Band>
 
-  <Band eyebrow="The score" heading="How much of your brand can your AI actually use?" id="score" media="left">
-    <p class="intro reveal">We asked that about our own brand. The answer was 38%.</p>
-    <p class="intro reveal">A score doesn&rsquo;t tell you your brand is bad. It tells you what your AI is missing, and what to fix first.</p>
-    <p class="intro reveal">Add your guidelines and get yours, free.</p>
-    <ScoreCta label="Get your score" caption="Free, no card." light />
-    <BrandRoster slot="shot" />
-  </Band>
-
-  <section class="band how">
-    <canvas class="stage-bloom" id="stageBloom" aria-hidden="true"></canvas>
-    <div class="wrap">
-      <div class="eyebrow reveal">How it works</div>
-      <h2 class="display-section">Three steps. Connected in minutes.</h2>
-      <ol class="stages reveal" aria-label="How it works">
-        <canvas class="stage-flow" id="stageFlow" aria-hidden="true"></canvas>
-        <li class="stage">
-          <div class="stage-mark">
-            <Icon name="file-text" />
-            <span class="stage-num" aria-hidden="true">1</span>
+  <!-- 1. Hero -->
+  <section class="scene hero" data-scene="hero" data-h="2.2" data-chapter="Start" style="--h:2.2" id="top">
+    <div class="pin gutter">
+      <div class="hero-copy">
+        <h1 class="mega">AI work worth making.</h1>
+        <p class="lede">Your brand, inside the AI your team already uses.</p>
+        <div class="hero-cta">
+          <a class="btn" href="https://app.creativeintheloop.com/signup">See your brand’s score <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+          <p class="micro">Free, no card.</p>
+        </div>
+        <div class="works" aria-label="Works with"><span class="pill live">Claude today</span><span class="pill">ChatGPT and Copilot to follow</span></div>
+      </div>
+      <div class="hero-loop" aria-hidden="true">
+        <div class="tilt" id="heroTilt">
+          <div class="loop" style="--size: min(520px, 78vw)">
+            <div class="stack">
+              <span style="--i:0;--c:#0c1a33"></span><span style="--i:1;--c:#1d4b6b"></span><span style="--i:2;--c:#2c7393"></span><span style="--i:3;--c:#8fb6c0"></span><span style="--i:4;--c:#e7e2d2"></span><span style="--i:5;--c:#cdb6ea"></span><span style="--i:6;--c:#b79ae6"></span>
+            </div>
           </div>
-          <h3>Add your brand guidelines</h3>
-        </li>
-        <li class="stage">
-          <div class="stage-mark">
-            <Icon name="waypoints" />
-            <span class="stage-num" aria-hidden="true">2</span>
-          </div>
-          <h3>Connect it to the AI your team already uses</h3>
-        </li>
-        <li class="stage">
-          <div class="stage-mark">
-            <Icon name="pen-line" />
-            <span class="stage-num" aria-hidden="true">3</span>
-          </div>
-          <h3>Create work that&rsquo;s on brand</h3>
-        </li>
-      </ol>
+        </div>
+      </div>
+      <div class="hero-hint" aria-hidden="true">Scroll<i></i></div>
     </div>
   </section>
 
-  <Band eyebrow="How it connects" heading="Your brand, inside the tools your team already has.">
-    <p class="intro reveal">No new tool to learn. Connect the brain once and every answer draws on your positioning, voice, visual rules and the design knowledge behind them.</p>
-    <div class="connect-panel reveal" id="connect">
-      <canvas id="brainField" aria-hidden="true"></canvas>
-      <canvas id="flow" aria-hidden="true"></canvas>
-      <div class="connect-grid">
-        <div class="brain-slot">
-          <div class="brain-orb" id="orb"></div>
-          <div class="brain-label"><strong>Creative brain</strong><span>Your brand, structured and scored</span></div>
+  <!-- 2. The gap -->
+  <section class="scene gap" data-scene="gap" data-h="3" data-chapter="The gap" style="--h:3">
+    <div class="pin gutter">
+      <div class="band" aria-hidden="true"></div>
+      <div class="gap-grid">
+        <div>
+          <p class="eyebrow">The gap</p>
+          <h2 class="h2">Your AI has never read your guidelines.</h2>
+          <p class="lede step-in" style="--at:.35">So everything it makes is a guess.</p>
         </div>
-        <div class="llm-card" id="llm" aria-label="Example: Claude drawing on the creative brain">
-          <div class="llm-head"><b>Claude</b><span>Brain connected</span></div>
-          <div class="llm-you">Write a launch post for our new autumn menu.</div>
-          <div class="llm-reply">
-            <span>Here&rsquo;s a first draft in your voice.</span>
-            <div class="bar bar--full"></div>
-            <div class="bar bar--88"></div>
-            <div class="bar bar--64"></div>
+        <div class="outputs" aria-hidden="true">
+          <div class="guide"><span><b>brand-guidelines-v7.pdf</b><br>Shared drive, unopened</span><span class="sw"><i style="background:#0c1a33;box-shadow:0 0 0 1px rgba(255,255,255,.2)"></i><i style="background:#2c7393"></i><i style="background:#e7e2d2"></i><i style="background:#b79ae6"></i></span></div>
+          <div class="tiles">
+            <div class="tile" style="--th:.2;--rot:-3;--dy:6;--hue:40"><small>Caption</small><div class="art"></div><div class="ln w"></div><div class="ln" style="width:55%"></div><span class="off">Off brand</span></div>
+            <div class="tile" style="--th:.28;--rot:2;--dy:-4;--hue:-70"><small>Brief</small><div class="art"></div><div class="ln w"></div><div class="ln" style="width:62%"></div><span class="off">Off brand</span></div>
+            <div class="tile" style="--th:.36;--rot:-1;--dy:10;--hue:110"><small>Quick check</small><div class="art"></div><div class="ln w"></div><div class="ln" style="width:48%"></div><span class="off">Off brand</span></div>
+            <div class="tile" style="--th:.44;--rot:4;--dy:-8;--hue:-150"><small>Social post</small><div class="art"></div><div class="ln w"></div><div class="ln" style="width:70%"></div><span class="off">Off brand</span></div>
+            <div class="tile" style="--th:.52;--rot:-4;--dy:4;--hue:80"><small>Email</small><div class="art"></div><div class="ln w"></div><div class="ln" style="width:40%"></div><span class="off">Off brand</span></div>
+            <div class="tile" style="--th:.6;--rot:3;--dy:-6;--hue:-40"><small>Slide</small><div class="art"></div><div class="ln w"></div><div class="ln" style="width:58%"></div><span class="off">Off brand</span></div>
           </div>
-          <div class="drawing">Drawing on</div>
-          <div class="chips" id="chips">
-            <span class="chip">Positioning</span>
-            <span class="chip">Tone of voice</span>
-            <span class="chip">Audience</span>
-            <span class="chip">Colour</span>
-            <span class="chip">House rules</span>
-            <span class="chip">Design knowledge</span>
+          <div class="drift-meter"><span>Drift</span><span class="bar"><i></i></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. The score -->
+  <section class="scene score" data-scene="score" data-h="2.6" data-chapter="The score" style="--h:2.6">
+    <div class="pin gutter">
+      <div class="score-grid">
+        <div>
+          <p class="eyebrow">The score</p>
+          <h2 class="h2">How much of your brand can your AI use?</h2>
+          <p class="lede">Ours was 38%. Find out yours.</p>
+          <div style="margin-top:28px"><a class="btn" href="https://app.creativeintheloop.com/signup">Get your score</a><p class="micro">Free, no card.</p></div>
+          <div class="cards">
+            <article class="card solid" style="--n:0;--b1:#3f7d3a;--b2:#a6c96a">
+              <div class="bstage"><div class="mini" aria-hidden="true"><div class="stack"><span style="--i:0;--c:#24402a"></span><span style="--i:1;--c:#3f7d3a"></span><span style="--i:2;--c:#a6c96a"></span><span style="--i:3;--c:#efe9d6"></span></div></div></div>
+              <div class="row"><h3>Kiwi</h3><span class="mring" style="--v:41"><b>41</b></span></div><p>Live, used a week ago</p>
+            </article>
+            <article class="card solid" style="--n:1;--b1:#6a3d73;--b2:#c7a3cf">
+              <div class="bstage"><div class="mini" aria-hidden="true"><div class="stack"><span style="--i:0;--c:#2e1b33"></span><span style="--i:1;--c:#6a3d73"></span><span style="--i:2;--c:#c7a3cf"></span><span style="--i:3;--c:#f3ece4"></span></div></div></div>
+              <div class="row"><h3>Bramble</h3><span class="mring" style="--v:68"><b>68</b></span></div><p>Live, used yesterday</p>
+            </article>
+            <article class="card solid" style="--n:2;--b1:#b8862b;--b2:#e8c873">
+              <div class="bstage"><div class="mini" aria-hidden="true"><div class="stack"><span style="--i:0;--c:#3b2f1a"></span><span style="--i:1;--c:#b8862b"></span><span style="--i:2;--c:#e8c873"></span><span style="--i:3;--c:#f4efe2"></span></div></div></div>
+              <div class="row"><h3>Field</h3><span class="mring" style="--v:27"><b>27</b></span></div><p>Live, used 3 days ago</p>
+            </article>
+          </div>
+        </div>
+        <div class="dial-wrap" role="img" aria-label="Brand score dial filling to 38 percent">
+          <svg viewBox="0 0 200 200" aria-hidden="true">
+            <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2c7393"></stop><stop offset=".6" stop-color="#8fb6c0"></stop><stop offset="1" stop-color="#b79ae6"></stop></linearGradient></defs>
+            <circle class="ghost-arc" cx="100" cy="100" r="96" pathLength="100"></circle>
+            <circle class="trk" cx="100" cy="100" r="84"></circle>
+            <circle class="arc a1" cx="100" cy="100" r="84" pathLength="100"></circle>
+          </svg>
+          <div class="dial-centre"><b><span id="scoreNum">38</span><small>%</small></b><span>of the brand your AI can use</span></div>
+          <div class="missing">
+            <span style="--at:.42;left:-4%;top:12%">Values</span>
+            <span style="--at:.47;right:-6%;top:22%">Channel guidance</span>
+            <span style="--at:.52;left:-8%;bottom:22%">Competitor context</span>
+            <span style="--at:.57;right:-2%;bottom:10%">Imagery</span>
           </div>
         </div>
       </div>
     </div>
-    <WorksWith />
-  </Band>
+  </section>
 
-  <Prompts
-    eyebrow="In practice"
-    heading="What you’d actually ask it."
-    groups={[
-      {
-        heading: 'Make the work',
-        prompts: [
-          'Write three launch captions for our new feature.',
-          'Draft a brief for our next social campaign.',
-        ],
-      },
-      {
-        heading: 'Check the work',
-        prompts: [
-          'Does this landing page copy sound like us?',
-          'Review this layout against our brand.',
-        ],
-      },
-      {
-        heading: 'Think it through',
-        prompts: [
-          'We’re entering a new market. How should our tone shift?',
-          'What’s missing from our guidelines that keeps tripping the team up?',
-        ],
-      },
-    ]}
-  />
+  <!-- 4. How it works / connects / in use -->
+  <section class="scene how" data-scene="how" data-h="4" data-chapter="How it works" style="--h:4">
+    <div class="pin gutter">
+      <div class="how-grid">
+        <div>
+          <p class="eyebrow">How it works</p>
+          <h2 class="h2">Three steps. Connected in minutes.</h2>
+          <ol class="how-steps" id="howSteps">
+            <li class="on"><b class="n">1</b><div><h3>Add your guidelines</h3></div></li>
+            <li><b class="n">2</b><div><h3>Connect your AI</h3></div></li>
+            <li><b class="n">3</b><div><h3>Make work that’s on brand</h3></div></li>
+          </ol>
+        </div>
+        <div class="stage" aria-hidden="true">
+          <div class="st-pdf solid">
+            <small>brand-guidelines-v7.pdf</small>
+            <div class="ln" style="width:80%;margin-top:16px"></div><div class="ln" style="width:60%"></div>
+            <div class="sw"><i style="background:#0c1a33"></i><i style="background:#2c7393"></i><i style="background:#e7e2d2"></i><i style="background:#b79ae6"></i></div>
+            <div class="ln" style="width:90%;margin-top:16px"></div><div class="ln" style="width:72%"></div><div class="ln" style="width:84%"></div><div class="ln" style="width:50%"></div>
+          </div>
+          <div class="st-wire"><i></i><b></b></div>
+          <div class="st-loop">
+            <div class="loop">
+              <div class="stack">
+                <span style="--i:0;--c:#0c1a33"></span><span style="--i:1;--c:#1d4b6b"></span><span style="--i:2;--c:#2c7393"></span><span style="--i:3;--c:#8fb6c0"></span><span style="--i:4;--c:#e7e2d2"></span><span style="--i:5;--c:#cdb6ea"></span><span style="--i:6;--c:#b79ae6"></span>
+              </div>
+            </div>
+          </div>
+          <div class="st-ai solid"><div class="mono">C</div>Claude<small>Brain connected</small></div>
+          <div class="st-status">Connected</div>
+          <div class="st-chips">
+            <span class="chip" style="--n:0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Positioning</span>
+            <span class="chip" style="--n:1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Tone of voice</span>
+            <span class="chip" style="--n:2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Audience</span>
+            <span class="chip" style="--n:3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Colour</span>
+            <span class="chip" style="--n:4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>House rules</span>
+            <span class="chip" style="--n:5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Design knowledge</span>
+          </div>
+          <div class="st-chat glass">
+            <div class="msg"><div class="who"><b class="me">You</b>Your team</div><p>Can you polish this? “We’re <span class="strike">thrilled to announce</span> our <span class="strike">game-changing</span> app that will <span class="strike">revolutionise</span> your mornings.”</p></div>
+            <div class="msg reply"><div class="who"><b>C</b>Claude, with your brand brain</div><p><strong>Not quite.</strong> Those three phrases are on your brand’s avoid list. Here’s a plainer version.</p><span class="flag">3 phrases on your avoid list</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <Band eyebrow="Judgement" heading="Plenty of tools can check a hex code. That’s the easy part.">
-    <p class="intro reveal">Creative in the Loop is built and scored by real designers. It tells you why a headline lands or doesn&rsquo;t, catches the small things like line height and headline case, and if you&rsquo;ve broken a rule, it asks whether you meant to before calling it a mistake.</p>
-    <BrandStrength />
-  </Band>
+  <!-- 5. In practice -->
+  <section class="scene practice" data-scene="practice" data-h="3" data-chapter="In practice" style="--h:3">
+    <div class="pin">
+      <div class="practice-head"><p class="eyebrow">In practice</p><h2 class="h2">What you’d ask it.</h2></div>
+      <div class="track" id="track">
+        <div class="ask-card glass" style="--r:-3"><div class="grp"><span class="picon" style="--c:#2c7393" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"></path></svg></span>Make the work</div><q>Write three launch captions for our new feature.</q></div>
+        <div class="ask-card glass" style="--r:2"><div class="grp"><span class="picon" style="--c:#2c7393" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"></path></svg></span>Make the work</div><q>Draft a brief for our next social campaign.</q></div>
+        <div class="ask-card glass" style="--r:-2"><div class="grp"><span class="picon" style="--c:#8a6fc4" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path><path d="M8.5 11l2 2 3.5-3.5"></path></svg></span>Check the work</div><q>Does this landing page copy sound like us?</q></div>
+        <div class="ask-card glass" style="--r:3"><div class="grp"><span class="picon" style="--c:#8a6fc4" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path><path d="M8.5 11l2 2 3.5-3.5"></path></svg></span>Check the work</div><q>Review this layout against our brand.</q></div>
+        <div class="ask-card glass" style="--r:-3"><div class="grp"><span class="picon" style="--c:#1d4b6b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 21h4"></path><path d="M12 3a6 6 0 00-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0012 3z"></path></svg></span>Think it through</div><q>We’re entering a new market. How should our tone shift?</q></div>
+        <div class="ask-card glass" style="--r:2"><div class="grp"><span class="picon" style="--c:#1d4b6b" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 21h4"></path><path d="M12 3a6 6 0 00-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0012 3z"></path></svg></span>Think it through</div><q>What’s missing from our guidelines that keeps tripping the team up?</q></div>
+      </div>
+    </div>
+  </section>
 
-  <Band eyebrow="A person when it counts" heading="Some calls no brain should make alone." split icon="user">
-    <p class="intro intro--flush reveal">A positioning decision. A campaign idea. A gap your guidelines never covered.</p>
-    <p class="intro reveal">When it hits one of those, it says so, and brings in a creative director. Not on every job. Only when it counts.</p>
-  </Band>
+  <!-- 6. Judgement -->
+  <section class="judge gutter reveal" data-chapter="Judgement" id="judge">
+    <div class="judge-head">
+      <p class="eyebrow">Judgement</p>
+      <h2 class="h2">Checking a hex code is the easy part.</h2>
+      <span class="hex glass"><i aria-hidden="true"></i>#2C7393 <em>Checked</em></span>
+      <p class="lede">Designers built in the judgement: why a headline lands, and when a broken rule was meant.</p>
+    </div>
+  </section>
 
-  <Band eyebrow="For agencies" heading="Looking after more than one brand?">
-    <p class="intro reveal">Run a brain for every client from a single account. One place, every brand on brand, whoever&rsquo;s doing the making.</p>
-    <p class="reveal"><a class="quiet-link" href="/agencies/">See how it works for agencies</a></p>
-  </Band>
+  <!-- 7. A person when it counts -->
+  <section class="scene person" data-scene="person" data-h="2" data-chapter="A person" style="--h:2">
+    <div class="pin gutter">
+      <div class="person-inner">
+        <span class="avatar" aria-hidden="true"></span>
+        <p class="eyebrow">A person when it counts</p>
+        <h2 class="h2">Some calls no brain should make alone.</h2>
+        <p class="read" id="readLine">When a decision is bigger than your guidelines, it tells you.</p>
+      </div>
+    </div>
+  </section>
 
-  <Closer
-    heading="See what your AI is missing."
-    intro="Get your brand’s score, free."
-    ctaLabel="Get your score"
-    ctaCaption="Add your guidelines, get your score. No card needed."
-  />
+  <!-- 8. For agencies -->
+  <section class="scene agencies" data-scene="agencies" data-h="2.2" data-chapter="Agencies" style="--h:2.2">
+    <div class="pin gutter">
+      <div class="agency-inner">
+        <div>
+          <p class="eyebrow">For agencies</p>
+          <h2 class="h2">Every client, on brand.</h2>
+          <p class="lede">One account runs a brain for each client.</p>
+          <div style="margin-top:26px"><a class="btn ghost" href="/agencies/">See how it works for agencies <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div>
+        </div>
+        <div class="fan" aria-hidden="true">
+          <div class="card solid" style="--x:-250;--y:30;--rot:-9;--z:1;--b1:#3f7d3a;--b2:#a6c96a"><div class="bstage"><div class="mini"><div class="stack"><span style="--i:0;--c:#24402a"></span><span style="--i:1;--c:#3f7d3a"></span><span style="--i:2;--c:#a6c96a"></span><span style="--i:3;--c:#efe9d6"></span></div></div></div><div class="row"><h3>Kiwi</h3><span class="pill live">Live</span></div></div>
+          <div class="card solid" style="--x:250;--y:30;--rot:9;--z:1;--b1:#b8862b;--b2:#e8c873"><div class="bstage"><div class="mini"><div class="stack"><span style="--i:0;--c:#3b2f1a"></span><span style="--i:1;--c:#b8862b"></span><span style="--i:2;--c:#e8c873"></span><span style="--i:3;--c:#f4efe2"></span></div></div></div><div class="row"><h3>Field</h3><span class="pill live">Live</span></div></div>
+          <div class="card solid" style="--x:0;--y:-6;--rot:0;--z:2;--b1:#6a3d73;--b2:#c7a3cf"><div class="bstage"><div class="mini"><div class="stack"><span style="--i:0;--c:#2e1b33"></span><span style="--i:1;--c:#6a3d73"></span><span style="--i:2;--c:#c7a3cf"></span><span style="--i:3;--c:#f3ece4"></span></div></div></div><div class="row"><h3>Bramble</h3><span class="pill live">Live</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Close -->
+  <section class="close gutter" data-chapter="Your score">
+    <div class="loop" aria-hidden="true">
+      <div class="stack">
+        <span style="--i:0;--c:#0c1a33"></span><span style="--i:1;--c:#1d4b6b"></span><span style="--i:2;--c:#2c7393"></span><span style="--i:3;--c:#8fb6c0"></span><span style="--i:4;--c:#e7e2d2"></span><span style="--i:5;--c:#cdb6ea"></span><span style="--i:6;--c:#b79ae6"></span>
+      </div>
+    </div>
+    <h2 class="h2" style="margin-top:28px">See what your AI is missing.</h2>
+    <p class="lede">Get your brand’s score, free.</p>
+    <div style="margin-top:28px;display:flex;flex-direction:column;align-items:center"><a class="btn" href="https://app.creativeintheloop.com/signup">Get your score</a><p class="micro">Add your guidelines, get your score. No card needed.</p></div>
+  </section>
 </main>
+
+<footer class="foot gutter">
+  <div class="foot-in">
+    <div class="r">
+      <a class="mark" href="#top" style="padding-left:0;text-decoration:none"><span class="dot" aria-hidden="true"></span>Creative in the Loop</a>
+      <nav aria-label="Footer"><a href="/blog/">Blog</a><a href="/security/">Data and security</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><button type="button" onclick="openCookieSettings()">Cookies</button></nav>
+    </div>
+    <p>© 2026 Creative in the Loop. Run by Salo Creative Ltd, registered in England and Wales, company number 11825337. Registered office 57 Worgret Road, Wareham, Dorset, BH20 4PH.</p>
+  </div>
+</footer>
+
+
+<script is:inline src="/home.js?v=1" defer></script>
 </Base>

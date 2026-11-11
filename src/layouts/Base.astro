@@ -9,6 +9,8 @@ interface Props {
   ogImage?: string;
   ogImageAlt?: string;
   noIndex?: boolean;
+  /** Page brings its own stylesheet, script and footer (the home page). */
+  bare?: boolean;
 }
 
 const {
@@ -19,6 +21,7 @@ const {
   ogImage = '/assets/share.png',
   ogImageAlt = 'Creative in the Loop. AI work worth making.',
   noIndex = false,
+  bare = false,
 } = Astro.props;
 
 const gaId = 'G-FNT41H3HBG';
@@ -75,7 +78,7 @@ const onTerms = path === '/terms' || path === '/terms/';
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-<link rel="stylesheet" href="/styles.css?v=7">
+{!bare && <link rel="stylesheet" href="/styles.css?v=7">}
 </head>
 <body>
 
@@ -83,6 +86,7 @@ const onTerms = path === '/terms' || path === '/terms/';
 
 <slot />
 
+{!bare && (
 <footer>
   <div class="wrap">
     <div class="footer-row">
@@ -98,8 +102,9 @@ const onTerms = path === '/terms' || path === '/terms/';
     <p class="footer-legal">Creative in the Loop is run by Salo Creative Ltd, registered in England and Wales, company number 11825337. Registered office: 57 Worgret Road, Wareham, Dorset, BH20 4PH.</p>
   </div>
 </footer>
+)}
 
-<script src="/main.js" defer></script>
+{!bare && <script src="/main.js" defer></script>}
 <CookieConsent gaId={gaId} />
 </body>
 </html>
