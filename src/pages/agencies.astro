@@ -60,7 +60,7 @@ const compare = [
         <div class="works" aria-label="Works with"><span class="pill live">Claude today</span><span class="pill">ChatGPT and Copilot to follow</span></div>
       </div>
       <div class="split-stage" aria-hidden="true">
-        <div class="one lead"><div class="tilt" data-tilt><div class="loop"><div class="stack">{lead.map((c, i) => <span style={`--i:${i};--c:${c}`}></span>)}</div></div></div></div>
+        <div class="one lead"><div class="tilt" data-tilt><div class="loop"><canvas class="gl-ring" data-ring="agencies" aria-hidden="true"></canvas><div class="stack">{lead.map((c, i) => <span style={`--i:${i};--c:${c}`}></span>)}</div></div></div></div>
         {[['kiwi', -320], ['bramble', 0], ['field', 320]].map(([k, x]) => (
           <div class="one client" style={`--x:${x}`}>
             <div class="loop"><div class="stack">{brands[k as keyof typeof brands].rings.map((c, i) => <span style={`--i:${i};--c:${c}`}></span>)}</div></div>
@@ -202,7 +202,7 @@ const compare = [
 
   <!-- 7. Close -->
   <section class="close gutter" data-chapter="Your score">
-    <div class="loop" aria-hidden="true"><div class="stack">{lead.map((c, i) => <span style={`--i:${i};--c:${c}`}></span>)}</div></div>
+    <div class="loop" aria-hidden="true"><canvas class="gl-ring" data-ring="agencies-close"></canvas><div class="stack">{lead.map((c, i) => <span style={`--i:${i};--c:${c}`}></span>)}</div></div>
     <h2 class="h2" style="margin-top:28px">See where each client stands.</h2>
     <p class="lede">Score a brand, free.</p>
     <div style="margin-top:28px;display:flex;flex-direction:column;align-items:center"><a class="btn" href="https://app.creativeintheloop.com/signup">Score a brand, free</a><p class="micro">No card needed.</p></div>

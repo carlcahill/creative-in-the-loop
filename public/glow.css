@@ -1,0 +1,77 @@
+/* Creative in the Loop: the glow look. Loaded after site.css on every new page.
+   One dark look throughout, neon rings, hairline surfaces and a mono label face.
+   IBM Plex Mono is self-hosted. Licence: /assets/fonts/OFL-IBM-Plex-Mono.txt */
+
+@font-face { font-family: "IBM Plex Mono"; font-style: normal; font-weight: 500; font-display: swap; src: url("/assets/fonts/ibm-plex-mono-500-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+/* Dark tokens on every page, whatever the device setting */
+:root, body {
+  --bg: #04060d; --bg-2: #070b17; --ink: #eef1f7; --quiet: #9aa6bc; --line: rgba(255,255,255,.09);
+  --glass: rgba(14,20,40,.5); --glass-strong: rgba(18,26,50,.86); --glass-edge: rgba(255,255,255,.09); --edge-strong: rgba(140,170,255,.18);
+  --eyebrow: #6fe3f0; --good: #3ccf86; --warn: #f0a640; --bad: #ff7a5c; --btn-bg: #eef1f7; --btn-fg: #05070f; --track: rgba(255,255,255,.08);
+  --band: #070c1c; --band-ink: #eef1f7; --band-quiet: #9aa6bc; --teal: #2fb8ff; --lilac: #b77cff;
+  --aurora-a: rgba(138,92,255,.14); --aurora-b: rgba(46,184,255,.12); --aurora-c: rgba(46,230,242,.05);
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: dark;
+}
+body { background: var(--bg); color: var(--ink); }
+body::before { background: var(--bg); }
+
+/* The WebGL background replaces the CSS wash when it runs */
+#bgGL { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; display: none; pointer-events: none; }
+html.gl-bg #bgGL { display: block; }
+html.gl-bg .aurora { display: none; }
+
+/* Surfaces: smaller radii, hairline edges, less blur */
+.glass { border-radius: 16px; border-color: var(--edge-strong); box-shadow: inset 0 1px 0 rgba(255,255,255,.05); backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%); }
+.solid { border-radius: 14px; border-color: var(--edge-strong); box-shadow: inset 0 1px 0 rgba(255,255,255,.05); }
+.dock { border-radius: 999px; }
+.pill.live { background: rgba(60,207,134,.14); }
+.mono { background: linear-gradient(145deg, #2a3350, #11162a); box-shadow: inset 0 0 0 1px rgba(140,170,255,.2); }
+
+/* Type */
+.eyebrow { font-family: var(--mono); font-weight: 500; font-size: 12px; letter-spacing: .04em; }
+.eyebrow::before { content: ""; display: inline-block; width: 18px; height: 1.5px; background: currentColor; vertical-align: middle; margin-right: 10px; transform: translateY(-1px); }
+.mega { letter-spacing: -.06em; line-height: .88; }
+.h2 { letter-spacing: -.045em; }
+
+/* Buttons carry a little light */
+.btn { box-shadow: 0 0 0 1px rgba(255,255,255,.2), 0 0 28px -6px rgba(110,160,255,.55); }
+.btn.ghost { box-shadow: 0 0 0 1px var(--edge-strong); }
+
+/* WebGL rings sit inside a .loop; the CSS rings stay underneath as the fallback */
+.loop::after { display: none; }
+.gl-ring { position: absolute; left: 50%; top: 42%; width: calc(var(--size) * 2); height: calc(var(--size) * 1.7); transform: translate(-50%, -50%); pointer-events: none; display: none; }
+html.gl .gl-ring { display: block; }
+html.gl .loop.has-gl .stack { visibility: hidden; }
+
+/* CSS rings: a thin neon line, glow from layered shadows, and a bright run travelling round */
+@property --ang { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+@keyframes ringflow { to { --ang: 360deg; } }
+.stack span { --n: color-mix(in srgb, var(--c) 62%, #ffffff); --bw: 2px;
+  border: var(--bw) solid var(--n) !important; background: none;
+  box-shadow: 0 0 3px var(--n), 0 0 10px color-mix(in srgb, var(--c) 75%, transparent), 0 0 22px color-mix(in srgb, var(--c) 40%, transparent), inset 0 0 6px color-mix(in srgb, var(--c) 55%, transparent); }
+.stack span::after { content: ""; position: absolute; inset: calc(var(--bw) * -1); border-radius: 50%;
+  background: conic-gradient(from var(--ang), transparent 0deg 250deg, rgba(255,255,255,.95) 325deg, transparent 360deg);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - var(--bw) - .5px), #000 calc(100% - var(--bw)));
+  mask: radial-gradient(farthest-side, transparent calc(100% - var(--bw) - .5px), #000 calc(100% - var(--bw)));
+  animation: ringflow calc(2.6s + var(--i) * .65s) linear infinite; }
+.mini .stack span { --bw: 1.5px; }
+html.gl .loop.has-gl .stack span::after { animation: none; }
+
+/* Brand stage on cards: near-black tile with a pool of the brand's colour */
+.bstage { background: radial-gradient(70% 65% at 50% 62%, color-mix(in srgb, var(--b2) 28%, transparent), transparent 72%), #060a14; box-shadow: inset 0 0 0 1px rgba(255,255,255,.06); }
+.card { transition: box-shadow .4s, transform .45s var(--ease); }
+.card:hover { box-shadow: 0 0 0 1px color-mix(in srgb, var(--b2) 55%, transparent), 0 0 34px -10px var(--b2); }
+
+/* The navy panel: opens out of the page, then closes back into a card as you leave */
+.band { background: radial-gradient(60% 60% at 80% 20%, rgba(138,92,255,.16), transparent 70%), radial-gradient(60% 60% at 10% 90%, rgba(46,230,242,.12), transparent 70%), var(--band); box-shadow: inset 0 0 0 1px rgba(140,170,255,.14);
+  --x: clamp(0, calc((var(--p) - .82) / .18), 1); --cl: clamp(0, calc(1 - var(--e) + var(--x)), 1);
+  clip-path: inset(calc(var(--cl) * 14%) calc(var(--cl) * var(--bx, 22%)) round calc(var(--cl) * 60px)); opacity: calc(1 - var(--x) * .7); }
+html:not(.motion) .band { clip-path: none; opacity: 1; }
+html.motion .gap-grid { opacity: calc(var(--e) - clamp(0, calc((var(--p) - .8) / .08), 1)); }
+
+/* Closing sections let the glow spill past their edge */
+.close { overflow: visible; overflow-x: clip; }
+
+@media (prefers-reduced-motion: reduce) { .stack span::after { animation: none; } }

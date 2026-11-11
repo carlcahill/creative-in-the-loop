@@ -140,3 +140,8 @@ html:not(.motion) .cmp-row { --r: 1; }
   .usual { font-size: 14px; }
   .ours { font-size: 16px; }
 }
+
+/* Glow look: agencies page pieces */
+.close .loop { --size: 320px; }
+@media (max-width: 640px) { .close .loop { --size: 240px; } }
+.a-copy { filter: none; }

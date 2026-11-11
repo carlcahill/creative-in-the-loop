@@ -21,11 +21,15 @@
   var howItems = [].slice.call(document.querySelectorAll('#howSteps li'));
 
   window.CITL = window.CITL || {};
+  var glow = function (name, key, value) { if (window.CITLGL) window.CITLGL.set(name, key, value); };
+
   window.CITL.hooks = {
+    hero: function (p) { glow('hero', 'gap', p * .1); },
     score: function (p) {
       if (scoreNum) scoreNum.textContent = Math.round(clamp((p - .05) / .45, 0, 1) * 38);
     },
     how: function (p) {
+      glow('how', 'build', clamp(p / .28, 0, 1));
       var step = p < .34 ? 0 : p < .68 ? 1 : 2;
       howItems.forEach(function (li, i) {
         li.classList.toggle('on', i === step);

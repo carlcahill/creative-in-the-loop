@@ -70,8 +70,14 @@ const onTerms = path === '/terms' || path === '/terms/';
 <meta name="twitter:image" content={ogImageUrl}>
 <meta name="twitter:image:alt" content={ogImageAlt}>
 
-<meta name="theme-color" content="#f5f6f9" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0a0f1b" media="(prefers-color-scheme: dark)">
+{bare ? (
+  <meta name="theme-color" content="#04060d">
+) : (
+  <>
+    <meta name="theme-color" content="#f5f6f9" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0a0f1b" media="(prefers-color-scheme: dark)">
+  </>
+)}
 
 <slot name="head" />
 

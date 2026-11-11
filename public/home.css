@@ -221,3 +221,23 @@ html:not(.motion) .fan { --k: 1; }
 }
 
 
+
+/* Glow look: home page pieces */
+.hero-copy { filter: none; }
+.hero-loop { opacity: 1; transform: translate(-50%, calc(-50% + 43vh - var(--grow) * 35vh)) scale(calc(.85 + var(--grow) * .3)); }
+.score .mini { --size: 100px; }
+.dial-wrap .trk { stroke: rgba(120,160,255,.08); }
+.dial-wrap .ghost-arc { stroke: rgba(120,160,255,.18); }
+.dial-wrap .a1 { filter: drop-shadow(0 0 3px rgba(60,134,255,.9)) drop-shadow(0 0 14px rgba(138,92,255,.55)); }
+#g1 stop:nth-child(1) { stop-color: #2ee6f2; } #g1 stop:nth-child(2) { stop-color: #3c86ff; } #g1 stop:nth-child(3) { stop-color: #b77cff; }
+.dial-wrap::before { content: ""; position: absolute; inset: 14%; border-radius: 50%; background: radial-gradient(closest-side, rgba(60,134,255,.22), rgba(138,92,255,.08) 60%, transparent); opacity: var(--s); filter: blur(12px); }
+.dial-head { position: absolute; inset: 0; pointer-events: none; transform: rotate(calc(var(--s) * 136.8deg)); opacity: clamp(0, calc(var(--s) * 8), 1); }
+.dial-head i { position: absolute; left: 50%; top: 8%; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: #eaf6ff; box-shadow: 0 0 8px 2px #8fd8ff, 0 0 24px 6px rgba(138,92,255,.6); }
+.dial-centre b { text-shadow: 0 0 24px rgba(110,160,255,.35); }
+.missing span { background: var(--bg); border-color: rgba(120,160,255,.35); color: #b9c6e4; }
+.close .loop { --size: 340px; }
+@media (max-width: 640px) {
+  .hero-loop .loop { --size: 250px; }
+  .close .loop { --size: 250px; }
+  .score .mini { --size: 64px; }
+}
